@@ -9,7 +9,7 @@ terraform {
 locals {
   module_tags = tomap(
     {
-      terraform-module-name    = "azurerm/resources/azure/modules/virtual_network"
+      terraform-module-source = "azurerm/resources/azure//modules/virtual_network"
     }
   )
 
@@ -22,7 +22,7 @@ locals {
 }
 
 module "locations" {
-  source  = "azurerm/locations/azure"
+  source   = "azurerm/locations/azure"
   location = var.location
 }
 

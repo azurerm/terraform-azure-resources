@@ -7,13 +7,13 @@ terraform {
 }
 
 module "locations" {
-  source  = "azurerm/locations/azure"
+  source   = "azurerm/locations/azure"
   location = var.location
 }
 
 module "naming" {
   source = "azurerm/naming/azure"
-  suffix = [var.workload, var.environment, module.locations.location_short_name, var.instance]
+  suffix = [var.workload, var.environment, module.locations.short_name, var.instance]
 }
 
 resource "azurerm_subnet" "this" {

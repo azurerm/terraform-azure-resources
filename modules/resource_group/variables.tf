@@ -18,7 +18,7 @@ variable "environment" {
 
 variable "location" {
   description = "(Required) The location/region where the Resource Group is created. Changing this forces a new resource to be created."
-    type = string
+  type        = string
 }
 
 variable "instance" {
@@ -35,6 +35,6 @@ variable "module_tags" {
 
 variable "tags" {
   description = "(Optional) A mapping of tags to assign to the resource."
-    type = map(string)
-    default = null
+  type        = map(string)
+  default     = null
 }
