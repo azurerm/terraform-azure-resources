@@ -4,4 +4,7 @@ Module:
 - [ ] Example
 
 Features: 
-- [ ] Manage multiple ip_configuration
+- [ ] Manage multiple NIC
+- [ ] Manage boot_diagnostics options
+- [ ] Manage SSH authentication
+
