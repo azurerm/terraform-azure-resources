@@ -1,5 +1,5 @@
 # Terraform files on root folder
-*.tf
+/*.tf
 
 # Local .terraform directories
 **/.terraform/*
