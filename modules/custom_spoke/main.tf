@@ -46,7 +46,7 @@ module "vnet" {
   instance            = var.instance
   resource_group_name = module.rg.name
   address_space       = var.address_space
-  dns_servers = var.dns_servers
+  dns_servers         = var.dns_servers
   tags                = local.tags
 }
 
@@ -59,7 +59,7 @@ module "subnet" {
   instance             = format("%03d", count.index + 1)
   resource_group_name  = module.rg.name
   virtual_network_name = module.vnet.name
-  address_prefixes     = [cidrsubnet(var.address_space[0], ceil(var.subnet_count/2), count.index)]
+  address_prefixes     = [cidrsubnet(var.address_space[0], ceil(var.subnet_count / 2), count.index)]
 }
 
 module "linux_virtual_machine" {
