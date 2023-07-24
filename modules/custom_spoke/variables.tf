@@ -42,6 +42,18 @@ variable "linux_virtual_machine" {
   default     = true
 }
 
+variable "windows_virtual_machine" {
+  description = "(Optional) Include one Windows VM created per subnet."
+  type        = bool
+  default     = false
+}
+
+variable "virtual_machine_size" {
+  description = "(Optional) The size of the Virtual Machine."
+  type        = string
+  default     = "Standard_B1ls"
+}
+
 variable "module_tags" {
   description = "(Optional) Include the default tags?"
   type        = bool

@@ -71,5 +71,6 @@ module "linux_virtual_machine" {
   instance            = format("%03d", count.index + 1)
   resource_group_name = module.rg.name
   subnet_id           = module.subnet[count.index].id
+  size                = var.virtual_machine_size
   tags                = local.tags
 }

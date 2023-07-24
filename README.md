@@ -1,18 +1,20 @@
-# Azure Resources modules
+## Requirements
 
-This repository of Terraform modules is designed to help you to generate Azure ressources.
-
-## Usage
-
-Please have a look at submodules depending of the ressource you need. 
+| Name | Version |
+|------|---------|
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | 3.65.0 |
 
 ## Providers
 
-No Providers.
+No providers.
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_example-rg"></a> [example-rg](#module\_example-rg) | ./modules/resource_group | n/a |
+| <a name="module_example-spoke1"></a> [example-spoke1](#module\_example-spoke1) | ./modules/custom_spoke | n/a |
+| <a name="module_example-spoke2"></a> [example-spoke2](#module\_example-spoke2) | ./modules/custom_spoke | n/a |
 
 ## Resources
 
