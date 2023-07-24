@@ -1,31 +1,30 @@
-# output "id" {
-#   description = "The ID of the Virtual Network."
-#   value       = azurerm_virtual_network.this.id
-# }
+output "id" {
+  description = "The ID of the Linux Virtual Machine."
+  value       = azurerm_linux_virtual_machine.this.id
+}
 
-# output "name" {
-#   description = "The name of the Virtual Network."
-#   value       = azurerm_virtual_network.this.name
-# }
+output "name" {
+  description = "The name of the Linux Virtual Machine."
+  value       = azurerm_linux_virtual_machine.this.name
+}
 
-# output "resource_group_name" {
-#   description = "The name of the resource group in which to create the Virtual Network."
-#   value       = azurerm_virtual_network.this.resource_group_name
-# }
+output "resource_group_name" {
+  description = "The name of the resource group in which the Linux Virtual Machine is created."
+  value       = azurerm_linux_virtual_machine.this.resource_group_name
+}
 
-# output "vm_password" {
-#   value     = local.admin_password
-#   sensitive = true
-# }
+output "vm_username" {
+  description = "The username of the Linux Virtual Machine."
+  value       = var.admin_username
+}
 
-# output "vm_username" {
-#   value = var.admin_username
-# }
+output "vm_password" {
+  description = "The password of the Linux Virtual Machine."
+  value       = local.admin_password
+  sensitive   = true
+}
 
-# output "private_ip_address" {
-#   value = azurerm_network_interface.this.private_ip_address
-# }
-
-# output "network_interface_id" {
-#   value = azurerm_network_interface.this.id
-# }
+output "private_ip_address" {
+  description = "The private IP address of the Linux Virtual Machine."
+  value       = azurerm_network_interface.this.private_ip_address
+}
