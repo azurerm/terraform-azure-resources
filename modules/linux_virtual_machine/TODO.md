@@ -1,7 +1,7 @@
 Module: 
 - [X] Resource
-- [ ] Documentation
-- [ ] Example
+- [X] Documentation
+- [X] Example
 
 Features: 
 - [ ] Manage multiple NIC
