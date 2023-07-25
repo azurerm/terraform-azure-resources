@@ -1,3 +1,6 @@
+# Azure Resources Modules
+[![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/rg/azurerm/)
+
 ## Requirements
 
 | Name | Version |
