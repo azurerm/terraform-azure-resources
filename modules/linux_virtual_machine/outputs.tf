@@ -13,12 +13,12 @@ output "resource_group_name" {
   value       = azurerm_linux_virtual_machine.this.resource_group_name
 }
 
-output "vm_username" {
+output "admin_username" {
   description = "The username of the Linux Virtual Machine."
   value       = var.admin_username
 }
 
-output "vm_password" {
+output "admin_password" {
   description = "The password of the Linux Virtual Machine."
   value       = local.admin_password
   sensitive   = true

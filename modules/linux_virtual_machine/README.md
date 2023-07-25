@@ -1,3 +1,65 @@
+# Linux Virtual Machine
+[![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/linux_virtual_machine)
+
+Terraform module to create and manage a Linux Virtual Machine.
+
+## Example
+
+```hcl
+terraform {
+  required_version = ">= 1.0.0"
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = ">=3.0.0"
+    }
+  }
+}
+
+provider "azurerm" {
+  features {}
+}
+
+module "resource_group" {
+  source      = "azurerm/resources/azure//modules/resource_group"
+  location    = "westeurope"
+  environment = "dev"
+  workload    = "example"
+  instance    = "001"
+}
+
+module "virtual_network" {
+  source              = "azurerm/resources/azure//modules/virtual_network"
+  location            = "westeurope"
+  environment         = "dev"
+  workload            = "example"
+  instance            = "001"
+  resource_group_name = module.resource_group.name
+  address_space       = ["10.0.0.0/24"]
+}
+
+module "subnet" {
+  source               = "azurerm/resources/azure//modules/subnet"
+  location             = "westeurope"
+  environment          = "dev"
+  workload             = "example"
+  instance             = "001"
+  resource_group_name  = module.resource_group.name
+  virtual_network_name = module.virtual_network.name
+  address_prefixes     = ["10.0.0.0/25"]
+}
+
+module "linux_virtual_machine" {
+  source              = "azurerm/resources/azure//modules/linux_virtual_machine"
+  location            = "westeurope"
+  environment         = "dev"
+  workload            = "example"
+  instance            = "001"
+  resource_group_name = module.resource_group.name
+  subnet_id           = module.subnet.id
+}
+```
+
 ## Requirements
 
 No requirements.
@@ -61,9 +123,9 @@ No requirements.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_admin_password"></a> [admin\_password](#output\_admin\_password) | The password of the Linux Virtual Machine. |
+| <a name="output_admin_username"></a> [admin\_username](#output\_admin\_username) | The username of the Linux Virtual Machine. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the Linux Virtual Machine. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the Linux Virtual Machine. |
 | <a name="output_private_ip_address"></a> [private\_ip\_address](#output\_private\_ip\_address) | The private IP address of the Linux Virtual Machine. |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | The name of the resource group in which the Linux Virtual Machine is created. |
-| <a name="output_vm_password"></a> [vm\_password](#output\_vm\_password) | The password of the Linux Virtual Machine. |
-| <a name="output_vm_username"></a> [vm\_username](#output\_vm\_username) | The username of the Linux Virtual Machine. |
