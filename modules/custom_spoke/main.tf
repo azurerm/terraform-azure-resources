@@ -38,7 +38,7 @@ module "rg" {
   tags        = local.tags
 }
 
-module "vnet" {
+module "virtual_network" {
   source              = "../virtual_network"
   location            = var.location
   environment         = var.environment
@@ -51,15 +51,16 @@ module "vnet" {
 }
 
 module "subnet" {
-  source               = "../subnet"
-  count                = var.subnet_count
-  location             = var.location
-  environment          = var.environment
-  workload             = var.workload
-  instance             = format("%03d", count.index + 1)
-  resource_group_name  = module.rg.name
-  virtual_network_name = module.vnet.name
-  address_prefixes     = [cidrsubnet(var.address_space[0], ceil(var.subnet_count / 2), count.index)]
+  source                                    = "../subnet"
+  count                                     = var.subnet_count
+  location                                  = var.location
+  environment                               = var.environment
+  workload                                  = var.workload
+  instance                                  = format("%03d", count.index + 1)
+  resource_group_name                       = module.rg.name
+  virtual_network_name                      = module.virtual_network.name
+  address_prefixes                          = [cidrsubnet(var.address_space[0], ceil(var.subnet_count / 2), count.index)]
+  private_endpoint_network_policies_enabled = true
 }
 
 module "linux_virtual_machine" {
