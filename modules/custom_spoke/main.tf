@@ -30,7 +30,7 @@ module "naming" {
 }
 
 module "rg" {
-  source      = "../resource_group"
+  source      = "azurerm/resources/azure//modules/resource_group"
   location    = var.location
   environment = var.environment
   workload    = var.workload
@@ -39,7 +39,7 @@ module "rg" {
 }
 
 module "virtual_network" {
-  source              = "../virtual_network"
+  source              = "azurerm/resources/azure//modules/virtual_network"
   location            = var.location
   environment         = var.environment
   workload            = var.workload
@@ -51,7 +51,7 @@ module "virtual_network" {
 }
 
 module "subnet" {
-  source                                    = "../subnet"
+  source                                    = "azurerm/resources/azure//modules/subnet"
   count                                     = var.subnet_count
   location                                  = var.location
   environment                               = var.environment
@@ -64,7 +64,7 @@ module "subnet" {
 }
 
 module "linux_virtual_machine" {
-  source              = "../linux_virtual_machine"
+  source              = "azurerm/resources/azure//modules/linux_virtual_machine"
   count               = var.linux_virtual_machine ? var.subnet_count : 0
   location            = var.location
   environment         = var.environment
