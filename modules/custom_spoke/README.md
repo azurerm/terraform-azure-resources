@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Spoke
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/custom_spoke)
 
@@ -78,12 +77,3 @@ No resources.
 | <a name="output_linux_virtual_machine_admin_password"></a> [linux\_virtual\_machine\_admin\_password](#output\_linux\_virtual\_machine\_admin\_password) | The password of the Linux Virtual Machine. |
 | <a name="output_linux_virtual_machine_admin_username"></a> [linux\_virtual\_machine\_admin\_username](#output\_linux\_virtual\_machine\_admin\_username) | The password of the Linux Virtual Machine. |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | The name of the resource group of the spoke. |
-=======
-# custom_spoke
-Custom module to manage spoke
-
-Usage: 
-```
-
-```
->>>>>>> 8212b4b19fe046fc2e851dbee9bb36f9f0a74fe6

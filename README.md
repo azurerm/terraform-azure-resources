@@ -1,5 +1,13 @@
-# Azure Resources Modules
-[![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/rg/azurerm/)
+# Terraform Azure Resources
+[![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/custom_spoke)
+
+Terraform module to create and manage a Azure Resources.
+
+## Example
+
+```hcl
+
+```
 
 ## Requirements
 
@@ -15,9 +23,12 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_example-rg"></a> [example-rg](#module\_example-rg) | ./modules/resource_group | n/a |
-| <a name="module_example-spoke1"></a> [example-spoke1](#module\_example-spoke1) | ./modules/custom_spoke | n/a |
-| <a name="module_example-spoke2"></a> [example-spoke2](#module\_example-spoke2) | ./modules/custom_spoke | n/a |
+| <a name="module_linux_virtual_machine"></a> [linux\_virtual\_machine](#module\_linux\_virtual\_machine) | azurerm/resources/azure//modules/linux_virtual_machine | n/a |
+| <a name="module_network_interface"></a> [network\_interface](#module\_network\_interface) | azurerm/resources/azure//modules/network_interface | n/a |
+| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | azurerm/resources/azure//modules/resource_group | n/a |
+| <a name="module_spoke"></a> [spoke](#module\_spoke) | azurerm/resources/azure//modules/custom_spoke | n/a |
+| <a name="module_subnet"></a> [subnet](#module\_subnet) | azurerm/resources/azure//modules/subnet | n/a |
+| <a name="module_virtual_network"></a> [virtual\_network](#module\_virtual\_network) | azurerm/resources/azure//modules/virtual_network | n/a |
 
 ## Resources
 
