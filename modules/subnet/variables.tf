@@ -45,7 +45,7 @@ variable "virtual_network_name" {
 variable "private_endpoint_network_policies_enabled" {
   description = "(Optional) Is network policies enabled for private endpoints on this subnet."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "private_link_service_network_policies_enabled" {

@@ -1,6 +1,6 @@
 output "resource_group_name" {
   description = "The name of the resource group of the spoke."
-  value       = module.rg.name
+  value       = module.resource_group.name
 }
 
 output "linux_virtual_machine_admin_username" {

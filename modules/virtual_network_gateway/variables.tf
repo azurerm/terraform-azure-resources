@@ -32,34 +32,63 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "allocation_method" {
-  description = "(Optional) Defines how an IP address is assigned. Possible values are Static or Dynamic. Changing this forces a new resource to be created."
+variable "type" {
+  description = "(Optional) The type of the Virtual Network Gateway : ExpressRoute or Vpn."
   type        = string
-  default     = "Static"
+  default     = "Vpn"
+
+}
+
+variable "vpn_type" {
+  description = "(Optional) The type of this Virtual Network Gateway : PolicyBased or RouteBased."
+  type        = string
+  default     = "RouteBased"
+}
+
+variable "active_active" {
+  description = "(Optional) Is Active Active?"
+  type        = bool
+  default     = false
+}
+
+variable "enable_bgp" {
+  description = "(Optional) Is BGP Enabled?"
+  type        = bool
+  default     = true
 }
 
 variable "sku" {
-  description = "(Optional) The SKU of the Public IP. Accepted values are Basic and Standard. Changing this forces a new resource to be created."
+  description = "(Optional) The Sku name of the Virtual Network Gateway."
   type        = string
-  default     = "Standard"
+  default     = "VpnGw2"
 }
 
-variable "sku_tier" {
-  description = "(Optional) The SKU Tier that should be used for the Public IP."
-  type        = string
-  default     = "Regional"
+variable "asn" {
+  description = "(Optional) The BGP speaker's ASN."
+  type        = number
+  default     = 65515
 }
 
-variable "zones" {
-  description = "(Optional) A collection containing the availability zone to allocate the Public IP in."
-  type        = list(string)
-  default     = ["1", "2", "3"]
+variable "ip_configuration_name" {
+  description = "(Optional) The name of the IP Configuration."
+  type        = string
+  default     = "ipconfig"
 }
 
-variable "domain_name_label" {
-  description = "(Optional) Label for the Domain Name. Will be used to make up the FQDN. If a domain name label is specified, an A DNS record is created for the public IP in the Microsoft Azure DNS system."
+variable "public_ip_address_id" {
+  description = "(Required) The ID of the Public IP Address."
   type        = string
-  default     = null
+}
+
+variable "private_ip_address_allocation" {
+  description = "(Optional) The Private IP Address Allocation Method."
+  type        = string
+  default     = "Dynamic"
+}
+
+variable "subnet_id" {
+  description = "(Required) The ID of the Subnet."
+  type        = string
 }
 
 variable "module_tags" {

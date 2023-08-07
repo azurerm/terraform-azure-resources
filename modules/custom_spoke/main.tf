@@ -29,7 +29,7 @@ module "naming" {
   suffix = [var.workload, var.environment, module.locations.short_name, var.instance]
 }
 
-module "rg" {
+module "resource_group" {
   source      = "azurerm/resources/azure//modules/resource_group"
   location    = var.location
   environment = var.environment
@@ -44,7 +44,7 @@ module "virtual_network" {
   environment         = var.environment
   workload            = var.workload
   instance            = var.instance
-  resource_group_name = module.rg.name
+  resource_group_name = module.resource_group.name
   address_space       = var.address_space
   dns_servers         = var.dns_servers
   tags                = local.tags
@@ -57,7 +57,7 @@ module "subnet" {
   environment                               = var.environment
   workload                                  = var.workload
   instance                                  = format("%03d", count.index + 1)
-  resource_group_name                       = module.rg.name
+  resource_group_name                       = module.resource_group.name
   virtual_network_name                      = module.virtual_network.name
   address_prefixes                          = [cidrsubnet(var.address_space[0], ceil(var.subnet_count / 2), count.index)]
   private_endpoint_network_policies_enabled = true
@@ -70,7 +70,7 @@ module "linux_virtual_machine" {
   environment         = var.environment
   workload            = var.workload
   instance            = format("%03d", count.index + 1)
-  resource_group_name = module.rg.name
+  resource_group_name = module.resource_group.name
   subnet_id           = module.subnet[count.index].id
   size                = var.virtual_machine_size
   tags                = local.tags
