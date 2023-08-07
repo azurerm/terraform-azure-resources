@@ -26,6 +26,24 @@ variable "address_space" {
   type        = list(string)
 }
 
+variable "dns_servers" {
+  description = "(Optional) The DNS servers to be used with the Virtual Network."
+  type        = list(string)
+  default     = null
+}
+
+variable "firewall" {
+  description = "(Optional) Include a Firewall."
+  type        = bool
+  default     = true
+}
+
+variable "gateway" {
+  description = "(Optional) Include a Gateway."
+  type        = bool
+  default     = true
+}
+
 variable "module_tags" {
   description = "(Optional) Include the default tags?"
   type        = bool
