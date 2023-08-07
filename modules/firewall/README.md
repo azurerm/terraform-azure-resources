@@ -1,4 +1,4 @@
-# Virtual Network
+# Firewall
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/firewall)
 
 Terraform module to create and manage a Firewall.
@@ -54,7 +54,6 @@ module "publicip" {
   workload            = "firewall"
   instance            = "001"
   resource_group_name = module.resource_group.name
-  zones               = ["1", "2", "3"]
 }
 
 module "firewall" {
