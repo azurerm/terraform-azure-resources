@@ -52,7 +52,7 @@ module "virtual_network" {
 
 module "subnet_gateway" {
   source               = "azurerm/resources/azure//modules/subnet"
-  count = var.gateway ? 1 : 0  
+  count                = var.gateway ? 1 : 0
   location             = var.location
   custom_name          = "GatewaySubnet"
   resource_group_name  = module.resource_group.name
@@ -62,7 +62,7 @@ module "subnet_gateway" {
 
 module "public_ip_gateway" {
   source              = "azurerm/resources/azure//modules/public_ip"
-  count = var.gateway ? 1 : 0
+  count               = var.gateway ? 1 : 0
   location            = var.location
   environment         = var.environment
   workload            = var.workload
@@ -72,7 +72,7 @@ module "public_ip_gateway" {
 
 module "gateway" {
   source               = "azurerm/resources/azure//modules/virtual_network_gateway"
-  count = var.gateway ? 1 : 0
+  count                = var.gateway ? 1 : 0
   location             = var.location
   environment          = var.environment
   workload             = var.workload
@@ -84,7 +84,7 @@ module "gateway" {
 
 module "subnet_firewall" {
   source               = "azurerm/resources/azure//modules/subnet"
-  count = var.firewall ? 1 : 0
+  count                = var.firewall ? 1 : 0
   location             = var.location
   custom_name          = "AzureFirewallSubnet"
   resource_group_name  = module.resource_group.name
@@ -94,7 +94,7 @@ module "subnet_firewall" {
 
 module "public_ip_firewall" {
   source              = "azurerm/resources/azure//modules/public_ip"
-  count = var.firewall ? 1 : 0
+  count               = var.firewall ? 1 : 0
   location            = var.location
   environment         = var.environment
   workload            = var.workload
@@ -104,7 +104,7 @@ module "public_ip_firewall" {
 
 module "firewall" {
   source               = "azurerm/resources/azure//modules/firewall"
-  count = var.firewall ? 1 : 0  
+  count                = var.firewall ? 1 : 0
   location             = var.location
   environment          = var.environment
   workload             = var.workload
