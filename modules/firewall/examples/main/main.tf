@@ -46,7 +46,6 @@ module "publicip" {
   workload            = "firewall"
   instance            = "001"
   resource_group_name = module.resource_group.name
-  zones               = ["1", "2", "3"]
 }
 
 module "firewall" {

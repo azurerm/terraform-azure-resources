@@ -53,7 +53,7 @@ variable "sku_tier" {
 variable "zones" {
   description = "(Optional) A collection containing the availability zone to allocate the Public IP in."
   type        = list(string)
-  default     = []
+  default     = ["1", "2", "3"]
 }
 
 variable "domain_name_label" {
