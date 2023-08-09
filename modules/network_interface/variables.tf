@@ -38,6 +38,18 @@ variable "ip_configuration_name" {
   default     = "ipconfig"
 }
 
+variable "enable_ip_forwarding" {
+  description = "(Optional) Should IP Forwarding be enabled on the Network Interface?"
+  type        = bool
+  default     = false
+}
+
+variable "enable_accelerated_networking" {
+  description = "(Optional) Should Accelerated Networking be enabled on the Network Interface?"
+  type        = bool
+  default     = false
+}
+
 variable "private_ip_address_allocation" {
   description = "(Optional) The allocation method of the Private IP Address."
   type        = string

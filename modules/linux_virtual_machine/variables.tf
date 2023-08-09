@@ -38,6 +38,18 @@ variable "custom_network_interface_name" {
   default     = ""
 }
 
+variable "enable_ip_forwarding" {
+  description = "(Optional) Should IP Forwarding be enabled on the Network Interface?"
+  type        = bool
+  default     = false
+}
+
+variable "enable_accelerated_networking" {
+  description = "(Optional) Should Accelerated Networking be enabled on the Network Interface?"
+  type        = bool
+  default     = false
+}
+
 variable "ip_configuration_name" {
   description = "(Optional) The name of the IP Configuration."
   type        = string
@@ -137,6 +149,12 @@ variable "run_bootstrap" {
   description = "(Optional) Run the bootstrap script?"
   type        = bool
   default     = true
+}
+
+variable "custom_data" {
+  description = "(Optional) The Base64 encoded Custom Data which should be used for the Virtual Machine."
+  type        = string
+  default     = null
 }
 
 variable "module_tags" {
