@@ -33,10 +33,6 @@ module "naming" {
   suffix = [var.workload, var.environment, module.locations.short_name, var.instance]
 }
 
-data "template_file" "cloud-init" {
-  template = file("${path.module}/cloud-init.tpl")
-}
-
 resource "random_password" "this" {
   count            = var.admin_password == "" ? 1 : 0
   length           = var.random_password_length
@@ -49,9 +45,11 @@ resource "random_password" "this" {
 }
 
 resource "azurerm_network_interface" "this" {
-  name                = coalesce(var.custom_network_interface_name, module.naming.network_interface.name)
-  location            = var.location
-  resource_group_name = var.resource_group_name
+  name                          = coalesce(var.custom_network_interface_name, module.naming.network_interface.name)
+  location                      = var.location
+  resource_group_name           = var.resource_group_name
+  enable_ip_forwarding          = var.enable_ip_forwarding
+  enable_accelerated_networking = var.enable_accelerated_networking
   ip_configuration {
     name                          = var.ip_configuration_name
     subnet_id                     = var.subnet_id
@@ -83,6 +81,6 @@ resource "azurerm_linux_virtual_machine" "this" {
     sku       = var.source_image_reference_sku
     version   = var.source_image_reference_version
   }
-  custom_data = var.run_bootstrap == true ? base64encode(data.template_file.cloud-init.rendered) : null
+  custom_data = var.run_bootstrap == true ? coalesce(var.custom_data, base64encode("${path.module}/cloud-init.txt")) : null
   tags        = local.tags
 }
