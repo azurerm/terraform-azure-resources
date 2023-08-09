@@ -45,10 +45,10 @@ resource "random_password" "this" {
 }
 
 resource "azurerm_network_interface" "this" {
-  name                = coalesce(var.custom_network_interface_name, module.naming.network_interface.name)
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  enable_ip_forwarding = var.enable_ip_forwarding
+  name                          = coalesce(var.custom_network_interface_name, module.naming.network_interface.name)
+  location                      = var.location
+  resource_group_name           = var.resource_group_name
+  enable_ip_forwarding          = var.enable_ip_forwarding
   enable_accelerated_networking = var.enable_accelerated_networking
   ip_configuration {
     name                          = var.ip_configuration_name
