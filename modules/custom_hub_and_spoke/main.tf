@@ -58,5 +58,10 @@ module "virtual_network_peerings" {
   virtual_network_1_hub                 = var.gateway
   virtual_network_2_resource_group_name = each.value.resource_group_name
   virtual_network_2_id                  = each.value.virtual_network_id
+
+  depends_on = [
+    module.hub,
+    module.spoke
+  ]
 }
 
