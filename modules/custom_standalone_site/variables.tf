@@ -1,11 +1,11 @@
 variable "workload" {
-  description = "(Required) The usage or application of the Virtual Network."
+  description = "(Required) The usage or application of the ressources."
   type        = string
   default     = "standalone"
 }
 
 variable "environment" {
-  description = "(Required) The environment of the Virtual Network."
+  description = "(Required) The environment of the ressources."
   type        = string
   default     = "prd"
 }
@@ -16,7 +16,7 @@ variable "location" {
 }
 
 variable "instance" {
-  description = "(Optional) The instance count for the Virtual Network."
+  description = "(Optional) The instance count for the ressources."
   type        = string
   default     = "001"
 }
