@@ -65,3 +65,24 @@ module "virtual_network_peerings" {
   ]
 }
 
+module "spoke_dns" {
+  source        = "azurerm/resources/azure//modules/custom_spoke_dns"
+  count         = var.spoke_dns ? 1 : 0
+  location      = var.location
+  address_space = var.address_space_spoke_dns
+}
+
+module "virtual_network_peerings_dns" {
+  source                                = "azurerm/resources/azure//modules/virtual_network_peerings"
+  count                                 = var.spoke_dns ? 1 : 0
+  virtual_network_1_resource_group_name = module.hub.resource_group_name
+  virtual_network_1_id                  = module.hub.virtual_network_id
+  virtual_network_1_hub                 = var.gateway
+  virtual_network_2_resource_group_name = var.spoke_dns.resource_group_name
+  virtual_network_2_id                  = var.spoke_dns.virtual_network_id
+
+  depends_on = [
+    module.hub,
+    module.spoke_dns
+  ]
+}

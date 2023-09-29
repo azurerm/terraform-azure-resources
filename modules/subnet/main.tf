@@ -29,12 +29,9 @@ resource "azurerm_subnet" "this" {
     for_each = var.delegation
     content {
       name = delegation.key
-      dynamic "service_delegation" {
-        for_each = toset(delegation.value)
-        content {
-          name    = service_delegation.value.name
-          actions = service_delegation.value.actions
-        }
+      service_delegation {
+        name    = delegation.value.name
+        actions = delegation.value.actions
       }
     }
   }
