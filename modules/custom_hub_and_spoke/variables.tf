@@ -54,6 +54,18 @@ variable "address_space_spoke" {
   }))
 }
 
+variable "spoke_dns" {
+  description = "(Optional) Include a Spoke DNS."
+  type        = bool
+  default     = false
+}
+
+variable "address_space_spoke_dns" {
+  description = "(Required) The address space that is used the Virtual Network."
+  type        = list(string)
+  default     = null
+}
+
 variable "module_tags" {
   description = "(Optional) Include the default tags?"
   type        = bool
