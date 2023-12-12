@@ -44,6 +44,12 @@ variable "gateway" {
   default     = true
 }
 
+variable "key_vault" {
+  description = "(Optional) Include a Key Vault."
+  type        = bool
+  default     = true
+}
+
 variable "module_tags" {
   description = "(Optional) Include the default tags?"
   type        = bool

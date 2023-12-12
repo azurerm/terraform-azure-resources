@@ -12,7 +12,7 @@ locals {
 }
 
 module "peering_1_to_2" {
-  source                       = "azurerm/resources/azure//modules/virtual_network_peering"
+  source                       = "../virtual_network_peering"
   resource_group_name          = var.virtual_network_1_resource_group_name
   virtual_network_name         = local.virtual_network_1_name
   remote_virtual_network_id    = var.virtual_network_2_id
@@ -23,7 +23,7 @@ module "peering_1_to_2" {
 }
 
 module "peering_2_to_1" {
-  source                       = "azurerm/resources/azure//modules/virtual_network_peering"
+  source                       = "../virtual_network_peering"
   resource_group_name          = var.virtual_network_2_resource_group_name
   virtual_network_name         = local.virtual_network_2_name
   remote_virtual_network_id    = var.virtual_network_1_id

@@ -82,8 +82,8 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_locations"></a> [locations](#module\_locations) | azurerm/locations/azure | n/a |
-| <a name="module_naming"></a> [naming](#module\_naming) | azurerm/naming/azure | n/a |
+| <a name="module_locations"></a> [locations](#module\_locations) | ../locations | n/a |
+| <a name="module_naming"></a> [naming](#module\_naming) | ../naming | n/a |
 
 ## Resources
 
@@ -107,7 +107,7 @@ No requirements.
 | <a name="input_private_ip_address_allocation"></a> [private\_ip\_address\_allocation](#input\_private\_ip\_address\_allocation) | (Optional) The Private IP Address Allocation Method. | `string` | `"Dynamic"` | no |
 | <a name="input_public_ip_address_id"></a> [public\_ip\_address\_id](#input\_public\_ip\_address\_id) | (Required) The ID of the Public IP Address. | `string` | n/a | yes |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | (Required) The name of the resource group in which to create the Virtual Network. | `string` | n/a | yes |
-| <a name="input_sku"></a> [sku](#input\_sku) | (Optional) The Sku name of the Virtual Network Gateway. | `string` | `"VpnGw2"` | no |
+| <a name="input_sku"></a> [sku](#input\_sku) | (Optional) The Sku name of the Virtual Network Gateway. | `string` | `"VpnGw2AZ"` | no |
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | (Required) The ID of the Subnet. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `null` | no |
 | <a name="input_type"></a> [type](#input\_type) | (Optional) The type of the Virtual Network Gateway : ExpressRoute or Vpn. | `string` | `"Vpn"` | no |

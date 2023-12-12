@@ -9,7 +9,7 @@ terraform {
 locals {
   module_tags = tomap(
     {
-      terraform-module-composable = "azurerm/resources/azure//modules/custom_standalone_site"
+      terraform-azurerm-composable = "custom_standalone_site"
     }
   )
 
@@ -20,17 +20,17 @@ locals {
 }
 
 module "locations" {
-  source   = "azurerm/locations/azure"
+  source   = "../locations"
   location = var.location
 }
 
 module "naming" {
-  source = "azurerm/naming/azure"
+  source = "../naming"
   suffix = [var.workload, var.environment, module.locations.short_name, var.instance]
 }
 
 module "resource_group" {
-  source      = "azurerm/resources/azure//modules/resource_group"
+  source      = "../resource_group"
   location    = var.location
   environment = var.environment
   workload    = var.workload
@@ -39,7 +39,7 @@ module "resource_group" {
 }
 
 module "virtual_network" {
-  source              = "azurerm/resources/azure//modules/virtual_network"
+  source              = "../virtual_network"
   location            = var.location
   environment         = var.environment
   workload            = var.workload
@@ -51,7 +51,7 @@ module "virtual_network" {
 }
 
 module "subnet_gateway" {
-  source               = "azurerm/resources/azure//modules/subnet"
+  source               = "../subnet"
   count                = var.gateway ? 1 : 0
   location             = var.location
   custom_name          = "GatewaySubnet"
@@ -61,7 +61,7 @@ module "subnet_gateway" {
 }
 
 module "public_ip_gateway" {
-  source              = "azurerm/resources/azure//modules/public_ip"
+  source              = "../public_ip"
   count               = var.gateway ? 1 : 0
   location            = var.location
   environment         = var.environment
@@ -71,7 +71,7 @@ module "public_ip_gateway" {
 }
 
 module "gateway" {
-  source               = "azurerm/resources/azure//modules/virtual_network_gateway"
+  source               = "../virtual_network_gateway"
   count                = var.gateway ? 1 : 0
   location             = var.location
   environment          = var.environment
@@ -83,7 +83,7 @@ module "gateway" {
 }
 
 module "subnet_firewall" {
-  source               = "azurerm/resources/azure//modules/subnet"
+  source               = "../subnet"
   count                = var.firewall ? 1 : 0
   location             = var.location
   custom_name          = "AzureFirewallSubnet"
@@ -93,7 +93,7 @@ module "subnet_firewall" {
 }
 
 module "public_ip_firewall" {
-  source              = "azurerm/resources/azure//modules/public_ip"
+  source              = "../public_ip"
   count               = var.firewall ? 1 : 0
   location            = var.location
   environment         = var.environment
@@ -103,7 +103,7 @@ module "public_ip_firewall" {
 }
 
 module "firewall" {
-  source               = "azurerm/resources/azure//modules/firewall"
+  source               = "../firewall"
   count                = var.firewall ? 1 : 0
   location             = var.location
   environment          = var.environment
@@ -115,7 +115,7 @@ module "firewall" {
 }
 
 module "subnet_workload" {
-  source                                    = "azurerm/resources/azure//modules/subnet"
+  source                                    = "../subnet"
   location                                  = var.location
   environment                               = var.environment
   workload                                  = var.workload
@@ -127,7 +127,7 @@ module "subnet_workload" {
 }
 
 module "linux_virtual_machine" {
-  source              = "azurerm/resources/azure//modules/linux_virtual_machine"
+  source              = "../linux_virtual_machine"
   count               = var.linux_virtual_machine ? 1 : 0
   location            = var.location
   environment         = var.environment

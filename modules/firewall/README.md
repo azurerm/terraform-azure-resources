@@ -82,8 +82,8 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_locations"></a> [locations](#module\_locations) | azurerm/locations/azure | n/a |
-| <a name="module_naming"></a> [naming](#module\_naming) | azurerm/naming/azure | n/a |
+| <a name="module_locations"></a> [locations](#module\_locations) | ../locations | n/a |
+| <a name="module_naming"></a> [naming](#module\_naming) | ../naming | n/a |
 
 ## Resources
 
@@ -102,6 +102,7 @@ No requirements.
 | <a name="input_instance"></a> [instance](#input\_instance) | (Optional) The instance count for the Virtual Network. | `string` | `""` | no |
 | <a name="input_ip_configuration_name"></a> [ip\_configuration\_name](#input\_ip\_configuration\_name) | (Optional) The name of the IP Configuration. | `string` | `"ipconfig"` | no |
 | <a name="input_location"></a> [location](#input\_location) | (Required) The location/region where the Virtual Network is created. Changing this forces a new resource to be created. | `string` | n/a | yes |
+| <a name="input_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#input\_log\_analytics\_workspace\_id) | (Optional) The ID of the Log Analytics Workspace. | `string` | `""` | no |
 | <a name="input_module_tags"></a> [module\_tags](#input\_module\_tags) | (Optional) Include the default tags? | `bool` | `true` | no |
 | <a name="input_private_ip_ranges"></a> [private\_ip\_ranges](#input\_private\_ip\_ranges) | (Optional) A list of private IP address ranges that will be used by subnets. | `list(string)` | `null` | no |
 | <a name="input_public_ip_address_id"></a> [public\_ip\_address\_id](#input\_public\_ip\_address\_id) | (Required) The ID of the Public IP Address. | `string` | n/a | yes |
@@ -120,4 +121,5 @@ No requirements.
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The ID of the Firewall. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the Firewall. |
+| <a name="output_private_ip_address"></a> [private\_ip\_address](#output\_private\_ip\_address) | The private IP address of the Firewall. |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | The name of the resource group in which to create the Firewall. |

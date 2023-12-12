@@ -9,7 +9,7 @@ terraform {
 locals {
   module_tags = tomap(
     {
-      terraform-module-source = "azurerm/resources/azure//modules/linux_virtual_machine"
+      terraform-azurerm-module = "linux_virtual_machine",
     }
   )
 
@@ -24,13 +24,13 @@ locals {
 }
 
 module "locations" {
-  source   = "azurerm/locations/azure"
+  source   = "../locations"
   location = var.location
 }
 
 module "naming" {
-  source = "azurerm/naming/azure"
-  suffix = [var.workload, var.environment, module.locations.short_name, var.instance]
+  source = "../naming"
+  suffix = [var.workload, var.environment, var.instance]
 }
 
 resource "random_password" "this" {
@@ -45,7 +45,7 @@ resource "random_password" "this" {
 }
 
 resource "azurerm_network_interface" "this" {
-  name                          = coalesce(var.custom_network_interface_name, module.naming.network_interface.name)
+  name                          = coalesce(var.custom_network_interface_name, "${module.naming.linux_virtual_machine.name}-nic")
   location                      = var.location
   resource_group_name           = var.resource_group_name
   enable_ip_forwarding          = var.enable_ip_forwarding
@@ -59,18 +59,21 @@ resource "azurerm_network_interface" "this" {
 }
 
 resource "azurerm_linux_virtual_machine" "this" {
-  name                            = coalesce(var.custom_name, module.naming.linux_virtual_machine.name)
-  location                        = var.location
-  resource_group_name             = var.resource_group_name
-  size                            = var.size
-  zone                            = var.zone
-  network_interface_ids           = [azurerm_network_interface.this.id]
-  admin_username                  = var.admin_username
-  disable_password_authentication = false
-  admin_password                  = local.admin_password
+  name                                                   = coalesce(var.custom_name, module.naming.linux_virtual_machine.name)
+  location                                               = var.location
+  resource_group_name                                    = var.resource_group_name
+  size                                                   = var.size
+  zone                                                   = var.zone
+  network_interface_ids                                  = [azurerm_network_interface.this.id]
+  admin_username                                         = var.admin_username
+  disable_password_authentication                        = false
+  admin_password                                         = local.admin_password
+  patch_mode                                             = var.patch_mode
+  patch_assessment_mode                                  = var.patch_assessment_mode
+  bypass_platform_safety_checks_on_user_schedule_enabled = var.patch_mode == "AutomaticByPlatform" ? true : false
   boot_diagnostics {}
   os_disk {
-    name                 = coalesce(var.custom_os_disk_name, module.naming.managed_disk.name)
+    name                 = coalesce(var.custom_os_disk_name, "${module.naming.linux_virtual_machine.name}-dsk")
     caching              = var.os_disk_caching
     storage_account_type = var.os_disk_type
     disk_size_gb         = var.os_disk_size
@@ -80,6 +83,13 @@ resource "azurerm_linux_virtual_machine" "this" {
     offer     = var.source_image_reference_offer
     sku       = var.source_image_reference_sku
     version   = var.source_image_reference_version
+  }
+  dynamic "identity" {
+    for_each = var.identity_type == "SystemAssigned" ? [1] : []
+    content {
+      type         = var.identity_type
+      identity_ids = var.identity_ids
+    }
   }
   custom_data = var.run_bootstrap == true ? coalesce(var.custom_data, base64encode("${path.module}/cloud-init.txt")) : null
   tags        = local.tags

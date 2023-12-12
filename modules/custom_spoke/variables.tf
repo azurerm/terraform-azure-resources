@@ -45,13 +45,25 @@ variable "linux_virtual_machine" {
 variable "windows_virtual_machine" {
   description = "(Optional) Include one Windows VM created per subnet."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "virtual_machine_size" {
   description = "(Optional) The size of the Virtual Machine."
   type        = string
   default     = "Standard_B1ls"
+}
+
+variable "default_next_hop" {
+  description = "(Optional) The default next hop of the Virtual Network."
+  type        = string
+  default     = ""
+}
+
+variable "private_next_hop" {
+  description = "(Optional) The private next hop of the Virtual Network."
+  type        = string
+  default     = ""
 }
 
 variable "module_tags" {

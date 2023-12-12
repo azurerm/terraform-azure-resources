@@ -11,7 +11,7 @@ locals {
 }
 
 module "naming" {
-  source = "azurerm/naming/azure"
+  source = "../naming"
   suffix = [var.virtual_network_name, "to", local.remote_virtual_network_name]
 }
 

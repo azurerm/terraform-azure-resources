@@ -70,7 +70,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_naming"></a> [naming](#module\_naming) | azurerm/naming/azure | n/a |
+| <a name="module_naming"></a> [naming](#module\_naming) | ../naming | n/a |
 
 ## Resources
 

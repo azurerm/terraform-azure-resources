@@ -43,8 +43,8 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_locations"></a> [locations](#module\_locations) | azurerm/locations/azure | n/a |
-| <a name="module_naming"></a> [naming](#module\_naming) | azurerm/naming/azure | n/a |
+| <a name="module_locations"></a> [locations](#module\_locations) | ../locations | n/a |
+| <a name="module_naming"></a> [naming](#module\_naming) | ../naming | n/a |
 
 ## Resources
 

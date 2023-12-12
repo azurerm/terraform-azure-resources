@@ -28,3 +28,8 @@ output "private_ip_address" {
   description = "The private IP address of the Linux Virtual Machine."
   value       = azurerm_network_interface.this.private_ip_address
 }
+
+output "source_image_reference_offer" {
+  description = "The offer of the source image used to create the Linux Virtual Machine."
+  value       = var.source_image_reference_offer
+}

@@ -9,7 +9,7 @@ terraform {
 locals {
   module_tags = tomap(
     {
-      terraform-module-composable = "azurerm/resources/azure//modules/custom_hub"
+      terraform-azurerm-composable = "azurerm/resources/azure//modules/custom_hub"
     }
   )
 
@@ -19,18 +19,10 @@ locals {
   )
 }
 
-module "locations" {
-  source   = "azurerm/locations/azure"
-  location = var.location
-}
-
-module "naming" {
-  source = "azurerm/naming/azure"
-  suffix = [var.workload, var.environment, module.locations.short_name, var.instance]
-}
+data "azurerm_client_config" "current" {}
 
 module "resource_group" {
-  source      = "azurerm/resources/azure//modules/resource_group"
+  source      = "../resource_group"
   location    = var.location
   environment = var.environment
   workload    = var.workload
@@ -39,7 +31,7 @@ module "resource_group" {
 }
 
 module "virtual_network" {
-  source              = "azurerm/resources/azure//modules/virtual_network"
+  source              = "../virtual_network"
   location            = var.location
   environment         = var.environment
   workload            = var.workload
@@ -51,7 +43,7 @@ module "virtual_network" {
 }
 
 module "subnet_gateway" {
-  source               = "azurerm/resources/azure//modules/subnet"
+  source               = "../subnet"
   count                = var.gateway ? 1 : 0
   location             = var.location
   custom_name          = "GatewaySubnet"
@@ -61,17 +53,17 @@ module "subnet_gateway" {
 }
 
 module "public_ip_gateway" {
-  source              = "azurerm/resources/azure//modules/public_ip"
+  source              = "../public_ip"
   count               = var.gateway ? 1 : 0
   location            = var.location
   environment         = var.environment
-  workload            = var.workload
+  workload            = "gw"
   instance            = var.instance
   resource_group_name = module.resource_group.name
 }
 
 module "gateway" {
-  source               = "azurerm/resources/azure//modules/virtual_network_gateway"
+  source               = "../virtual_network_gateway"
   count                = var.gateway ? 1 : 0
   location             = var.location
   environment          = var.environment
@@ -82,8 +74,26 @@ module "gateway" {
   subnet_id            = module.subnet_gateway[0].id
 }
 
+module "route_table_gateway" {
+  source              = "../route_table"
+  count               = (var.gateway && var.firewall) ? 1 : 0
+  location            = var.location
+  environment         = var.environment
+  workload            = "gw"
+  instance            = var.instance
+  resource_group_name = module.resource_group.name
+  tags                = local.tags
+}
+
+module "subnet_route_table_association_gateway" {
+  source         = "../subnet_route_table_association"
+  count          = (var.gateway && var.firewall) ? 1 : 0
+  subnet_id      = module.subnet_gateway[0].id
+  route_table_id = module.route_table_gateway[0].id
+}
+
 module "subnet_firewall" {
-  source               = "azurerm/resources/azure//modules/subnet"
+  source               = "../subnet"
   count                = var.firewall ? 1 : 0
   location             = var.location
   custom_name          = "AzureFirewallSubnet"
@@ -93,8 +103,51 @@ module "subnet_firewall" {
 }
 
 module "public_ip_firewall" {
-  source              = "azurerm/resources/azure//modules/public_ip"
+  source              = "../public_ip"
   count               = var.firewall ? 1 : 0
+  location            = var.location
+  environment         = var.environment
+  workload            = "fw"
+  instance            = var.instance
+  resource_group_name = module.resource_group.name
+}
+
+module "firewall_policy" {
+  source              = "../firewall_policy"
+  count               = var.firewall ? 1 : 0
+  location            = var.location
+  environment         = var.environment
+  workload            = var.workload
+  instance            = var.instance
+  resource_group_name = module.resource_group.name
+  dns_servers         = var.dns_servers
+  dns_proxy_enabled   = var.dns_servers != [] ? true : false
+  tags                = local.tags
+}
+
+module "firewall" {
+  source                     = "../firewall"
+  count                      = var.firewall ? 1 : 0
+  location                   = var.location
+  environment                = var.environment
+  workload                   = var.workload
+  instance                   = var.instance
+  resource_group_name        = module.resource_group.name
+  firewall_policy_id         = module.firewall_policy[0].id
+  public_ip_address_id       = module.public_ip_firewall[0].id
+  subnet_id                  = module.subnet_firewall[0].id
+  log_analytics_workspace_id = module.log_analytics_workspace.id
+}
+
+module "firewall_workbook" {
+  source              = "../firewall_workbook"
+  count               = var.firewall ? 1 : 0
+  location            = var.location
+  resource_group_name = module.resource_group.name
+}
+
+module "log_analytics_workspace" {
+  source              = "../log_analytics_workspace"
   location            = var.location
   environment         = var.environment
   workload            = var.workload
@@ -102,14 +155,40 @@ module "public_ip_firewall" {
   resource_group_name = module.resource_group.name
 }
 
-module "firewall" {
-  source               = "azurerm/resources/azure//modules/firewall"
-  count                = var.firewall ? 1 : 0
-  location             = var.location
-  environment          = var.environment
-  workload             = var.workload
-  instance             = var.instance
-  resource_group_name  = module.resource_group.name
-  public_ip_address_id = module.public_ip_firewall[0].id
-  subnet_id            = module.subnet_firewall[0].id
+module "monitor_diagnostic_setting" {
+  source                     = "../monitor_diagnostic_setting"
+  count                      = var.firewall ? 1 : 0
+  target_resource_id         = module.firewall[0].id
+  log_analytics_workspace_id = module.log_analytics_workspace.id
+}
+
+module "key_vault" {
+  source              = "../key_vault"
+  count               = var.key_vault ? 1 : 0
+  tenant_id           = data.azurerm_client_config.current.tenant_id
+  location            = var.location
+  environment         = var.environment
+  workload            = var.workload
+  instance            = var.instance
+  resource_group_name = module.resource_group.name
+  access_policy = [
+    {
+      tenant_id = data.azurerm_client_config.current.tenant_id
+      object_id = data.azurerm_client_config.current.object_id
+      secret_permissions = [
+        "Get",
+        "List",
+        "Set",
+        "Delete",
+        "Recover",
+        "Backup",
+        "Restore",
+        "Purge"
+      ]
+      key_permissions         = []
+      certificate_permissions = []
+      storage_permissions     = []
+    }
+  ]
+  tags = local.tags
 }

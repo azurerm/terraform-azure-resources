@@ -74,8 +74,8 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_locations"></a> [locations](#module\_locations) | azurerm/locations/azure | n/a |
-| <a name="module_naming"></a> [naming](#module\_naming) | azurerm/naming/azure | n/a |
+| <a name="module_locations"></a> [locations](#module\_locations) | ../locations | n/a |
+| <a name="module_naming"></a> [naming](#module\_naming) | ../naming | n/a |
 
 ## Resources
 
@@ -88,6 +88,8 @@ No requirements.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_custom_name"></a> [custom\_name](#input\_custom\_name) | (Optional) The name of the Virtual Network. | `string` | `""` | no |
+| <a name="input_enable_accelerated_networking"></a> [enable\_accelerated\_networking](#input\_enable\_accelerated\_networking) | (Optional) Should Accelerated Networking be enabled on the Network Interface? | `bool` | `false` | no |
+| <a name="input_enable_ip_forwarding"></a> [enable\_ip\_forwarding](#input\_enable\_ip\_forwarding) | (Optional) Should IP Forwarding be enabled on the Network Interface? | `bool` | `false` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | (Optional) The environment of the Virtual Network. | `string` | `""` | no |
 | <a name="input_instance"></a> [instance](#input\_instance) | (Optional) The instance count for the Virtual Network. | `string` | `""` | no |
 | <a name="input_ip_configuration_name"></a> [ip\_configuration\_name](#input\_ip\_configuration\_name) | (Optional) The name of the IP Configuration. | `string` | `"ipconfig"` | no |

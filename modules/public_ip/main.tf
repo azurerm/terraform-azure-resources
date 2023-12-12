@@ -9,7 +9,7 @@ terraform {
 locals {
   module_tags = tomap(
     {
-      terraform-module-source = "azurerm/resources/azure//modules/public_ip"
+      terraform-azurerm-module = "public_ip"
     }
   )
 
@@ -22,12 +22,12 @@ locals {
 }
 
 module "locations" {
-  source   = "azurerm/locations/azure"
+  source   = "../locations"
   location = var.location
 }
 
 module "naming" {
-  source = "azurerm/naming/azure"
+  source = "../naming"
   suffix = [var.workload, var.environment, module.locations.short_name, var.instance]
 }
 
