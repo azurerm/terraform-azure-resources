@@ -9,7 +9,7 @@ terraform {
 locals {
   module_tags = tomap(
     {
-      terraform-module-composable = "azurerm/resources/azure//modules/custom_spoke"
+      terraform-azurerm-composable = "custom_spoke"
     }
   )
 
@@ -17,20 +17,28 @@ locals {
     var.module_tags ? local.module_tags : {},
     var.tags
   )
-}
 
-module "locations" {
-  source   = "azurerm/locations/azure"
-  location = var.location
-}
+  linux_virtual_machines = {
+    for linux in module.linux_virtual_machine : linux.name => {
+      admin_username            = linux.admin_username
+      admin_password            = linux.admin_password
+      source_image_reference_id = linux.source_image_reference_offer
+    }
+  }
 
-module "naming" {
-  source = "azurerm/naming/azure"
-  suffix = [var.workload, var.environment, module.locations.short_name, var.instance]
+  windows_virtual_machines = {
+    for windows in module.windows_virtual_machine : windows.name => {
+      admin_username            = windows.admin_username
+      admin_password            = windows.admin_password
+      source_image_reference_id = windows.source_image_reference_offer
+    }
+  }
+
+  virtual_machines = merge(local.linux_virtual_machines, local.windows_virtual_machines)
 }
 
 module "resource_group" {
-  source      = "azurerm/resources/azure//modules/resource_group"
+  source      = "../resource_group"
   location    = var.location
   environment = var.environment
   workload    = var.workload
@@ -39,7 +47,7 @@ module "resource_group" {
 }
 
 module "virtual_network" {
-  source              = "azurerm/resources/azure//modules/virtual_network"
+  source              = "../virtual_network"
   location            = var.location
   environment         = var.environment
   workload            = var.workload
@@ -51,7 +59,7 @@ module "virtual_network" {
 }
 
 module "subnet" {
-  source                                    = "azurerm/resources/azure//modules/subnet"
+  source                                    = "../subnet"
   count                                     = var.subnet_count
   location                                  = var.location
   environment                               = var.environment
@@ -63,8 +71,21 @@ module "subnet" {
   private_endpoint_network_policies_enabled = true
 }
 
+module "routing" {
+  source              = "../custom_routing"
+  count               = var.subnet_count
+  location            = var.location
+  environment         = var.environment
+  workload            = var.workload
+  instance            = var.instance
+  resource_group_name = module.resource_group.name
+  default_next_hop    = var.default_next_hop
+  subnet_id           = module.subnet[count.index].id
+  tags                = local.tags
+}
+
 module "linux_virtual_machine" {
-  source              = "azurerm/resources/azure//modules/linux_virtual_machine"
+  source              = "../linux_virtual_machine"
   count               = var.linux_virtual_machine ? var.subnet_count : 0
   location            = var.location
   environment         = var.environment
@@ -72,6 +93,17 @@ module "linux_virtual_machine" {
   instance            = format("%03d", count.index + 1)
   resource_group_name = module.resource_group.name
   subnet_id           = module.subnet[count.index].id
-  size                = var.virtual_machine_size
+  tags                = local.tags
+}
+
+module "windows_virtual_machine" {
+  source              = "../windows_virtual_machine"
+  count               = var.windows_virtual_machine ? var.subnet_count : 0
+  location            = var.location
+  environment         = var.environment
+  workload            = var.workload
+  instance            = format("%03d", count.index + 1)
+  resource_group_name = module.resource_group.name
+  subnet_id           = module.subnet[count.index].id
   tags                = local.tags
 }

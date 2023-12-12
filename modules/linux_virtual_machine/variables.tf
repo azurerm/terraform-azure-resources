@@ -70,7 +70,7 @@ variable "subnet_id" {
 variable "size" {
   description = "(Optional) The size of the Virtual Machine."
   type        = string
-  default     = "Standard_B1ls"
+  default     = "Standard_B1ms"
 }
 
 variable "zone" {
@@ -130,19 +130,43 @@ variable "source_image_reference_publisher" {
 variable "source_image_reference_offer" {
   description = "(Optional) The offer of the image which should be used for the Virtual Machine."
   type        = string
-  default     = "0001-com-ubuntu-server-jammy"
+  default     = "0001-com-ubuntu-server-focal"
 }
 
 variable "source_image_reference_sku" {
   description = "(Optional) The SKU of the image which should be used for the Virtual Machine."
   type        = string
-  default     = "22_04-lts"
+  default     = "20_04-lts-gen2"
 }
 
 variable "source_image_reference_version" {
   description = "(Optional) The version of the image which should be used for the Virtual Machine."
   type        = string
   default     = "latest"
+}
+
+variable "patch_mode" {
+  description = "(Optional) The patching configuration of the Virtual Machine."
+  type        = string
+  default     = "ImageDefault"
+}
+
+variable "patch_assessment_mode" {
+  description = "(Optional) The patching configuration of the Virtual Machine."
+  type        = string
+  default     = "ImageDefault"
+}
+
+variable "identity_type" {
+  description = "(Optional) The type of Managed Service Identity which should be used for the Virtual Machine."
+  type        = string
+  default     = "None"
+}
+
+variable "identity_ids" {
+  description = "(Optional) A list of Managed Service Identity IDs which should be assigned to the Virtual Machine."
+  type        = list(string)
+  default     = []
 }
 
 variable "run_bootstrap" {

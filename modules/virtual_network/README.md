@@ -1,5 +1,5 @@
 # Virtual Network
-[![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/resource_group)
+[![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/virtual_network)
 
 Terraform module to create and manage a Virtual Network.
 
@@ -29,13 +29,13 @@ module "resource_group" {
 }
 
 module "virtual_network" {
-    source      = "azurerm/resources/azure//modules/virtual_network"
-    resource_group_name = module.resource_group.name
-    location    = "westeurope"
-    environment = "dev"
-    workload    = "example"
-    instance    = "001"
-    address_space = ["10.0.0.0/24"]
+  source              = "azurerm/resources/azure//modules/virtual_network"
+  resource_group_name = module.resource_group.name
+  location            = "westeurope"
+  environment         = "dev"
+  workload            = "example"
+  instance            = "001"
+  address_space       = ["10.0.0.0/24"]
 }
 ```
 
@@ -53,8 +53,8 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_locations"></a> [locations](#module\_locations) | azurerm/locations/azure | n/a |
-| <a name="module_naming"></a> [naming](#module\_naming) | azurerm/naming/azure | n/a |
+| <a name="module_locations"></a> [locations](#module\_locations) | ../locations | n/a |
+| <a name="module_naming"></a> [naming](#module\_naming) | ../naming | n/a |
 
 ## Resources
 

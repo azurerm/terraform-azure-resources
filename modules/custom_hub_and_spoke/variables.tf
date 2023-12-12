@@ -1,11 +1,11 @@
 variable "workload" {
-  description = "(Optional) The usage or application of the Virtual Network."
+  description = "(Optional) The usage of the Hub."
   type        = string
   default     = "hub"
 }
 
 variable "environment" {
-  description = "(Optional) The environment of the Virtual Network."
+  description = "(Optional) The environment of the Hub."
   type        = string
   default     = "prd"
 }
@@ -16,18 +16,18 @@ variable "location" {
 }
 
 variable "instance" {
-  description = "(Optional) The instance count for the Virtual Network."
+  description = "(Optional) The instance count for the Hub."
   type        = string
   default     = "001"
 }
 
 variable "address_space_hub" {
-  description = "(Required) The address space that is used the Virtual Network."
+  description = "(Required) The address space that is used the Hub."
   type        = list(string)
 }
 
 variable "dns_servers" {
-  description = "(Optional) The DNS servers to be used with the Virtual Network."
+  description = "(Optional) The DNS servers to be used with the Hub."
   type        = list(string)
   default     = null
 }
@@ -40,6 +40,12 @@ variable "firewall" {
 
 variable "gateway" {
   description = "(Optional) Include a Gateway."
+  type        = bool
+  default     = true
+}
+
+variable "key_vault" {
+  description = "(Optional) Include a Key Vault."
   type        = bool
   default     = true
 }
@@ -61,7 +67,19 @@ variable "spoke_dns" {
 }
 
 variable "address_space_spoke_dns" {
-  description = "(Required) The address space that is used the Virtual Network."
+  description = "(Optional) The address space that is used the Virtual Network."
+  type        = list(string)
+  default     = null
+}
+
+variable "spoke_jumphost" {
+  description = "(Optional) Include a Spoke Jump Host."
+  type        = bool
+  default     = false
+}
+
+variable "address_space_spoke_jumphost" {
+  description = "(Optional) The address space that is used the Virtual Network."
   type        = list(string)
   default     = null
 }

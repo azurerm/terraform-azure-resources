@@ -9,7 +9,7 @@ terraform {
 locals {
   module_tags = tomap(
     {
-      terraform-module-composable = "azurerm/resources/azure//modules/custom_spoke_dns"
+      terraform-azurerm-composable = "custom_spoke_dns"
     }
   )
 
@@ -19,18 +19,8 @@ locals {
   )
 }
 
-module "locations" {
-  source   = "azurerm/locations/azure"
-  location = var.location
-}
-
-module "naming" {
-  source = "azurerm/naming/azure"
-  suffix = [var.workload, var.environment, module.locations.short_name, var.instance]
-}
-
 module "resource_group" {
-  source      = "azurerm/resources/azure//modules/resource_group"
+  source      = "../resource_group"
   location    = var.location
   environment = var.environment
   workload    = var.workload
@@ -39,7 +29,7 @@ module "resource_group" {
 }
 
 module "virtual_network" {
-  source              = "azurerm/resources/azure//modules/virtual_network"
+  source              = "../virtual_network"
   location            = var.location
   environment         = var.environment
   workload            = var.workload
@@ -50,7 +40,7 @@ module "virtual_network" {
 }
 
 module "subnet_inbound" {
-  source                                    = "azurerm/resources/azure//modules/subnet"
+  source                                    = "../subnet"
   location                                  = var.location
   environment                               = var.environment
   workload                                  = "in"
@@ -68,7 +58,7 @@ module "subnet_inbound" {
 }
 
 module "subnet_outbound" {
-  source                                    = "azurerm/resources/azure//modules/subnet"
+  source                                    = "../subnet"
   location                                  = var.location
   environment                               = var.environment
   workload                                  = "out"
@@ -86,7 +76,7 @@ module "subnet_outbound" {
 }
 
 module "private_dns_resolver" {
-  source                      = "azurerm/resources/azure//modules/private_dns_resolver"
+  source                      = "../private_dns_resolver"
   location                    = var.location
   environment                 = var.environment
   workload                    = var.workload
@@ -99,7 +89,7 @@ module "private_dns_resolver" {
 }
 
 module "private_dns_resolver_dns_forwarding_ruleset" {
-  source                                     = "azurerm/resources/azure//modules/private_dns_resolver_dns_forwarding_ruleset"
+  source                                     = "../private_dns_resolver_dns_forwarding_ruleset"
   location                                   = var.location
   environment                                = var.environment
   workload                                   = var.workload
@@ -111,9 +101,19 @@ module "private_dns_resolver_dns_forwarding_ruleset" {
 }
 
 module "private_dns_resolver_forwarding_rule" {
-  source                    = "azurerm/resources/azure//modules/private_dns_resolver_forwarding_rule"
+  source                    = "../private_dns_resolver_forwarding_rule"
   for_each                  = { for rule in var.dns_forwarding_rules : rule.domain_name => rule }
   dns_forwarding_ruleset_id = module.private_dns_resolver_dns_forwarding_ruleset.id
   domain_name               = each.value.domain_name
   target_dns_servers        = each.value.target_dns_servers
+}
+
+module "private_dns_zone" {
+  source               = "../private_dns_zone"
+  for_each             = toset(var.private_endpoint_zones)
+  name                 = each.value
+  resource_group_name  = module.resource_group.name
+  virtual_network_link = true
+  virtual_network_id   = module.virtual_network.id
+  tags                 = local.tags
 }

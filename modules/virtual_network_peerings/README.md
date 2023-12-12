@@ -69,8 +69,8 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_peering_1_to_2"></a> [peering\_1\_to\_2](#module\_peering\_1\_to\_2) | azurerm/resources/azure//modules/virtual_network_peering | n/a |
-| <a name="module_peering_2_to_1"></a> [peering\_2\_to\_1](#module\_peering\_2\_to\_1) | azurerm/resources/azure//modules/virtual_network_peering | n/a |
+| <a name="module_peering_1_to_2"></a> [peering\_1\_to\_2](#module\_peering\_1\_to\_2) | ../virtual_network_peering | n/a |
+| <a name="module_peering_2_to_1"></a> [peering\_2\_to\_1](#module\_peering\_2\_to\_1) | ../virtual_network_peering | n/a |
 
 ## Resources
 

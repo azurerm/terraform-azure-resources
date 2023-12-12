@@ -28,14 +28,13 @@ module "resource_group" {
   instance    = "001"
 }
 
-module "virtual_network" {
-  source              = "azurerm/resources/azure//modules/virtual_network"
+module "private_dns_resolver" {
+  source              = "azurerm/resources/azure//modules/private_dns_resolver"
   resource_group_name = module.resource_group.name
   location            = "westeurope"
   environment         = "dev"
   workload            = "example"
   instance            = "001"
-  address_space       = ["10.0.0.0/24"]
 }
 ```
 
@@ -53,8 +52,8 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_locations"></a> [locations](#module\_locations) | azurerm/locations/azure | n/a |
-| <a name="module_naming"></a> [naming](#module\_naming) | azurerm/naming/azure | n/a |
+| <a name="module_locations"></a> [locations](#module\_locations) | ../locations | n/a |
+| <a name="module_naming"></a> [naming](#module\_naming) | ../naming | n/a |
 
 ## Resources
 

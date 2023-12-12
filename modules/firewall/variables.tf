@@ -90,6 +90,12 @@ variable "subnet_id" {
   type        = string
 }
 
+variable "log_analytics_workspace_id" {
+  description = "(Optional) The ID of the Log Analytics Workspace."
+  type        = string
+  default     = ""
+}
+
 variable "module_tags" {
   description = "(Optional) Include the default tags?"
   type        = bool

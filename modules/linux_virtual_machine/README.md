@@ -70,14 +70,13 @@ No requirements.
 |------|---------|
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
 | <a name="provider_random"></a> [random](#provider\_random) | n/a |
-| <a name="provider_template"></a> [template](#provider\_template) | n/a |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_locations"></a> [locations](#module\_locations) | azurerm/locations/azure | n/a |
-| <a name="module_naming"></a> [naming](#module\_naming) | azurerm/naming/azure | n/a |
+| <a name="module_locations"></a> [locations](#module\_locations) | ../locations | n/a |
+| <a name="module_naming"></a> [naming](#module\_naming) | ../naming | n/a |
 
 ## Resources
 
@@ -86,7 +85,6 @@ No requirements.
 | [azurerm_linux_virtual_machine.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_virtual_machine) | resource |
 | [azurerm_network_interface.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_interface) | resource |
 | [random_password.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
-| [template_file.cloud-init](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) | data source |
 
 ## Inputs
 
@@ -94,10 +92,15 @@ No requirements.
 |------|-------------|------|---------|:--------:|
 | <a name="input_admin_password"></a> [admin\_password](#input\_admin\_password) | (Optional) The password of the local administrator to be created on the Virtual Machine. | `string` | `""` | no |
 | <a name="input_admin_username"></a> [admin\_username](#input\_admin\_username) | (Optional) The username of the local administrator to be created on the Virtual Machine. | `string` | `"azureuser"` | no |
+| <a name="input_custom_data"></a> [custom\_data](#input\_custom\_data) | (Optional) The Base64 encoded Custom Data which should be used for the Virtual Machine. | `string` | `null` | no |
 | <a name="input_custom_name"></a> [custom\_name](#input\_custom\_name) | (Optional) The name of the Virtual Network. | `string` | `""` | no |
 | <a name="input_custom_network_interface_name"></a> [custom\_network\_interface\_name](#input\_custom\_network\_interface\_name) | (Optional) The name of the Network Interface. | `string` | `""` | no |
 | <a name="input_custom_os_disk_name"></a> [custom\_os\_disk\_name](#input\_custom\_os\_disk\_name) | (Optional) The name of the OS Disk. | `string` | `""` | no |
+| <a name="input_enable_accelerated_networking"></a> [enable\_accelerated\_networking](#input\_enable\_accelerated\_networking) | (Optional) Should Accelerated Networking be enabled on the Network Interface? | `bool` | `false` | no |
+| <a name="input_enable_ip_forwarding"></a> [enable\_ip\_forwarding](#input\_enable\_ip\_forwarding) | (Optional) Should IP Forwarding be enabled on the Network Interface? | `bool` | `false` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | (Optional) The environment of the Virtual Network. | `string` | `""` | no |
+| <a name="input_identity_ids"></a> [identity\_ids](#input\_identity\_ids) | (Optional) A list of Managed Service Identity IDs which should be assigned to the Virtual Machine. | `list(string)` | `[]` | no |
+| <a name="input_identity_type"></a> [identity\_type](#input\_identity\_type) | (Optional) The type of Managed Service Identity which should be used for the Virtual Machine. | `string` | `"None"` | no |
 | <a name="input_instance"></a> [instance](#input\_instance) | (Optional) The instance count for the Virtual Network. | `string` | `""` | no |
 | <a name="input_ip_configuration_name"></a> [ip\_configuration\_name](#input\_ip\_configuration\_name) | (Optional) The name of the IP Configuration. | `string` | `"ipconfig"` | no |
 | <a name="input_location"></a> [location](#input\_location) | (Required) The location/region where the Virtual Network is created. Changing this forces a new resource to be created. | `string` | n/a | yes |
@@ -105,14 +108,16 @@ No requirements.
 | <a name="input_os_disk_caching"></a> [os\_disk\_caching](#input\_os\_disk\_caching) | (Optional) The Type of Caching which should be used for the Virtual Machine's OS Disk. | `string` | `"ReadWrite"` | no |
 | <a name="input_os_disk_size"></a> [os\_disk\_size](#input\_os\_disk\_size) | (Optional) The size of the OS Disk which should be attached to the Virtual Machine. | `number` | `30` | no |
 | <a name="input_os_disk_type"></a> [os\_disk\_type](#input\_os\_disk\_type) | (Optional) The type of OS Disk which should be attached to the Virtual Machine. | `string` | `"Standard_LRS"` | no |
+| <a name="input_patch_assessment_mode"></a> [patch\_assessment\_mode](#input\_patch\_assessment\_mode) | (Optional) The patching configuration of the Virtual Machine. | `string` | `"ImageDefault"` | no |
+| <a name="input_patch_mode"></a> [patch\_mode](#input\_patch\_mode) | (Optional) The patching configuration of the Virtual Machine. | `string` | `"ImageDefault"` | no |
 | <a name="input_private_ip_address_allocation"></a> [private\_ip\_address\_allocation](#input\_private\_ip\_address\_allocation) | (Optional) The allocation method of the Private IP Address. | `string` | `"Dynamic"` | no |
 | <a name="input_random_password_length"></a> [random\_password\_length](#input\_random\_password\_length) | (Optional) The length of the auto-generated password. | `number` | `16` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | (Required) The name of the resource group in which to create the Virtual Network. | `string` | n/a | yes |
 | <a name="input_run_bootstrap"></a> [run\_bootstrap](#input\_run\_bootstrap) | (Optional) Run the bootstrap script? | `bool` | `true` | no |
-| <a name="input_size"></a> [size](#input\_size) | (Optional) The size of the Virtual Machine. | `string` | `"Standard_B1ls"` | no |
-| <a name="input_source_image_reference_offer"></a> [source\_image\_reference\_offer](#input\_source\_image\_reference\_offer) | (Optional) The offer of the image which should be used for the Virtual Machine. | `string` | `"0001-com-ubuntu-server-jammy"` | no |
+| <a name="input_size"></a> [size](#input\_size) | (Optional) The size of the Virtual Machine. | `string` | `"Standard_B1ms"` | no |
+| <a name="input_source_image_reference_offer"></a> [source\_image\_reference\_offer](#input\_source\_image\_reference\_offer) | (Optional) The offer of the image which should be used for the Virtual Machine. | `string` | `"0001-com-ubuntu-server-focal"` | no |
 | <a name="input_source_image_reference_publisher"></a> [source\_image\_reference\_publisher](#input\_source\_image\_reference\_publisher) | (Optional) The publisher of the image which should be used for the Virtual Machine. | `string` | `"Canonical"` | no |
-| <a name="input_source_image_reference_sku"></a> [source\_image\_reference\_sku](#input\_source\_image\_reference\_sku) | (Optional) The SKU of the image which should be used for the Virtual Machine. | `string` | `"22_04-lts"` | no |
+| <a name="input_source_image_reference_sku"></a> [source\_image\_reference\_sku](#input\_source\_image\_reference\_sku) | (Optional) The SKU of the image which should be used for the Virtual Machine. | `string` | `"20_04-lts-gen2"` | no |
 | <a name="input_source_image_reference_version"></a> [source\_image\_reference\_version](#input\_source\_image\_reference\_version) | (Optional) The version of the image which should be used for the Virtual Machine. | `string` | `"latest"` | no |
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | (Required) The ID of the Subnet which should be used with the Network Interface. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `null` | no |
@@ -129,3 +134,4 @@ No requirements.
 | <a name="output_name"></a> [name](#output\_name) | The name of the Linux Virtual Machine. |
 | <a name="output_private_ip_address"></a> [private\_ip\_address](#output\_private\_ip\_address) | The private IP address of the Linux Virtual Machine. |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | The name of the resource group in which the Linux Virtual Machine is created. |
+| <a name="output_source_image_reference_offer"></a> [source\_image\_reference\_offer](#output\_source\_image\_reference\_offer) | The offer of the source image used to create the Linux Virtual Machine. |
