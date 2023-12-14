@@ -42,6 +42,7 @@ module "hub" {
   dns_servers   = local.hub_dns_servers
   firewall      = var.firewall
   gateway       = var.gateway
+  bastion       = var.bastion
 }
 
 module "spoke" {
@@ -52,7 +53,8 @@ module "spoke" {
   workload         = each.value.workload
   address_space    = each.value.address_space
   dns_servers      = local.vnet_dns_servers
-  default_next_hop = var.firewall ? module.hub.firewall_private_ip_address : null
+  firewall         = var.firewall
+  default_next_hop = var.firewall ? module.hub.firewall_private_ip_address : ""
 }
 
 module "virtual_network_peerings" {
@@ -88,6 +90,7 @@ module "key_vault_secret" {
   tags = {
     username = each.value.admin_username
     image    = each.value.source_image_reference_id
+    ip       = each.value.private_ip_address
   }
   key_vault_id = module.hub.key_vault_id
 }
@@ -97,6 +100,7 @@ module "spoke_dns" {
   count            = var.spoke_dns ? 1 : 0
   location         = var.location
   address_space    = var.address_space_spoke_dns
+  firewall         = var.firewall
   default_next_hop = var.firewall ? module.hub.firewall_private_ip_address : null
 }
 
@@ -130,7 +134,9 @@ module "spoke_jumphost" {
   count              = var.spoke_jumphost ? 1 : 0
   location           = var.location
   address_space      = var.address_space_spoke_jumphost
+  dns_servers        = local.vnet_dns_servers
   default_next_hop   = var.firewall ? module.hub.firewall_private_ip_address : null
+  firewall           = var.firewall
   firewall_policy_id = module.hub.firewall_policy_id
   firewall_public_ip = module.hub.firewall_public_ip_address
 }
@@ -168,6 +174,7 @@ module "key_vault_secret_jumphost" {
   tags = {
     username = each.value.admin_username
     image    = each.value.source_image_reference_id
+    ip       = each.value.private_ip_address
   }
   key_vault_id = module.hub.key_vault_id
 }

@@ -29,11 +29,11 @@ module "resource_group" {
 }
 
 module "firewall_workbook" {
-  source                  = "./modules/firewall_workbook"
-  resource_group_name     = module.resource_group.name
-  location                = module.resource_group.location
-  display_name            = "Firewall Workbook"
-  url                     = "https://raw.githubusercontent.com/Azure/azure-docs-json-samples/master/azure-firewall/azure-firewall-workbook.json"
+  source              = "./modules/firewall_workbook"
+  resource_group_name = module.resource_group.name
+  location            = module.resource_group.location
+  display_name        = "Firewall Workbook"
+  url                 = "https://raw.githubusercontent.com/Azure/azure-docs-json-samples/master/azure-firewall/azure-firewall-workbook.json"
 }
 ```
 

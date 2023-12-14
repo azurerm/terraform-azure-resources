@@ -64,6 +64,8 @@ No providers.
 | <a name="module_private_dns_resolver_forwarding_rule"></a> [private\_dns\_resolver\_forwarding\_rule](#module\_private\_dns\_resolver\_forwarding\_rule) | ../private_dns_resolver_forwarding_rule | n/a |
 | <a name="module_private_dns_zone"></a> [private\_dns\_zone](#module\_private\_dns\_zone) | ../private_dns_zone | n/a |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | ../resource_group | n/a |
+| <a name="module_routing_inbound"></a> [routing\_inbound](#module\_routing\_inbound) | ../custom_routing | n/a |
+| <a name="module_routing_outbound"></a> [routing\_outbound](#module\_routing\_outbound) | ../custom_routing | n/a |
 | <a name="module_subnet_inbound"></a> [subnet\_inbound](#module\_subnet\_inbound) | ../subnet | n/a |
 | <a name="module_subnet_outbound"></a> [subnet\_outbound](#module\_subnet\_outbound) | ../subnet | n/a |
 | <a name="module_virtual_network"></a> [virtual\_network](#module\_virtual\_network) | ../virtual_network | n/a |
@@ -80,6 +82,7 @@ No resources.
 | <a name="input_default_next_hop"></a> [default\_next\_hop](#input\_default\_next\_hop) | (Optional) The default next hop of the Virtual Network. | `string` | `""` | no |
 | <a name="input_dns_forwarding_rules"></a> [dns\_forwarding\_rules](#input\_dns\_forwarding\_rules) | (Optional) A list of DNS forwarding rules. | <pre>list(object({<br>    domain_name = string<br>    target_dns_servers = list(object({<br>      ip_address = string<br>      port       = number<br>    }))<br>  }))</pre> | `[]` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | (Optional) The environment of the Virtual Network. | `string` | `"prd"` | no |
+| <a name="input_firewall"></a> [firewall](#input\_firewall) | (Optional) Firewall in Hub?. | `bool` | `false` | no |
 | <a name="input_instance"></a> [instance](#input\_instance) | (Optional) The instance count for the Virtual Network. | `string` | `"001"` | no |
 | <a name="input_location"></a> [location](#input\_location) | (Required) The location/region where the Virtual Network is created. Changing this forces a new resource to be created. | `string` | n/a | yes |
 | <a name="input_module_tags"></a> [module\_tags](#input\_module\_tags) | (Optional) Include the default tags? | `bool` | `true` | no |

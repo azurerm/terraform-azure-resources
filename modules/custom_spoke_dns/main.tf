@@ -57,6 +57,19 @@ module "subnet_inbound" {
   }
 }
 
+module "routing_inbound" {
+  source              = "../custom_routing"
+  count               = var.firewall ? 1 : 0
+  location            = var.location
+  environment         = var.environment
+  workload            = "in"
+  instance            = var.instance
+  resource_group_name = module.resource_group.name
+  default_next_hop    = var.default_next_hop
+  subnet_id           = module.subnet_inbound.id
+  tags                = local.tags
+}
+
 module "subnet_outbound" {
   source                                    = "../subnet"
   location                                  = var.location
@@ -73,6 +86,19 @@ module "subnet_outbound" {
       actions = ["Microsoft.Network/virtualNetworks/subnets/join/action"]
     }
   }
+}
+
+module "routing_outbound" {
+  source              = "../custom_routing"
+  count               = var.firewall ? 1 : 0
+  location            = var.location
+  environment         = var.environment
+  workload            = "out"
+  instance            = var.instance
+  resource_group_name = module.resource_group.name
+  default_next_hop    = var.default_next_hop
+  subnet_id           = module.subnet_outbound.id
+  tags                = local.tags
 }
 
 module "private_dns_resolver" {

@@ -3,3 +3,7 @@ output "hub_resource_group_name" {
   value       = module.hub.resource_group_name
 }
 
+output "firewall_public_ip_address" {
+  description = "The public IP address of the Firewall."
+  value       = var.firewall ? module.hub.firewall_public_ip_address : null
+}

@@ -92,6 +92,7 @@ No resources.
 | <a name="input_address_space_spoke"></a> [address\_space\_spoke](#input\_address\_space\_spoke) | (Required) The address space that is used the Virtual Network. | <pre>list(object({<br>    workload      = string<br>    environment   = string<br>    instance      = string<br>    address_space = list(string)<br>  }))</pre> | n/a | yes |
 | <a name="input_address_space_spoke_dns"></a> [address\_space\_spoke\_dns](#input\_address\_space\_spoke\_dns) | (Optional) The address space that is used the Virtual Network. | `list(string)` | `null` | no |
 | <a name="input_address_space_spoke_jumphost"></a> [address\_space\_spoke\_jumphost](#input\_address\_space\_spoke\_jumphost) | (Optional) The address space that is used the Virtual Network. | `list(string)` | `null` | no |
+| <a name="input_bastion"></a> [bastion](#input\_bastion) | (Optional) Include a Bastion Host. | `bool` | `true` | no |
 | <a name="input_dns_servers"></a> [dns\_servers](#input\_dns\_servers) | (Optional) The DNS servers to be used with the Hub. | `list(string)` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | (Optional) The environment of the Hub. | `string` | `"prd"` | no |
 | <a name="input_firewall"></a> [firewall](#input\_firewall) | (Optional) Include a Firewall. | `bool` | `true` | no |
@@ -100,7 +101,7 @@ No resources.
 | <a name="input_key_vault"></a> [key\_vault](#input\_key\_vault) | (Optional) Include a Key Vault. | `bool` | `true` | no |
 | <a name="input_location"></a> [location](#input\_location) | (Required) The location/region where the Virtual Network is created. Changing this forces a new resource to be created. | `string` | n/a | yes |
 | <a name="input_module_tags"></a> [module\_tags](#input\_module\_tags) | (Optional) Include the default tags? | `bool` | `true` | no |
-| <a name="input_spoke_dns"></a> [spoke\_dns](#input\_spoke\_dns) | (Optional) Include a Spoke DNS. | `bool` | `false` | no |
+| <a name="input_spoke_dns"></a> [spoke\_dns](#input\_spoke\_dns) | (Optional) Include a Spoke DNS. | `bool` | `true` | no |
 | <a name="input_spoke_jumphost"></a> [spoke\_jumphost](#input\_spoke\_jumphost) | (Optional) Include a Spoke Jump Host. | `bool` | `false` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `null` | no |
 | <a name="input_workload"></a> [workload](#input\_workload) | (Optional) The usage of the Hub. | `string` | `"hub"` | no |
@@ -109,4 +110,5 @@ No resources.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_firewall_public_ip_address"></a> [firewall\_public\_ip\_address](#output\_firewall\_public\_ip\_address) | The public IP address of the Firewall. |
 | <a name="output_hub_resource_group_name"></a> [hub\_resource\_group\_name](#output\_hub\_resource\_group\_name) | The name of the resource group of the spoke. |
