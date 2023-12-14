@@ -23,6 +23,7 @@ locals {
       admin_username            = linux.admin_username
       admin_password            = linux.admin_password
       source_image_reference_id = linux.source_image_reference_offer
+      private_ip_address        = linux.private_ip_address
     }
   }
 
@@ -31,6 +32,7 @@ locals {
       admin_username            = windows.admin_username
       admin_password            = windows.admin_password
       source_image_reference_id = windows.source_image_reference_offer
+      private_ip_address        = windows.private_ip_address
     }
   }
 
@@ -59,6 +61,7 @@ module "virtual_network" {
   instance            = var.instance
   resource_group_name = module.resource_group.name
   address_space       = var.address_space
+  dns_servers         = var.dns_servers
   tags                = local.tags
 }
 
@@ -75,6 +78,7 @@ module "subnet" {
 
 module "routing" {
   source              = "../custom_routing"
+  count               = var.firewall ? 1 : 0
   location            = var.location
   environment         = var.environment
   workload            = var.workload
@@ -110,6 +114,7 @@ module "windows_virtual_machine" {
 }
 
 resource "azurerm_firewall_policy_rule_collection_group" "this" {
+  count              = var.firewall ? 1 : 0
   name               = "jumphost-rules"
   firewall_policy_id = var.firewall_policy_id
   priority           = 100
@@ -146,14 +151,14 @@ resource "azurerm_firewall_policy_rule_collection_group" "this" {
       name                  = "jumphost-to-linux-tcp-22"
       protocols             = ["TCP"]
       source_addresses      = [module.linux_virtual_machine[0].private_ip_address, module.windows_virtual_machine[0].private_ip_address]
-      destination_addresses = ["10.0.0.0/8"]
+      destination_addresses = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
       destination_ports     = ["22"]
     }
     rule {
       name                  = "jumphost-to-windows-tcp-3389"
       protocols             = ["TCP"]
       source_addresses      = [module.linux_virtual_machine[0].private_ip_address, module.windows_virtual_machine[0].private_ip_address]
-      destination_addresses = ["10.0.0.0/8"]
+      destination_addresses = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
       destination_ports     = ["3389"]
     }
   }

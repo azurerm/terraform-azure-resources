@@ -40,7 +40,7 @@ module "private_dns_resolver" {
 module "private_dns_resolver_dns_forwarding_ruleset" {
   source              = "azurerm/resources/azure//modules/private_dns_resolver_dns_forwarding_ruleset"
   resource_group_name = module.resource_group.name
-  name = "example"
+  name                = "example"
   private_dns_resolver_outbound_endpoint_ids = [
     module.private_dns_resolver_dns_forwarding_outbound_endpoint.id,
   ]

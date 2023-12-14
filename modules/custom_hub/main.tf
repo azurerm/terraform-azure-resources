@@ -9,7 +9,7 @@ terraform {
 locals {
   module_tags = tomap(
     {
-      terraform-azurerm-composable = "azurerm/resources/azure//modules/custom_hub"
+      terraform-azurerm-composable = "custom_hub"
     }
   )
 
@@ -28,6 +28,15 @@ module "resource_group" {
   workload    = var.workload
   instance    = var.instance
   tags        = local.tags
+}
+
+module "log_analytics_workspace" {
+  source              = "../log_analytics_workspace"
+  location            = var.location
+  environment         = var.environment
+  workload            = var.workload
+  instance            = var.instance
+  resource_group_name = module.resource_group.name
 }
 
 module "virtual_network" {
@@ -49,7 +58,7 @@ module "subnet_gateway" {
   custom_name          = "GatewaySubnet"
   resource_group_name  = module.resource_group.name
   virtual_network_name = module.virtual_network.name
-  address_prefixes     = [cidrsubnet(var.address_space[0], 1, 0)]
+  address_prefixes     = [cidrsubnet(var.address_space[0], 2, 0)]
 }
 
 module "public_ip_gateway" {
@@ -72,6 +81,13 @@ module "gateway" {
   resource_group_name  = module.resource_group.name
   public_ip_address_id = module.public_ip_gateway[0].id
   subnet_id            = module.subnet_gateway[0].id
+}
+
+module "gateway_diagnostic_setting" {
+  source                     = "../monitor_diagnostic_setting"
+  count                      = var.gateway ? 1 : 0
+  target_resource_id         = module.gateway[0].id
+  log_analytics_workspace_id = module.log_analytics_workspace.id
 }
 
 module "route_table_gateway" {
@@ -99,7 +115,7 @@ module "subnet_firewall" {
   custom_name          = "AzureFirewallSubnet"
   resource_group_name  = module.resource_group.name
   virtual_network_name = module.virtual_network.name
-  address_prefixes     = [cidrsubnet(var.address_space[0], 1, 1)]
+  address_prefixes     = [cidrsubnet(var.address_space[0], 2, 1)]
 }
 
 module "public_ip_firewall" {
@@ -139,6 +155,13 @@ module "firewall" {
   log_analytics_workspace_id = module.log_analytics_workspace.id
 }
 
+module "firewall_diagnostic_setting" {
+  source                     = "../monitor_diagnostic_setting"
+  count                      = var.firewall ? 1 : 0
+  target_resource_id         = module.firewall[0].id
+  log_analytics_workspace_id = module.log_analytics_workspace.id
+}
+
 module "firewall_workbook" {
   source              = "../firewall_workbook"
   count               = var.firewall ? 1 : 0
@@ -146,19 +169,42 @@ module "firewall_workbook" {
   resource_group_name = module.resource_group.name
 }
 
-module "log_analytics_workspace" {
-  source              = "../log_analytics_workspace"
+module "subnet_bastion" {
+  source               = "../subnet"
+  count                = var.bastion ? 1 : 0
+  location             = var.location
+  custom_name          = "AzureBastionSubnet"
+  resource_group_name  = module.resource_group.name
+  virtual_network_name = module.virtual_network.name
+  address_prefixes     = [cidrsubnet(var.address_space[0], 2, 2)]
+}
+
+module "public_ip_bastion" {
+  source              = "../public_ip"
+  count               = var.bastion ? 1 : 0
   location            = var.location
   environment         = var.environment
-  workload            = var.workload
+  workload            = "bas"
   instance            = var.instance
   resource_group_name = module.resource_group.name
 }
 
-module "monitor_diagnostic_setting" {
+module "bastion" {
+  source               = "../bastion_host"
+  count                = var.bastion ? 1 : 0
+  location             = var.location
+  environment          = var.environment
+  workload             = var.workload
+  instance             = var.instance
+  resource_group_name  = module.resource_group.name
+  public_ip_address_id = module.public_ip_bastion[0].id
+  subnet_id            = module.subnet_bastion[0].id
+}
+
+module "bastion_diagnostic_setting" {
   source                     = "../monitor_diagnostic_setting"
-  count                      = var.firewall ? 1 : 0
-  target_resource_id         = module.firewall[0].id
+  count                      = var.bastion ? 1 : 0
+  target_resource_id         = module.bastion[0].id
   log_analytics_workspace_id = module.log_analytics_workspace.id
 }
 

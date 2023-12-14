@@ -23,6 +23,7 @@ locals {
       admin_username            = linux.admin_username
       admin_password            = linux.admin_password
       source_image_reference_id = linux.source_image_reference_offer
+      private_ip_address        = linux.private_ip_address
     }
   }
 
@@ -31,6 +32,7 @@ locals {
       admin_username            = windows.admin_username
       admin_password            = windows.admin_password
       source_image_reference_id = windows.source_image_reference_offer
+      private_ip_address        = windows.private_ip_address
     }
   }
 
@@ -73,7 +75,7 @@ module "subnet" {
 
 module "routing" {
   source              = "../custom_routing"
-  count               = var.subnet_count
+  count               = var.firewall ? var.subnet_count : 0
   location            = var.location
   environment         = var.environment
   workload            = var.workload

@@ -40,31 +40,31 @@ module "resource_group" {
 
 module "virtual_network" {
   source              = "../virtual_network"
-  location    = "westeurope"
-  environment = "dev"
-  workload    = "example"
-  instance    = "001"
+  location            = "westeurope"
+  environment         = "dev"
+  workload            = "example"
+  instance            = "001"
   resource_group_name = module.resource_group.name
   address_space       = ["10.0.0.0/24"]
 }
 
 module "subnet" {
-  source                                    = "../subnet"
-  location    = "westeurope"
-  environment = "dev"
-  workload    = "example"
-  instance    = "001"
-  resource_group_name                       = module.resource_group.name
-  virtual_network_name                      = module.virtual_network.name
-  address_prefixes                          = ["10.0.0.0/25"]
+  source               = "../subnet"
+  location             = "westeurope"
+  environment          = "dev"
+  workload             = "example"
+  instance             = "001"
+  resource_group_name  = module.resource_group.name
+  virtual_network_name = module.virtual_network.name
+  address_prefixes     = ["10.0.0.0/25"]
 }
 
 module "routing" {
   source              = "../custom_routing"
-  location    = "westeurope"
-  environment = "dev"
-  workload    = "example"
-  instance    = "001"
+  location            = "westeurope"
+  environment         = "dev"
+  workload            = "example"
+  instance            = "001"
   resource_group_name = module.resource_group.name
   default_next_hop    = "10.0.1.4"
   subnet_id           = module.subnet.id

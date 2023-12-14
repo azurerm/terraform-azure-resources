@@ -62,7 +62,9 @@ No requirements.
 |------|-------------|------|---------|:--------:|
 | <a name="input_address_space"></a> [address\_space](#input\_address\_space) | (Required) The address space that is used the Virtual Network. | `list(string)` | n/a | yes |
 | <a name="input_default_next_hop"></a> [default\_next\_hop](#input\_default\_next\_hop) | (Optional) The default next hop of the Virtual Network. | `string` | `""` | no |
+| <a name="input_dns_servers"></a> [dns\_servers](#input\_dns\_servers) | (Optional) The DNS servers to be used with the Virtual Network. | `list(string)` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | (Optional) The environment of the Virtual Network. | `string` | `"prd"` | no |
+| <a name="input_firewall"></a> [firewall](#input\_firewall) | (Optional) Firewall in Hub?. | `bool` | `false` | no |
 | <a name="input_firewall_policy_id"></a> [firewall\_policy\_id](#input\_firewall\_policy\_id) | (Optional) The ID of the Firewall Policy. | `string` | `""` | no |
 | <a name="input_firewall_public_ip"></a> [firewall\_public\_ip](#input\_firewall\_public\_ip) | (Optional) The public IP address of the Firewall. | `string` | `""` | no |
 | <a name="input_instance"></a> [instance](#input\_instance) | (Optional) The instance count for the Virtual Network. | `string` | `"001"` | no |

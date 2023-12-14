@@ -44,6 +44,12 @@ variable "gateway" {
   default     = true
 }
 
+variable "bastion" {
+  description = "(Optional) Include a Bastion Host."
+  type        = bool
+  default     = true
+}
+
 variable "key_vault" {
   description = "(Optional) Include a Key Vault."
   type        = bool

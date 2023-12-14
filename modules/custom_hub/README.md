@@ -43,17 +43,22 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_bastion"></a> [bastion](#module\_bastion) | ../bastion_host | n/a |
+| <a name="module_bastion_diagnostic_setting"></a> [bastion\_diagnostic\_setting](#module\_bastion\_diagnostic\_setting) | ../monitor_diagnostic_setting | n/a |
 | <a name="module_firewall"></a> [firewall](#module\_firewall) | ../firewall | n/a |
+| <a name="module_firewall_diagnostic_setting"></a> [firewall\_diagnostic\_setting](#module\_firewall\_diagnostic\_setting) | ../monitor_diagnostic_setting | n/a |
 | <a name="module_firewall_policy"></a> [firewall\_policy](#module\_firewall\_policy) | ../firewall_policy | n/a |
 | <a name="module_firewall_workbook"></a> [firewall\_workbook](#module\_firewall\_workbook) | ../firewall_workbook | n/a |
 | <a name="module_gateway"></a> [gateway](#module\_gateway) | ../virtual_network_gateway | n/a |
+| <a name="module_gateway_diagnostic_setting"></a> [gateway\_diagnostic\_setting](#module\_gateway\_diagnostic\_setting) | ../monitor_diagnostic_setting | n/a |
 | <a name="module_key_vault"></a> [key\_vault](#module\_key\_vault) | ../key_vault | n/a |
 | <a name="module_log_analytics_workspace"></a> [log\_analytics\_workspace](#module\_log\_analytics\_workspace) | ../log_analytics_workspace | n/a |
-| <a name="module_monitor_diagnostic_setting"></a> [monitor\_diagnostic\_setting](#module\_monitor\_diagnostic\_setting) | ../monitor_diagnostic_setting | n/a |
+| <a name="module_public_ip_bastion"></a> [public\_ip\_bastion](#module\_public\_ip\_bastion) | ../public_ip | n/a |
 | <a name="module_public_ip_firewall"></a> [public\_ip\_firewall](#module\_public\_ip\_firewall) | ../public_ip | n/a |
 | <a name="module_public_ip_gateway"></a> [public\_ip\_gateway](#module\_public\_ip\_gateway) | ../public_ip | n/a |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | ../resource_group | n/a |
 | <a name="module_route_table_gateway"></a> [route\_table\_gateway](#module\_route\_table\_gateway) | ../route_table | n/a |
+| <a name="module_subnet_bastion"></a> [subnet\_bastion](#module\_subnet\_bastion) | ../subnet | n/a |
 | <a name="module_subnet_firewall"></a> [subnet\_firewall](#module\_subnet\_firewall) | ../subnet | n/a |
 | <a name="module_subnet_gateway"></a> [subnet\_gateway](#module\_subnet\_gateway) | ../subnet | n/a |
 | <a name="module_subnet_route_table_association_gateway"></a> [subnet\_route\_table\_association\_gateway](#module\_subnet\_route\_table\_association\_gateway) | ../subnet_route_table_association | n/a |
@@ -70,6 +75,7 @@ No requirements.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_address_space"></a> [address\_space](#input\_address\_space) | (Required) The address space that is used the Virtual Network. | `list(string)` | n/a | yes |
+| <a name="input_bastion"></a> [bastion](#input\_bastion) | (Optional) Include a Bastion Host. | `bool` | `true` | no |
 | <a name="input_dns_servers"></a> [dns\_servers](#input\_dns\_servers) | (Optional) The DNS servers to be used with the Virtual Network. | `list(string)` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | (Required) The environment of the Virtual Network. | `string` | `"prd"` | no |
 | <a name="input_firewall"></a> [firewall](#input\_firewall) | (Optional) Include a Firewall. | `bool` | `true` | no |

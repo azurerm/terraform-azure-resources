@@ -54,6 +54,12 @@ variable "virtual_machine_size" {
   default     = "Standard_B1ls"
 }
 
+variable "firewall" {
+  description = "(Optional) Firewall in Hub?."
+  type        = bool
+  default     = false
+}
+
 variable "default_next_hop" {
   description = "(Optional) The default next hop of the Virtual Network."
   type        = string

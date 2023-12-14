@@ -26,6 +26,12 @@ variable "address_space" {
   type        = list(string)
 }
 
+variable "dns_servers" {
+  description = "(Optional) The DNS servers to be used with the Virtual Network."
+  type        = list(string)
+  default     = null
+}
+
 variable "linux_virtual_machine" {
   description = "(Optional) Include one Linux VM created per subnet."
   type        = bool
@@ -42,6 +48,12 @@ variable "virtual_machine_size" {
   description = "(Optional) The size of the Virtual Machine."
   type        = string
   default     = "Standard_B1ls"
+}
+
+variable "firewall" {
+  description = "(Optional) Firewall in Hub?."
+  type        = bool
+  default     = false
 }
 
 variable "default_next_hop" {
