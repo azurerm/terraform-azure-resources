@@ -38,6 +38,7 @@ No requirements.
 | Name | Version |
 |------|---------|
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
+| <a name="provider_http"></a> [http](#provider\_http) | n/a |
 
 ## Modules
 
@@ -52,6 +53,7 @@ No requirements.
 | <a name="module_gateway"></a> [gateway](#module\_gateway) | ../virtual_network_gateway | n/a |
 | <a name="module_gateway_diagnostic_setting"></a> [gateway\_diagnostic\_setting](#module\_gateway\_diagnostic\_setting) | ../monitor_diagnostic_setting | n/a |
 | <a name="module_key_vault"></a> [key\_vault](#module\_key\_vault) | ../key_vault | n/a |
+| <a name="module_key_vault_diagnostic_setting"></a> [key\_vault\_diagnostic\_setting](#module\_key\_vault\_diagnostic\_setting) | ../monitor_diagnostic_setting | n/a |
 | <a name="module_log_analytics_workspace"></a> [log\_analytics\_workspace](#module\_log\_analytics\_workspace) | ../log_analytics_workspace | n/a |
 | <a name="module_public_ip_bastion"></a> [public\_ip\_bastion](#module\_public\_ip\_bastion) | ../public_ip | n/a |
 | <a name="module_public_ip_firewall"></a> [public\_ip\_firewall](#module\_public\_ip\_firewall) | ../public_ip | n/a |
@@ -69,6 +71,7 @@ No requirements.
 | Name | Type |
 |------|------|
 | [azurerm_client_config.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config) | data source |
+| [http_http.ipinfo](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
 
 ## Inputs
 
@@ -95,6 +98,7 @@ No requirements.
 | <a name="output_firewall_private_ip_address"></a> [firewall\_private\_ip\_address](#output\_firewall\_private\_ip\_address) | The private IP address of the Firewall. |
 | <a name="output_firewall_public_ip_address"></a> [firewall\_public\_ip\_address](#output\_firewall\_public\_ip\_address) | The public IP address of the Firewall. |
 | <a name="output_key_vault_id"></a> [key\_vault\_id](#output\_key\_vault\_id) | The ID of the Key Vault. |
+| <a name="output_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#output\_log\_analytics\_workspace\_id) | The ID of the Log Analytics Workspace. |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | The name of the resource group of the spoke. |
 | <a name="output_route_table_name"></a> [route\_table\_name](#output\_route\_table\_name) | The name of the Route Table. |
 | <a name="output_virtual_network_id"></a> [virtual\_network\_id](#output\_virtual\_network\_id) | The ID of the virtual network of the spoke. |

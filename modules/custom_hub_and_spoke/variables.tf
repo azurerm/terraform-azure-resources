@@ -90,6 +90,24 @@ variable "address_space_spoke_jumphost" {
   default     = null
 }
 
+variable "spoke_dmz" {
+  description = "(Optional) Include a DMZ Spoke."
+  type        = bool
+  default     = false
+}
+
+variable "address_space_spoke_dmz" {
+  description = "(Optional) The address space that is used the Virtual Network."
+  type        = list(string)
+  default     = null
+}
+
+variable "web_application_firewall" {
+  description = "(Optional) Include a WAF."
+  type        = bool
+  default     = false
+}
+
 variable "module_tags" {
   description = "(Optional) Include the default tags?"
   type        = bool

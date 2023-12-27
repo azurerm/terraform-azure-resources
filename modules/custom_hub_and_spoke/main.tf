@@ -178,3 +178,30 @@ module "key_vault_secret_jumphost" {
   }
   key_vault_id = module.hub.key_vault_id
 }
+
+module "spoke_dmz" {
+  source                     = "../custom_spoke_dmz"
+  count                      = var.spoke_dmz ? 1 : 0
+  location                   = var.location
+  address_space              = var.address_space_spoke_dmz
+  dns_servers                = local.vnet_dns_servers
+  web_application_firewall   = var.web_application_firewall
+  firewall                   = var.firewall
+  next_hop                   = var.firewall ? module.hub.firewall_private_ip_address : ""
+  log_analytics_workspace_id = module.hub.log_analytics_workspace_id
+}
+
+module "virtual_network_peerings_dmz" {
+  source                                = "../virtual_network_peerings"
+  count                                 = var.spoke_dmz ? 1 : 0
+  virtual_network_1_resource_group_name = module.hub.resource_group_name
+  virtual_network_1_id                  = module.hub.virtual_network_id
+  virtual_network_1_hub                 = var.gateway
+  virtual_network_2_resource_group_name = module.spoke_dmz[0].resource_group_name
+  virtual_network_2_id                  = module.spoke_dmz[0].virtual_network_id
+
+  depends_on = [
+    module.hub,
+    module.spoke_dmz
+  ]
+}

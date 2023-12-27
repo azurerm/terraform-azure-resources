@@ -65,7 +65,7 @@ module "routing_inbound" {
   workload            = "in"
   instance            = var.instance
   resource_group_name = module.resource_group.name
-  default_next_hop    = var.default_next_hop
+  next_hop            = var.default_next_hop
   subnet_id           = module.subnet_inbound.id
   tags                = local.tags
 }
@@ -96,7 +96,7 @@ module "routing_outbound" {
   workload            = "out"
   instance            = var.instance
   resource_group_name = module.resource_group.name
-  default_next_hop    = var.default_next_hop
+  next_hop            = var.default_next_hop
   subnet_id           = module.subnet_outbound.id
   tags                = local.tags
 }

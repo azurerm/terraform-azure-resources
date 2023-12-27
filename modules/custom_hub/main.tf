@@ -21,6 +21,12 @@ locals {
 
 data "azurerm_client_config" "current" {}
 
+data "http" "ipinfo" {
+  count = var.key_vault ? 1 : 0
+  url   = "https://ifconfig.me"
+  #data.http.ipinfo[0].response_body
+}
+
 module "resource_group" {
   source      = "../resource_group"
   location    = var.location
@@ -106,6 +112,10 @@ module "subnet_route_table_association_gateway" {
   count          = (var.gateway && var.firewall) ? 1 : 0
   subnet_id      = module.subnet_gateway[0].id
   route_table_id = module.route_table_gateway[0].id
+
+  depends_on = [
+    module.gateway
+  ]
 }
 
 module "subnet_firewall" {
@@ -236,5 +246,20 @@ module "key_vault" {
       storage_permissions     = []
     }
   ]
+  network_acls = [
+    {
+      bypass                     = "AzureServices"
+      default_action             = "Deny"
+      ip_rules                   = [data.http.ipinfo[0].response_body]
+      virtual_network_subnet_ids = []
+    }
+  ]
   tags = local.tags
+}
+
+module "key_vault_diagnostic_setting" {
+  source                     = "../monitor_diagnostic_setting"
+  count                      = var.key_vault ? 1 : 0
+  target_resource_id         = module.key_vault[0].id
+  log_analytics_workspace_id = module.log_analytics_workspace.id
 }

@@ -42,6 +42,7 @@ resource "azurerm_key_vault" "this" {
   enabled_for_template_deployment = var.enabled_for_template_deployment
   soft_delete_retention_days      = var.soft_delete_retention_days
   purge_protection_enabled        = var.purge_protection_enabled
+  public_network_access_enabled   = var.public_network_access_enabled
   dynamic "access_policy" {
     for_each = var.access_policy
     content {
@@ -59,6 +60,15 @@ resource "azurerm_key_vault" "this" {
       storage_permissions = [
         for storage_permission in access_policy.value.storage_permissions : storage_permission
       ]
+    }
+  }
+  dynamic "network_acls" {
+    for_each = var.network_acls
+    content {
+      bypass                     = network_acls.value.bypass
+      default_action             = network_acls.value.default_action
+      ip_rules                   = network_acls.value.ip_rules
+      virtual_network_subnet_ids = network_acls.value.virtual_network_subnet_ids
     }
   }
   tags = local.tags
