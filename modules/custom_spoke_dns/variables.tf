@@ -109,7 +109,7 @@ variable "private_endpoint_zones" {
     # "privatelink.table.cosmos.azure.com",
     # "privatelink.tip1.powerquery.microsoft.com",
     # "privatelink.token.botframework.com",
-    # "privatelink.vaultcore.azure.net",
+    "privatelink.vaultcore.azure.net",
     # "privatelink.web.core.windows.net",
     # "privatelink.westeurope.kusto.windows.net",
     # "privatelink.workspace.azurehealthcareapis.com",

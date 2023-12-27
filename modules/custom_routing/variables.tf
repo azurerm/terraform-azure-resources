@@ -32,9 +32,16 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "default_next_hop" {
+variable "routing_type" {
+  description = "(Optional) The routing behavior of the Route Table. Valid values are default and private."
+  type        = string
+  default     = "default"
+}
+
+variable "next_hop" {
   description = "(Optional) The IP address packets should be forwarded to when they don't match any of the routes in the route table."
   type        = string
+  default     = ""
 }
 
 variable "subnet_id" {

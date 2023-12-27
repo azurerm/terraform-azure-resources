@@ -74,9 +74,11 @@ No providers.
 | <a name="module_route_to_spoke_dns"></a> [route\_to\_spoke\_dns](#module\_route\_to\_spoke\_dns) | ../route | n/a |
 | <a name="module_route_to_spoke_jumphost"></a> [route\_to\_spoke\_jumphost](#module\_route\_to\_spoke\_jumphost) | ../route | n/a |
 | <a name="module_spoke"></a> [spoke](#module\_spoke) | ../custom_spoke | n/a |
+| <a name="module_spoke_dmz"></a> [spoke\_dmz](#module\_spoke\_dmz) | ../custom_spoke_dmz | n/a |
 | <a name="module_spoke_dns"></a> [spoke\_dns](#module\_spoke\_dns) | ../custom_spoke_dns | n/a |
 | <a name="module_spoke_jumphost"></a> [spoke\_jumphost](#module\_spoke\_jumphost) | ../custom_spoke_jumphost | n/a |
 | <a name="module_virtual_network_peerings"></a> [virtual\_network\_peerings](#module\_virtual\_network\_peerings) | ../virtual_network_peerings | n/a |
+| <a name="module_virtual_network_peerings_dmz"></a> [virtual\_network\_peerings\_dmz](#module\_virtual\_network\_peerings\_dmz) | ../virtual_network_peerings | n/a |
 | <a name="module_virtual_network_peerings_dns"></a> [virtual\_network\_peerings\_dns](#module\_virtual\_network\_peerings\_dns) | ../virtual_network_peerings | n/a |
 | <a name="module_virtual_network_peerings_jumphost"></a> [virtual\_network\_peerings\_jumphost](#module\_virtual\_network\_peerings\_jumphost) | ../virtual_network_peerings | n/a |
 
@@ -90,6 +92,7 @@ No resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_address_space_hub"></a> [address\_space\_hub](#input\_address\_space\_hub) | (Required) The address space that is used the Hub. | `list(string)` | n/a | yes |
 | <a name="input_address_space_spoke"></a> [address\_space\_spoke](#input\_address\_space\_spoke) | (Required) The address space that is used the Virtual Network. | <pre>list(object({<br>    workload      = string<br>    environment   = string<br>    instance      = string<br>    address_space = list(string)<br>  }))</pre> | n/a | yes |
+| <a name="input_address_space_spoke_dmz"></a> [address\_space\_spoke\_dmz](#input\_address\_space\_spoke\_dmz) | (Optional) The address space that is used the Virtual Network. | `list(string)` | `null` | no |
 | <a name="input_address_space_spoke_dns"></a> [address\_space\_spoke\_dns](#input\_address\_space\_spoke\_dns) | (Optional) The address space that is used the Virtual Network. | `list(string)` | `null` | no |
 | <a name="input_address_space_spoke_jumphost"></a> [address\_space\_spoke\_jumphost](#input\_address\_space\_spoke\_jumphost) | (Optional) The address space that is used the Virtual Network. | `list(string)` | `null` | no |
 | <a name="input_bastion"></a> [bastion](#input\_bastion) | (Optional) Include a Bastion Host. | `bool` | `true` | no |
@@ -101,9 +104,11 @@ No resources.
 | <a name="input_key_vault"></a> [key\_vault](#input\_key\_vault) | (Optional) Include a Key Vault. | `bool` | `true` | no |
 | <a name="input_location"></a> [location](#input\_location) | (Required) The location/region where the Virtual Network is created. Changing this forces a new resource to be created. | `string` | n/a | yes |
 | <a name="input_module_tags"></a> [module\_tags](#input\_module\_tags) | (Optional) Include the default tags? | `bool` | `true` | no |
+| <a name="input_spoke_dmz"></a> [spoke\_dmz](#input\_spoke\_dmz) | (Optional) Include a DMZ Spoke. | `bool` | `false` | no |
 | <a name="input_spoke_dns"></a> [spoke\_dns](#input\_spoke\_dns) | (Optional) Include a Spoke DNS. | `bool` | `true` | no |
 | <a name="input_spoke_jumphost"></a> [spoke\_jumphost](#input\_spoke\_jumphost) | (Optional) Include a Spoke Jump Host. | `bool` | `false` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `null` | no |
+| <a name="input_web_application_firewall"></a> [web\_application\_firewall](#input\_web\_application\_firewall) | (Optional) Include a WAF. | `bool` | `false` | no |
 | <a name="input_workload"></a> [workload](#input\_workload) | (Optional) The usage of the Hub. | `string` | `"hub"` | no |
 
 ## Outputs

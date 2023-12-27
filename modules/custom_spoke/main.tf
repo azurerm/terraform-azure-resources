@@ -81,7 +81,7 @@ module "routing" {
   workload            = var.workload
   instance            = var.instance
   resource_group_name = module.resource_group.name
-  default_next_hop    = var.default_next_hop
+  next_hop            = var.default_next_hop
   subnet_id           = module.subnet[count.index].id
   tags                = local.tags
 }

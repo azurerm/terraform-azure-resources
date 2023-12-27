@@ -35,11 +35,42 @@ module "route_table" {
 
 module "route" {
   source                 = "../route"
+  count                  = var.routing_type == "default" ? 1 : 0
   resource_group_name    = var.resource_group_name
   route_table_name       = module.route_table.name
   address_prefix         = "0.0.0.0/0"
   next_hop_type          = "VirtualAppliance"
-  next_hop_in_ip_address = var.default_next_hop
+  next_hop_in_ip_address = var.next_hop
+}
+
+module "route_net10" {
+  source                 = "../route"
+  count                  = var.routing_type == "private" ? 1 : 0
+  resource_group_name    = var.resource_group_name
+  route_table_name       = module.route_table.name
+  address_prefix         = "10.0.0.0/8"
+  next_hop_type          = "VirtualAppliance"
+  next_hop_in_ip_address = var.next_hop
+}
+
+module "route_net172" {
+  source                 = "../route"
+  count                  = var.routing_type == "private" ? 1 : 0
+  resource_group_name    = var.resource_group_name
+  route_table_name       = module.route_table.name
+  address_prefix         = "172.16.0.0/12"
+  next_hop_type          = "VirtualAppliance"
+  next_hop_in_ip_address = var.next_hop
+}
+
+module "route_net192" {
+  source                 = "../route"
+  count                  = var.routing_type == "private" ? 1 : 0
+  resource_group_name    = var.resource_group_name
+  route_table_name       = module.route_table.name
+  address_prefix         = "192.168.0.0/16"
+  next_hop_type          = "VirtualAppliance"
+  next_hop_in_ip_address = var.next_hop
 }
 
 module "subnet_route_table_association" {

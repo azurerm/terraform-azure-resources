@@ -37,3 +37,8 @@ output "route_table_name" {
   description = "The name of the Route Table."
   value       = (var.gateway && var.firewall) ? module.route_table_gateway[0].name : null
 }
+
+output "log_analytics_workspace_id" {
+  description = "The ID of the Log Analytics Workspace."
+  value       = module.log_analytics_workspace.id
+}

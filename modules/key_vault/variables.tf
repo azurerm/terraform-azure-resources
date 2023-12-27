@@ -73,6 +73,12 @@ variable "purge_protection_enabled" {
   default     = false
 }
 
+variable "public_network_access_enabled" {
+  description = "(Optional) Is Public Network Access Enabled for this Key Vault?"
+  type        = bool
+  default     = true
+}
+
 variable "access_policy" {
   description = "(Optional) A list of Access Policies which should be set on the Key Vault."
   type = list(object({
@@ -82,6 +88,17 @@ variable "access_policy" {
     secret_permissions      = list(string)
     certificate_permissions = list(string)
     storage_permissions     = list(string)
+  }))
+  default = []
+}
+
+variable "network_acls" {
+  description = "(Optional) A list of Network ACLs which should be set on the Key Vault."
+  type = list(object({
+    bypass                     = string
+    default_action             = string
+    ip_rules                   = list(string)
+    virtual_network_subnet_ids = list(string)
   }))
   default = []
 }
