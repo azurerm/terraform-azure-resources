@@ -60,13 +60,13 @@ variable "sku_tier" {
 variable "min_capacity" {
   description = "(Optional) The minimum number of instances to use when autoscaling."
   type        = number
-  default     = 0
+  default     = 1
 }
 
 variable "max_capacity" {
   description = "(Optional) The maximum number of instances to use when autoscaling."
   type        = number
-  default     = 2
+  default     = 3
 }
 
 variable "ip_configuration_name" {

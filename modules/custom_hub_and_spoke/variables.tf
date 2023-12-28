@@ -59,10 +59,11 @@ variable "key_vault" {
 variable "address_space_spoke" {
   description = "(Required) The address space that is used the Virtual Network."
   type = list(object({
-    workload      = string
-    environment   = string
-    instance      = string
-    address_space = list(string)
+    workload        = string
+    environment     = string
+    instance        = string
+    address_space   = list(string)
+    virtual_machine = bool
   }))
 }
 

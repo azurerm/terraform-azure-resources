@@ -64,12 +64,14 @@ No requirements.
 | <a name="module_subnet_firewall"></a> [subnet\_firewall](#module\_subnet\_firewall) | ../subnet | n/a |
 | <a name="module_subnet_gateway"></a> [subnet\_gateway](#module\_subnet\_gateway) | ../subnet | n/a |
 | <a name="module_subnet_route_table_association_gateway"></a> [subnet\_route\_table\_association\_gateway](#module\_subnet\_route\_table\_association\_gateway) | ../subnet_route_table_association | n/a |
+| <a name="module_user_assigned_identity"></a> [user\_assigned\_identity](#module\_user\_assigned\_identity) | ../user_assigned_identity | n/a |
 | <a name="module_virtual_network"></a> [virtual\_network](#module\_virtual\_network) | ../virtual_network | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [azurerm_firewall_policy_rule_collection_group.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/firewall_policy_rule_collection_group) | resource |
 | [azurerm_client_config.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config) | data source |
 | [http_http.ipinfo](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
 
@@ -82,6 +84,7 @@ No requirements.
 | <a name="input_dns_servers"></a> [dns\_servers](#input\_dns\_servers) | (Optional) The DNS servers to be used with the Virtual Network. | `list(string)` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | (Required) The environment of the Virtual Network. | `string` | `"prd"` | no |
 | <a name="input_firewall"></a> [firewall](#input\_firewall) | (Optional) Include a Firewall. | `bool` | `true` | no |
+| <a name="input_firewall_default_rules"></a> [firewall\_default\_rules](#input\_firewall\_default\_rules) | (Optional) Include the default rules for the Firewall. | `bool` | `true` | no |
 | <a name="input_gateway"></a> [gateway](#input\_gateway) | (Optional) Include a Gateway. | `bool` | `true` | no |
 | <a name="input_instance"></a> [instance](#input\_instance) | (Optional) The instance count for the Virtual Network. | `string` | `"001"` | no |
 | <a name="input_key_vault"></a> [key\_vault](#input\_key\_vault) | (Optional) Include a Key Vault. | `bool` | `true` | no |

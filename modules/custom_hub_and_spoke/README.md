@@ -91,7 +91,7 @@ No resources.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_address_space_hub"></a> [address\_space\_hub](#input\_address\_space\_hub) | (Required) The address space that is used the Hub. | `list(string)` | n/a | yes |
-| <a name="input_address_space_spoke"></a> [address\_space\_spoke](#input\_address\_space\_spoke) | (Required) The address space that is used the Virtual Network. | <pre>list(object({<br>    workload      = string<br>    environment   = string<br>    instance      = string<br>    address_space = list(string)<br>  }))</pre> | n/a | yes |
+| <a name="input_address_space_spoke"></a> [address\_space\_spoke](#input\_address\_space\_spoke) | (Required) The address space that is used the Virtual Network. | <pre>list(object({<br>    workload        = string<br>    environment     = string<br>    instance        = string<br>    address_space   = list(string)<br>    virtual_machine = bool<br>  }))</pre> | n/a | yes |
 | <a name="input_address_space_spoke_dmz"></a> [address\_space\_spoke\_dmz](#input\_address\_space\_spoke\_dmz) | (Optional) The address space that is used the Virtual Network. | `list(string)` | `null` | no |
 | <a name="input_address_space_spoke_dns"></a> [address\_space\_spoke\_dns](#input\_address\_space\_spoke\_dns) | (Optional) The address space that is used the Virtual Network. | `list(string)` | `null` | no |
 | <a name="input_address_space_spoke_jumphost"></a> [address\_space\_spoke\_jumphost](#input\_address\_space\_spoke\_jumphost) | (Optional) The address space that is used the Virtual Network. | `list(string)` | `null` | no |

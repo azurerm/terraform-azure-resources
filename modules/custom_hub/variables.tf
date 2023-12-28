@@ -38,6 +38,12 @@ variable "firewall" {
   default     = true
 }
 
+variable "firewall_default_rules" {
+  description = "(Optional) Include the default rules for the Firewall."
+  type        = bool
+  default     = true
+}
+
 variable "gateway" {
   description = "(Optional) Include a Gateway."
   type        = bool
