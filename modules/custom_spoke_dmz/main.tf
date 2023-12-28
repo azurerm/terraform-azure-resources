@@ -19,6 +19,8 @@ locals {
   )
 }
 
+data "azurerm_client_config" "current" {}
+
 module "resource_group" {
   source      = "../resource_group"
   location    = var.location
@@ -84,6 +86,7 @@ module "public_ip" {
   instance            = var.instance
   resource_group_name = module.resource_group.name
   allocation_method   = "Static"
+  domain_name_label   = "x${uuidv5("dns", data.azurerm_client_config.current.subscription_id)}"
   tags                = local.tags
 }
 

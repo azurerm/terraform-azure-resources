@@ -117,14 +117,14 @@ resource "azurerm_firewall_policy_rule_collection_group" "this" {
   count              = var.firewall ? 1 : 0
   name               = "jumphost-rules"
   firewall_policy_id = var.firewall_policy_id
-  priority           = 100
+  priority           = 200
 
   nat_rule_collection {
     name     = "internet-to-jumphost"
     priority = 100
     action   = "Dnat"
     rule {
-      name                = "internet-to-linux-jumphost-tcp-22"
+      name                = "internet-linuxjumphost-ssh"
       protocols           = ["TCP"]
       source_addresses    = [data.http.ipinfo.response_body]
       destination_address = var.firewall_public_ip
@@ -133,7 +133,7 @@ resource "azurerm_firewall_policy_rule_collection_group" "this" {
       translated_port     = "22"
     }
     rule {
-      name                = "internet-to-windows-jumphost-tcp-3389"
+      name                = "internet-windowsjumphost-rdp"
       protocols           = ["TCP"]
       source_addresses    = [data.http.ipinfo.response_body]
       destination_address = var.firewall_public_ip
@@ -148,14 +148,14 @@ resource "azurerm_firewall_policy_rule_collection_group" "this" {
     priority = 200
     action   = "Allow"
     rule {
-      name                  = "jumphost-to-linux-tcp-22"
+      name                  = "jumphost-internal-ssh"
       protocols             = ["TCP"]
       source_addresses      = [module.linux_virtual_machine[0].private_ip_address, module.windows_virtual_machine[0].private_ip_address]
       destination_addresses = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
       destination_ports     = ["22"]
     }
     rule {
-      name                  = "jumphost-to-windows-tcp-3389"
+      name                  = "jumphost-internal-rdp"
       protocols             = ["TCP"]
       source_addresses      = [module.linux_virtual_machine[0].private_ip_address, module.windows_virtual_machine[0].private_ip_address]
       destination_addresses = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]

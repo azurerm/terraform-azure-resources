@@ -179,6 +179,38 @@ module "firewall_workbook" {
   resource_group_name = module.resource_group.name
 }
 
+resource "azurerm_firewall_policy_rule_collection_group" "this" {
+  count              = (var.firewall && var.firewall_default_rules) ? 1 : 0
+  name               = "default-rules"
+  firewall_policy_id = module.firewall_policy[0].id
+  priority           = 100
+
+  network_rule_collection {
+    name     = "internal"
+    priority = 100
+    action   = "Allow"
+    rule {
+      name                  = "private-private-any"
+      protocols             = ["TCP", "UDP", "ICMP"]
+      source_addresses      = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+      destination_addresses = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+      destination_ports     = ["*"]
+    }
+  }
+  network_rule_collection {
+    name     = "web"
+    priority = 200
+    action   = "Allow"
+    rule {
+      name                  = "private-internet-web"
+      protocols             = ["TCP"]
+      source_addresses      = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+      destination_addresses = ["*"]
+      destination_ports     = ["80", "443"]
+    }
+  }
+}
+
 module "subnet_bastion" {
   source               = "../subnet"
   count                = var.bastion ? 1 : 0
@@ -218,6 +250,15 @@ module "bastion_diagnostic_setting" {
   log_analytics_workspace_id = module.log_analytics_workspace.id
 }
 
+module "user_assigned_identity" {
+  source              = "../user_assigned_identity"
+  location            = var.location
+  environment         = var.environment
+  workload            = var.workload
+  instance            = var.instance
+  resource_group_name = module.resource_group.name
+}
+
 module "key_vault" {
   source              = "../key_vault"
   count               = var.key_vault ? 1 : 0
@@ -241,9 +282,60 @@ module "key_vault" {
         "Restore",
         "Purge"
       ]
-      key_permissions         = []
-      certificate_permissions = []
-      storage_permissions     = []
+      key_permissions = []
+      certificate_permissions = [
+        "Get",
+        "List",
+        "Update",
+        "Create",
+        "Import",
+        "Delete",
+        "Recover",
+        "Backup",
+        "Restore",
+        "ManageContacts",
+        "ManageIssuers",
+        "GetIssuers",
+        "ListIssuers",
+        "SetIssuers",
+        "DeleteIssuers",
+        "Purge"
+      ]
+      storage_permissions = []
+    },
+    {
+      tenant_id = data.azurerm_client_config.current.tenant_id
+      object_id = module.user_assigned_identity.uuid
+      secret_permissions = [
+        "Get",
+        "List",
+        "Set",
+        "Delete",
+        "Recover",
+        "Backup",
+        "Restore",
+        "Purge"
+      ]
+      key_permissions = []
+      certificate_permissions = [
+        "Get",
+        "List",
+        "Update",
+        "Create",
+        "Import",
+        "Delete",
+        "Recover",
+        "Backup",
+        "Restore",
+        "ManageContacts",
+        "ManageIssuers",
+        "GetIssuers",
+        "ListIssuers",
+        "SetIssuers",
+        "DeleteIssuers",
+        "Purge"
+      ]
+      storage_permissions = []
     }
   ]
   network_acls = [
