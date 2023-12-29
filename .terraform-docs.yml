@@ -9,13 +9,3 @@ content: |-
   ```
 
   {{ .Requirements }}
-
-  {{ .Providers }}
-
-  {{ .Modules }}
-
-  {{ .Resources }}
-
-  {{ .Inputs }}
-
-  {{ .Outputs }}  

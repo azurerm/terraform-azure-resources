@@ -56,8 +56,8 @@ variable "key_vault" {
   default     = true
 }
 
-variable "address_space_spoke" {
-  description = "(Required) The address space that is used the Virtual Network."
+variable "address_space_spokes" {
+  description = "(Optional) The address space that is used the Virtual Network."
   type = list(object({
     workload        = string
     environment     = string
@@ -65,6 +65,7 @@ variable "address_space_spoke" {
     address_space   = list(string)
     virtual_machine = bool
   }))
+  default = []
 }
 
 variable "spoke_dns" {

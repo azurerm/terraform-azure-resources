@@ -9,7 +9,7 @@ terraform {
 locals {
   module_tags = tomap(
     {
-      terraform-azurerm-module = "routing"
+      terraform-azurerm-composable-level1 = "routing"
     }
   )
 

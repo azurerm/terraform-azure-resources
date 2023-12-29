@@ -9,7 +9,7 @@ terraform {
 locals {
   module_tags = tomap(
     {
-      terraform-azurerm-composable = "custom_spoke"
+      terraform-azurerm-composable-level2 = "custom_spoke"
     }
   )
 
