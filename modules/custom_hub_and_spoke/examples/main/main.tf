@@ -16,7 +16,7 @@ module "custom_hub_and_spoke" {
   source            = "azurerm/resources/azure//modules/custom_hub_and_spoke"
   location          = "westeurope"
   address_space_hub = ["10.100.0.0/24"]
-  address_space_spoke = [
+  address_space_spokes = [
     {
       workload      = "app1"
       environment   = "dev"
