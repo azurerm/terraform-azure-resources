@@ -9,7 +9,7 @@ terraform {
 locals {
   module_tags = tomap(
     {
-      terraform-azurerm-composable = "custom_standalone_site"
+      terraform-azurerm-composable-level1 = "custom_standalone_site"
     }
   )
 

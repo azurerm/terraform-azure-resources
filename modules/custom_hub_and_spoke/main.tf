@@ -9,7 +9,7 @@ terraform {
 locals {
   module_tags = tomap(
     {
-      terraform-azurerm-composable = "custom_hub_and_spoke"
+      terraform-azurerm-composable-level3 = "custom_hub_and_spoke"
     }
   )
 
@@ -47,7 +47,7 @@ module "hub" {
 
 module "spoke" {
   source                  = "../custom_spoke"
-  for_each                = { for spoke in var.address_space_spoke : "${spoke.workload}-${spoke.environment}-${spoke.instance}" => spoke }
+  for_each                = { for spoke in var.address_space_spokes : "${spoke.workload}-${spoke.environment}-${spoke.instance}" => spoke }
   location                = var.location
   environment             = each.value.environment
   workload                = each.value.workload
