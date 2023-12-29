@@ -13,7 +13,7 @@ provider "azurerm" {
 }
 
 module "custom_hub_and_spoke" {
-  source                   = "./modules/custom_hub_and_spoke"
+  source                   = "../../modules/custom_hub_and_spoke"
   location                 = "francecentral"
   firewall                 = true
   gateway                  = true
