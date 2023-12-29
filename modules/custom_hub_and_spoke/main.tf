@@ -99,7 +99,7 @@ module "key_vault_secret" {
 
 module "spoke_dns" {
   source           = "../custom_spoke_dns"
-  count            = var.spoke_dns ? 1 : 0
+  count            = (var.spoke_dns && var.address_space_spoke_dns != null) ? 1 : 0
   location         = var.location
   address_space    = var.address_space_spoke_dns
   firewall         = var.firewall
@@ -108,7 +108,7 @@ module "spoke_dns" {
 
 module "virtual_network_peerings_dns" {
   source                                = "../virtual_network_peerings"
-  count                                 = var.spoke_dns ? 1 : 0
+  count                                 = (var.spoke_dns && var.address_space_spoke_dns != null) ? 1 : 0
   virtual_network_1_resource_group_name = module.hub.resource_group_name
   virtual_network_1_id                  = module.hub.virtual_network_id
   virtual_network_1_hub                 = var.gateway
@@ -123,7 +123,7 @@ module "virtual_network_peerings_dns" {
 
 module "route_to_spoke_dns" {
   source                 = "../route"
-  count                  = (var.gateway && var.firewall && var.spoke_dns) ? 1 : 0
+  count                  = (var.gateway && var.firewall && var.spoke_dns && var.address_space_spoke_dns != null) ? 1 : 0
   resource_group_name    = module.hub.resource_group_name
   route_table_name       = module.hub.route_table_name
   address_prefix         = module.spoke_dns[0].address_space[0]
@@ -133,7 +133,7 @@ module "route_to_spoke_dns" {
 
 module "spoke_jumphost" {
   source             = "../custom_spoke_jumphost"
-  count              = var.spoke_jumphost ? 1 : 0
+  count              = (var.spoke_jumphost && var.address_space_spoke_jumphost != null) ? 1 : 0
   location           = var.location
   address_space      = var.address_space_spoke_jumphost
   dns_servers        = local.vnet_dns_servers
@@ -145,7 +145,7 @@ module "spoke_jumphost" {
 
 module "virtual_network_peerings_jumphost" {
   source                                = "../virtual_network_peerings"
-  count                                 = var.spoke_jumphost ? 1 : 0
+  count                                 = (var.spoke_jumphost && var.address_space_spoke_jumphost != null) ? 1 : 0
   virtual_network_1_resource_group_name = module.hub.resource_group_name
   virtual_network_1_id                  = module.hub.virtual_network_id
   virtual_network_1_hub                 = var.gateway
@@ -160,7 +160,7 @@ module "virtual_network_peerings_jumphost" {
 
 module "route_to_spoke_jumphost" {
   source                 = "../route"
-  count                  = (var.gateway && var.firewall && var.spoke_jumphost) ? 1 : 0
+  count                  = (var.gateway && var.firewall && var.spoke_jumphost && var.address_space_spoke_jumphost != null) ? 1 : 0
   resource_group_name    = module.hub.resource_group_name
   route_table_name       = module.hub.route_table_name
   address_prefix         = module.spoke_jumphost[0].address_space[0]
@@ -183,7 +183,7 @@ module "key_vault_secret_jumphost" {
 
 module "spoke_dmz" {
   source                     = "../custom_spoke_dmz"
-  count                      = var.spoke_dmz ? 1 : 0
+  count                      = (var.spoke_dmz && var.address_space_spoke_dmz != null) ? 1 : 0
   location                   = var.location
   address_space              = var.address_space_spoke_dmz
   dns_servers                = local.vnet_dns_servers
@@ -195,7 +195,7 @@ module "spoke_dmz" {
 
 module "virtual_network_peerings_dmz" {
   source                                = "../virtual_network_peerings"
-  count                                 = var.spoke_dmz ? 1 : 0
+  count                                 = (var.spoke_dmz && var.address_space_spoke_dmz != null) ? 1 : 0
   virtual_network_1_resource_group_name = module.hub.resource_group_name
   virtual_network_1_id                  = module.hub.virtual_network_id
   virtual_network_1_hub                 = var.gateway

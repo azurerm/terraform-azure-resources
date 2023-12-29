@@ -106,7 +106,6 @@ module "application_gateway" {
 }
 
 module "application_gateway_diagnostic_setting" {
-  count                      = var.log_analytics_workspace_id != null ? 1 : 0
   source                     = "../monitor_diagnostic_setting"
   target_resource_id         = module.application_gateway.id
   log_analytics_workspace_id = var.log_analytics_workspace_id
