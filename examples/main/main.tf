@@ -14,7 +14,6 @@ provider "azurerm" {
 
 module "custom_hub_and_spoke" {
   source                   = "azurerm/resources/azure//modules/custom_hub_and_spoke"
-  version                  = "1.0.1"
   location                 = "francecentral"
   firewall                 = true
   gateway                  = true
