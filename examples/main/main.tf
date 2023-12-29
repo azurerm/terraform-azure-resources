@@ -13,7 +13,8 @@ provider "azurerm" {
 }
 
 module "custom_hub_and_spoke" {
-  source                   = "../../modules/custom_hub_and_spoke"
+  source                   = "azurerm/resources/azure//modules/custom_hub_and_spoke"
+  version                  = "1.0.1"
   location                 = "francecentral"
   firewall                 = true
   gateway                  = true
@@ -21,7 +22,7 @@ module "custom_hub_and_spoke" {
   address_space_hub        = ["10.100.0.0/24"]
   spoke_dns                = true
   address_space_spoke_dns  = ["10.100.1.0/24"]
-  spoke_jumphost           = true
+  spoke_dmz                = true
   address_space_spoke_dmz  = ["10.100.2.0/24"]
   web_application_firewall = true
   address_space_spokes = [
