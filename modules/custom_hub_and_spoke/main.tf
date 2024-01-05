@@ -56,7 +56,7 @@ module "spoke" {
   windows_virtual_machine = each.value.virtual_machine
   dns_servers             = local.vnet_dns_servers
   firewall                = var.firewall
-  default_next_hop        = var.firewall ? module.hub.firewall_private_ip_address : ""
+  next_hop                = var.firewall ? module.hub.firewall_private_ip_address : ""
 }
 
 module "virtual_network_peerings" {

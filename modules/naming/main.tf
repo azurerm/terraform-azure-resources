@@ -1407,6 +1407,46 @@ locals {
       scope       = "resourceGroup"
       regex       = "^[^*<>%:{}&#.,?\\+\\/]+[^*<>%:{}&#.,?\\+\\/ ]$"
     }
+    monitor_data_collection_rule = {
+      name        = substr(join("-", compact([local.prefix, "mdcr", local.suffix])), 0, 260)
+      name_unique = substr(join("-", compact([local.prefix, "mdcr", local.suffix_unique])), 0, 260)
+      dashes      = true
+      slug        = "mdcr"
+      min_length  = 1
+      max_length  = 260
+      scope       = "resourceGroup"
+      regex       = "^[^*<>%:&?\\+\\/]+[^*<>%:&?\\+\\/ ]$"
+    }
+    monitor_data_collection_endpoint = {
+      name        = substr(join("-", compact([local.prefix, "mdce", local.suffix])), 0, 260)
+      name_unique = substr(join("-", compact([local.prefix, "mdce", local.suffix_unique])), 0, 260)
+      dashes      = true
+      slug        = "mdce"
+      min_length  = 1
+      max_length  = 260
+      scope       = "resourceGroup"
+      regex       = "^[^*<>%:&?\\+\\/]+[^*<>%:&?\\+\\/ ]$"
+    }
+    monitor_private_link_scope = {
+      name        = substr(join("-", compact([local.prefix, "mpls", local.suffix])), 0, 260)
+      name_unique = substr(join("-", compact([local.prefix, "mpls", local.suffix_unique])), 0, 260)
+      dashes      = true
+      slug        = "mpls"
+      min_length  = 1
+      max_length  = 260
+      scope       = "resourceGroup"
+      regex       = "^[^*<>%:&?\\+\\/]+[^*<>%:&?\\+\\/ ]$"
+    }
+    monitor_private_link_scoped_service = {
+      name        = substr(join("-", compact([local.prefix, "mplss", local.suffix])), 0, 260)
+      name_unique = substr(join("-", compact([local.prefix, "mplss", local.suffix_unique])), 0, 260)
+      dashes      = true
+      slug        = "mplss"
+      min_length  = 1
+      max_length  = 260
+      scope       = "resourceGroup"
+      regex       = "^[^*<>%:&?\\+\\/]+[^*<>%:&?\\+\\/ ]$"
+    }
     mssql_database = {
       name        = substr(join("-", compact([local.prefix, "sqldb", local.suffix])), 0, 128)
       name_unique = substr(join("-", compact([local.prefix, "sqldb", local.suffix_unique])), 0, 128)

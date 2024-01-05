@@ -60,14 +60,8 @@ variable "firewall" {
   default     = false
 }
 
-variable "default_next_hop" {
+variable "next_hop" {
   description = "(Optional) The default next hop of the Virtual Network."
-  type        = string
-  default     = ""
-}
-
-variable "private_next_hop" {
-  description = "(Optional) The private next hop of the Virtual Network."
   type        = string
   default     = ""
 }

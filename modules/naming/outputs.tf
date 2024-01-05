@@ -698,6 +698,28 @@ output "monitor_scheduled_query_rules_alert" {
   description = "Monitor Scheduled Query Rules Alert"
 }
 
+output "monitor_data_collection_rule" {
+  value       = local.az.monitor_data_collection_rule
+  description = "Monitor Data Collection Rule"
+}
+
+output "monitor_data_collection_endpoint" {
+  value       = local.az.monitor_data_collection_endpoint
+  description = "Monitor Data Collection Endpoint"
+}
+
+output "monitor_private_link_scope" {
+  value       = local.az.monitor_private_link_scope
+  description = "Monitor Private Link Scope"
+
+
+}
+
+output "monitor_private_link_scoped_service" {
+  value       = local.az.monitor_private_link_scoped_service
+  description = "Monitor Private Link Scoped Service"
+}
+
 output "mssql_database" {
   value       = local.az.mssql_database
   description = "Mssql Database"
