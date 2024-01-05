@@ -22,3 +22,8 @@ output "address_space" {
   description = "The address space of the virtual network."
   value       = var.address_space
 }
+
+output "private_dns_zone" {
+  description = "The IDs of the private DNS zones."
+  value       = module.private_dns_zone
+}

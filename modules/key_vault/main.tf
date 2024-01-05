@@ -28,7 +28,12 @@ module "locations" {
 
 module "naming" {
   source = "../naming"
-  suffix = [var.workload, var.environment, module.locations.short_name, var.instance]
+  suffix = [var.workload, var.environment, module.locations.short_name, var.instance, random_integer.this.id]
+}
+
+resource "random_integer" "this" {
+  min = 1000
+  max = 9999
 }
 
 resource "azurerm_key_vault" "this" {
