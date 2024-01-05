@@ -47,7 +47,7 @@ variable "private_endpoint_zones" {
     "privatelink.monitor.azure.com",
     "privatelink.ods.opinsights.azure.com",
     "privatelink.oms.opinsights.azure.com",
-    "privatelink.vaultcore.azure.net",    
+    "privatelink.vaultcore.azure.net",
     # "privatelink.1.azurestaticapps.net",
     # "privatelink.2.azurestaticapps.net",
     # "privatelink.3.azurestaticapps.net",
