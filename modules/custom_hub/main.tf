@@ -226,7 +226,7 @@ resource "azurerm_firewall_policy_rule_collection_group" "this" {
       source_addresses      = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
       destination_addresses = ["51.145.123.29"]
       destination_ports     = ["123"]
-    }    
+    }
   }
 }
 
