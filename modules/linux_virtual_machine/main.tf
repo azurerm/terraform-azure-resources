@@ -85,7 +85,7 @@ resource "azurerm_linux_virtual_machine" "this" {
     version   = var.source_image_reference_version
   }
   dynamic "identity" {
-    for_each = var.identity_type == "SystemAssigned" ? [1] : []
+    for_each = var.identity_type != "None" ? [1] : []
     content {
       type         = var.identity_type
       identity_ids = var.identity_ids
@@ -93,4 +93,35 @@ resource "azurerm_linux_virtual_machine" "this" {
   }
   custom_data = var.run_bootstrap == true ? coalesce(var.custom_data, base64encode("${path.module}/cloud-init.txt")) : null
   tags        = local.tags
+}
+
+module "monitor_agent" {
+  source                     = "../virtual_machine_extension"
+  count                      = var.monitor_agent ? 1 : 0
+  virtual_machine_id         = azurerm_linux_virtual_machine.this.id
+  publisher                  = var.monitor_agent_publisher
+  type                       = var.monitor_agent_type
+  type_handler_version       = var.monitor_agent_type_handler_version
+  automatic_upgrade_enabled  = var.monitor_agent_automatic_upgrade_enabled
+  auto_upgrade_minor_version = var.monitor_agent_auto_upgrade_minor_version
+
+  depends_on = [
+    azurerm_linux_virtual_machine.this
+  ]
+}
+
+module "agents" {
+  source                     = "../virtual_machine_extension"
+  for_each                   = var.agents
+  virtual_machine_id         = azurerm_linux_virtual_machine.this.id
+  publisher                  = each.value.publisher
+  type                       = each.value.type
+  type_handler_version       = each.value.type_handler_version
+  automatic_upgrade_enabled  = each.value.automatic_upgrade_enabled
+  auto_upgrade_minor_version = each.value.auto_upgrade_minor_version
+  settings                   = each.value.settings
+
+  depends_on = [
+    azurerm_linux_virtual_machine.this
+  ]
 }

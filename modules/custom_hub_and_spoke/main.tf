@@ -55,8 +55,10 @@ module "spoke" {
   linux_virtual_machine   = each.value.virtual_machine
   windows_virtual_machine = each.value.virtual_machine
   dns_servers             = local.vnet_dns_servers
-  firewall                = var.firewall
-  next_hop                = var.firewall ? module.hub.firewall_private_ip_address : ""
+  monitor_agent           = var.private_monitoring
+
+  firewall = var.firewall
+  next_hop = var.firewall ? module.hub.firewall_private_ip_address : ""
 }
 
 module "virtual_network_peerings" {
@@ -206,4 +208,52 @@ module "virtual_network_peerings_dmz" {
     module.hub,
     module.spoke_dmz
   ]
+}
+
+module "custom_monitoring" {
+  source                     = "../custom_monitoring"
+  count                      = (var.private_monitoring && var.address_space_spoke_private_monitoring != null) ? 1 : 0
+  location                   = var.location
+  address_space              = var.address_space_spoke_private_monitoring
+  dns_servers                = local.vnet_dns_servers
+  firewall                   = var.firewall
+  next_hop                   = var.firewall ? module.hub.firewall_private_ip_address : ""
+  log_analytics_workspace_id = module.hub.log_analytics_workspace_id
+  private_dns_zone_ids = [
+    module.spoke_dns[0].private_dns_zones["privatelink.monitor.azure.com"]["id"],
+    module.spoke_dns[0].private_dns_zones["privatelink.agentsvc.azure-automation.net"]["id"],
+    module.spoke_dns[0].private_dns_zones["privatelink.ods.opinsights.azure.com"]["id"],
+    module.spoke_dns[0].private_dns_zones["privatelink.oms.opinsights.azure.com"]["id"],
+    module.spoke_dns[0].private_dns_zones["privatelink.blob.core.windows.net"]["id"],
+  ]
+}
+
+module "virtual_network_peerings_monitoring" {
+  source                                = "../virtual_network_peerings"
+  count                                 = (var.private_monitoring && var.address_space_spoke_private_monitoring != null) ? 1 : 0
+  virtual_network_1_resource_group_name = module.hub.resource_group_name
+  virtual_network_1_id                  = module.hub.virtual_network_id
+  virtual_network_1_hub                 = var.gateway
+  virtual_network_2_resource_group_name = module.custom_monitoring[0].resource_group_name
+  virtual_network_2_id                  = module.custom_monitoring[0].virtual_network_id
+
+  depends_on = [
+    module.hub,
+    module.custom_monitoring
+  ]
+}
+
+module "data_collection_rule_association" {
+  source                  = "../monitor_data_collection_rule_association"
+  for_each                = var.private_monitoring ? merge([for k, v in module.spoke : v.virtual_machines]...) : {}
+  name                    = "${each.key}-dcra"
+  target_resource_id      = each.value.id
+  data_collection_rule_id = module.custom_monitoring[0].monitor_data_collection_rule_id
+}
+
+module "data_collection_endpoint_association" {
+  source                      = "../monitor_data_collection_rule_association"
+  for_each                    = var.private_monitoring ? merge([for k, v in module.spoke : v.virtual_machines]...) : {}
+  target_resource_id          = each.value.id
+  data_collection_endpoint_id = module.custom_monitoring[0].monitor_data_collection_endpoint_id
 }

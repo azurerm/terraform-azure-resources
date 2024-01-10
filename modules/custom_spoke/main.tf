@@ -20,6 +20,7 @@ locals {
 
   linux_virtual_machines = {
     for linux in module.linux_virtual_machine : linux.name => {
+      id                        = linux.id
       admin_username            = linux.admin_username
       admin_password            = linux.admin_password
       source_image_reference_id = linux.source_image_reference_offer
@@ -29,6 +30,7 @@ locals {
 
   windows_virtual_machines = {
     for windows in module.windows_virtual_machine : windows.name => {
+      id                        = windows.id
       admin_username            = windows.admin_username
       admin_password            = windows.admin_password
       source_image_reference_id = windows.source_image_reference_offer
@@ -95,6 +97,8 @@ module "linux_virtual_machine" {
   instance            = format("%03d", count.index + 1)
   resource_group_name = module.resource_group.name
   subnet_id           = module.subnet[count.index].id
+  monitor_agent       = var.monitor_agent
+  identity_type       = var.monitor_agent ? "SystemAssigned" : "None"
   tags                = local.tags
 }
 
@@ -107,5 +111,7 @@ module "windows_virtual_machine" {
   instance            = format("%03d", count.index + 1)
   resource_group_name = module.resource_group.name
   subnet_id           = module.subnet[count.index].id
+  monitor_agent       = var.monitor_agent
+  identity_type       = var.monitor_agent ? "SystemAssigned" : "None"
   tags                = local.tags
 }

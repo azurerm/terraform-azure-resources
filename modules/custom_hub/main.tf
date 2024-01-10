@@ -209,6 +209,25 @@ resource "azurerm_firewall_policy_rule_collection_group" "this" {
       destination_ports     = ["80", "443"]
     }
   }
+  network_rule_collection {
+    name     = "admin"
+    priority = 300
+    action   = "Allow"
+    rule {
+      name                  = "private-azure-kms"
+      protocols             = ["TCP"]
+      source_addresses      = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+      destination_addresses = ["20.118.99.224", "40.83.235.53"]
+      destination_ports     = ["1688"]
+    }
+    rule {
+      name                  = "private-azure-ntp"
+      protocols             = ["UDP"]
+      source_addresses      = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+      destination_addresses = ["51.145.123.29"]
+      destination_ports     = ["123"]
+    }    
+  }
 }
 
 module "subnet_bastion" {

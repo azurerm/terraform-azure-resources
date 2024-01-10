@@ -110,6 +110,18 @@ variable "web_application_firewall" {
   default     = false
 }
 
+variable "private_monitoring" {
+  description = "(Optional) Include a Private Monitoring."
+  type        = bool
+  default     = false
+}
+
+variable "address_space_spoke_private_monitoring" {
+  description = "(Optional) The address space that is used the Virtual Network."
+  type        = list(string)
+  default     = null
+}
+
 variable "module_tags" {
   description = "(Optional) Include the default tags?"
   type        = bool

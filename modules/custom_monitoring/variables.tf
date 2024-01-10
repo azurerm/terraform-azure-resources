@@ -1,11 +1,13 @@
 variable "workload" {
   description = "(Required) The usage or application of the Virtual Network."
   type        = string
+  default     = "mon"
 }
 
 variable "environment" {
   description = "(Required) The environment of the Virtual Network."
   type        = string
+  default     = "prd"
 }
 
 variable "location" {
@@ -30,30 +32,6 @@ variable "dns_servers" {
   default     = null
 }
 
-variable "subnet_count" {
-  description = "(Optional) The number of subnets to be created within the Virtual Network."
-  type        = number
-  default     = 1
-}
-
-variable "linux_virtual_machine" {
-  description = "(Optional) Include one Linux VM created per subnet."
-  type        = bool
-  default     = true
-}
-
-variable "windows_virtual_machine" {
-  description = "(Optional) Include one Windows VM created per subnet."
-  type        = bool
-  default     = true
-}
-
-variable "virtual_machine_size" {
-  description = "(Optional) The size of the Virtual Machine."
-  type        = string
-  default     = "Standard_B1ls"
-}
-
 variable "firewall" {
   description = "(Optional) Firewall in Hub?."
   type        = bool
@@ -66,10 +44,16 @@ variable "next_hop" {
   default     = ""
 }
 
-variable "monitor_agent" {
-  description = "(Optional) Include monitoring."
-  type        = bool
-  default     = false
+variable "log_analytics_workspace_id" {
+  description = "(Optional) The ID of the Log Analytics Workspace to log Application Gateway."
+  type        = string
+  default     = ""
+}
+
+variable "private_dns_zone_ids" {
+  description = "(Optional) The ID of the Private DNS Zone to link to the Virtual Network."
+  type        = list(string)
+  default     = []
 }
 
 variable "module_tags" {

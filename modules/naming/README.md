@@ -186,7 +186,11 @@ No modules.
 | <a name="output_mariadb_virtual_network_rule"></a> [mariadb\_virtual\_network\_rule](#output\_mariadb\_virtual\_network\_rule) | Mariadb Virtual Network Rule |
 | <a name="output_monitor_action_group"></a> [monitor\_action\_group](#output\_monitor\_action\_group) | Monitor Action Group |
 | <a name="output_monitor_autoscale_setting"></a> [monitor\_autoscale\_setting](#output\_monitor\_autoscale\_setting) | Monitor Autoscale Setting |
+| <a name="output_monitor_data_collection_endpoint"></a> [monitor\_data\_collection\_endpoint](#output\_monitor\_data\_collection\_endpoint) | Monitor Data Collection Endpoint |
+| <a name="output_monitor_data_collection_rule"></a> [monitor\_data\_collection\_rule](#output\_monitor\_data\_collection\_rule) | Monitor Data Collection Rule |
 | <a name="output_monitor_diagnostic_setting"></a> [monitor\_diagnostic\_setting](#output\_monitor\_diagnostic\_setting) | Monitor Diagnostic Setting |
+| <a name="output_monitor_private_link_scope"></a> [monitor\_private\_link\_scope](#output\_monitor\_private\_link\_scope) | Monitor Private Link Scope |
+| <a name="output_monitor_private_link_scoped_service"></a> [monitor\_private\_link\_scoped\_service](#output\_monitor\_private\_link\_scoped\_service) | Monitor Private Link Scoped Service |
 | <a name="output_monitor_scheduled_query_rules_alert"></a> [monitor\_scheduled\_query\_rules\_alert](#output\_monitor\_scheduled\_query\_rules\_alert) | Monitor Scheduled Query Rules Alert |
 | <a name="output_mssql_database"></a> [mssql\_database](#output\_mssql\_database) | Mssql Database |
 | <a name="output_mssql_elasticpool"></a> [mssql\_elasticpool](#output\_mssql\_elasticpool) | Mssql Elasticpool |

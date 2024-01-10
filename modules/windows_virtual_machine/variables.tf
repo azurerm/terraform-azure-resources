@@ -181,6 +181,55 @@ variable "identity_ids" {
   default     = []
 }
 
+variable "monitor_agent" {
+  description = "(Optional) Install the Azure Monitor Agent?"
+  type        = bool
+  default     = false
+}
+
+variable "monitor_agent_publisher" {
+  description = "(Optional) The name of the extension publisher."
+  type        = string
+  default     = "Microsoft.Azure.Monitor"
+}
+
+variable "monitor_agent_type" {
+  description = "(Optional) The type of the extension."
+  type        = string
+  default     = "AzureMonitorWindowsAgent"
+}
+
+variable "monitor_agent_type_handler_version" {
+  description = "(Optional) Specifies the version of the script handler."
+  type        = string
+  default     = "1.22"
+}
+
+variable "monitor_agent_automatic_upgrade_enabled" {
+  description = "(Optional) Should the extension be automatically upgraded when a new version is published?"
+  type        = bool
+  default     = true
+}
+
+variable "monitor_agent_auto_upgrade_minor_version" {
+  description = "(Optional) Should the extension be automatically upgraded across minor versions when Azure updates the extension?"
+  type        = bool
+  default     = true
+}
+
+variable "agents" {
+  description = "(Optional) A map of agents to install."
+  type = map(object({
+    publisher                  = string
+    type                       = string
+    type_handler_version       = string
+    automatic_upgrade_enabled  = bool
+    auto_upgrade_minor_version = bool
+    settings                   = string
+  }))
+  default = {}
+}
+
 variable "module_tags" {
   description = "(Optional) Include the default tags?"
   type        = bool

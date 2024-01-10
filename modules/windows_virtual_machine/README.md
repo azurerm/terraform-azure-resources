@@ -75,7 +75,9 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_agents"></a> [agents](#module\_agents) | ../virtual_machine_extension | n/a |
 | <a name="module_locations"></a> [locations](#module\_locations) | ../locations | n/a |
+| <a name="module_monitor_agent"></a> [monitor\_agent](#module\_monitor\_agent) | ../virtual_machine_extension | n/a |
 | <a name="module_naming"></a> [naming](#module\_naming) | ../naming | n/a |
 
 ## Resources
@@ -92,6 +94,7 @@ No requirements.
 |------|-------------|------|---------|:--------:|
 | <a name="input_admin_password"></a> [admin\_password](#input\_admin\_password) | (Optional) The password of the local administrator to be created on the Virtual Machine. | `string` | `""` | no |
 | <a name="input_admin_username"></a> [admin\_username](#input\_admin\_username) | (Optional) The username of the local administrator to be created on the Virtual Machine. | `string` | `"azureuser"` | no |
+| <a name="input_agents"></a> [agents](#input\_agents) | (Optional) A map of agents to install. | <pre>map(object({<br>    publisher                  = string<br>    type                       = string<br>    type_handler_version       = string<br>    automatic_upgrade_enabled  = bool<br>    auto_upgrade_minor_version = bool<br>    settings                   = string<br>  }))</pre> | `{}` | no |
 | <a name="input_custom_name"></a> [custom\_name](#input\_custom\_name) | (Optional) The name of the Virtual Network. | `string` | `""` | no |
 | <a name="input_custom_network_interface_name"></a> [custom\_network\_interface\_name](#input\_custom\_network\_interface\_name) | (Optional) The name of the Network Interface. | `string` | `""` | no |
 | <a name="input_custom_os_disk_name"></a> [custom\_os\_disk\_name](#input\_custom\_os\_disk\_name) | (Optional) The name of the OS Disk. | `string` | `""` | no |
@@ -105,6 +108,12 @@ No requirements.
 | <a name="input_license_type"></a> [license\_type](#input\_license\_type) | (Optional) The license type which should be used for the Virtual Machine. | `string` | `"None"` | no |
 | <a name="input_location"></a> [location](#input\_location) | (Required) The location/region where the Virtual Network is created. Changing this forces a new resource to be created. | `string` | n/a | yes |
 | <a name="input_module_tags"></a> [module\_tags](#input\_module\_tags) | (Optional) Include the default tags? | `bool` | `true` | no |
+| <a name="input_monitor_agent"></a> [monitor\_agent](#input\_monitor\_agent) | (Optional) Install the Azure Monitor Agent? | `bool` | `false` | no |
+| <a name="input_monitor_agent_auto_upgrade_minor_version"></a> [monitor\_agent\_auto\_upgrade\_minor\_version](#input\_monitor\_agent\_auto\_upgrade\_minor\_version) | (Optional) Should the extension be automatically upgraded across minor versions when Azure updates the extension? | `bool` | `true` | no |
+| <a name="input_monitor_agent_automatic_upgrade_enabled"></a> [monitor\_agent\_automatic\_upgrade\_enabled](#input\_monitor\_agent\_automatic\_upgrade\_enabled) | (Optional) Should the extension be automatically upgraded when a new version is published? | `bool` | `true` | no |
+| <a name="input_monitor_agent_publisher"></a> [monitor\_agent\_publisher](#input\_monitor\_agent\_publisher) | (Optional) The name of the extension publisher. | `string` | `"Microsoft.Azure.Monitor"` | no |
+| <a name="input_monitor_agent_type"></a> [monitor\_agent\_type](#input\_monitor\_agent\_type) | (Optional) The type of the extension. | `string` | `"AzureMonitorWindowsAgent"` | no |
+| <a name="input_monitor_agent_type_handler_version"></a> [monitor\_agent\_type\_handler\_version](#input\_monitor\_agent\_type\_handler\_version) | (Optional) Specifies the version of the script handler. | `string` | `"1.22"` | no |
 | <a name="input_os_disk_caching"></a> [os\_disk\_caching](#input\_os\_disk\_caching) | (Optional) The Type of Caching which should be used for the Virtual Machine's OS Disk. | `string` | `"ReadWrite"` | no |
 | <a name="input_os_disk_size"></a> [os\_disk\_size](#input\_os\_disk\_size) | (Optional) The size of the OS Disk which should be attached to the Virtual Machine. | `number` | `128` | no |
 | <a name="input_os_disk_type"></a> [os\_disk\_type](#input\_os\_disk\_type) | (Optional) The type of OS Disk which should be attached to the Virtual Machine. | `string` | `"Standard_LRS"` | no |
