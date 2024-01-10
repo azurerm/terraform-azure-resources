@@ -23,7 +23,7 @@ output "address_space" {
   value       = var.address_space
 }
 
-output "private_dns_zone" {
+output "private_dns_zones" {
   description = "The IDs of the private DNS zones."
-  value       = module.private_dns_zone
+  value       = module.private_dns_zones
 }

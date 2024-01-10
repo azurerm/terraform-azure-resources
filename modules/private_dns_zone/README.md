@@ -74,3 +74,4 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The ID of the Private DNS Zone. |
+| <a name="output_name"></a> [name](#output\_name) | The name of the Private DNS Zone. |

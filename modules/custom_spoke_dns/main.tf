@@ -126,7 +126,7 @@ module "private_dns_resolver_dns_forwarding_ruleset" {
   tags                                       = local.tags
 }
 
-module "private_dns_resolver_forwarding_rule" {
+module "private_dns_resolver_forwarding_rules" {
   source                    = "../private_dns_resolver_forwarding_rule"
   for_each                  = { for rule in var.dns_forwarding_rules : rule.domain_name => rule }
   dns_forwarding_ruleset_id = module.private_dns_resolver_dns_forwarding_ruleset.id
@@ -134,7 +134,7 @@ module "private_dns_resolver_forwarding_rule" {
   target_dns_servers        = each.value.target_dns_servers
 }
 
-module "private_dns_zone" {
+module "private_dns_zones" {
   source               = "../private_dns_zone"
   for_each             = toset(var.private_endpoint_zones)
   name                 = each.value
