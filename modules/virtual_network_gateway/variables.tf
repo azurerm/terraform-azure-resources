@@ -60,7 +60,7 @@ variable "enable_bgp" {
 variable "sku" {
   description = "(Optional) The Sku name of the Virtual Network Gateway."
   type        = string
-  default     = "VpnGw2AZ"
+  default     = "VpnGw1AZ"
 }
 
 variable "asn" {

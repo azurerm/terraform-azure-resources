@@ -9,7 +9,7 @@ terraform {
 locals {
   module_tags = tomap(
     {
-      terraform-azurerm-composable = "custom_hub"
+      terraform-azurerm-composable-level2 = "custom_hub"
     }
   )
 
@@ -43,6 +43,7 @@ module "log_analytics_workspace" {
   workload            = var.workload
   instance            = var.instance
   resource_group_name = module.resource_group.name
+  tags                = local.tags
 }
 
 module "virtual_network" {
@@ -75,6 +76,7 @@ module "public_ip_gateway" {
   workload            = "gw"
   instance            = var.instance
   resource_group_name = module.resource_group.name
+  tags                = local.tags
 }
 
 module "gateway" {
@@ -87,6 +89,9 @@ module "gateway" {
   resource_group_name  = module.resource_group.name
   public_ip_address_id = module.public_ip_gateway[0].id
   subnet_id            = module.subnet_gateway[0].id
+  type                 = var.gateway_type
+  sku                  = var.gateway_sku
+  tags                 = local.tags
 }
 
 module "gateway_diagnostic_setting" {
@@ -136,6 +141,7 @@ module "public_ip_firewall" {
   workload            = "fw"
   instance            = var.instance
   resource_group_name = module.resource_group.name
+  tags                = local.tags
 }
 
 module "firewall_policy" {
@@ -163,6 +169,8 @@ module "firewall" {
   public_ip_address_id       = module.public_ip_firewall[0].id
   subnet_id                  = module.subnet_firewall[0].id
   log_analytics_workspace_id = module.log_analytics_workspace.id
+  sku_tier                   = var.firewall_sku
+  tags                       = local.tags
 }
 
 module "firewall_diagnostic_setting" {
@@ -177,6 +185,7 @@ module "firewall_workbook" {
   count               = var.firewall ? 1 : 0
   location            = var.location
   resource_group_name = module.resource_group.name
+  tags                = local.tags
 }
 
 resource "azurerm_firewall_policy_rule_collection_group" "this" {
@@ -248,6 +257,7 @@ module "public_ip_bastion" {
   workload            = "bas"
   instance            = var.instance
   resource_group_name = module.resource_group.name
+  tags                = local.tags
 }
 
 module "bastion" {
@@ -260,6 +270,8 @@ module "bastion" {
   resource_group_name  = module.resource_group.name
   public_ip_address_id = module.public_ip_bastion[0].id
   subnet_id            = module.subnet_bastion[0].id
+  sku                  = var.bastion_sku
+  tags                 = local.tags
 }
 
 module "bastion_diagnostic_setting" {
@@ -276,6 +288,7 @@ module "user_assigned_identity" {
   workload            = var.workload
   instance            = var.instance
   resource_group_name = module.resource_group.name
+  tags                = local.tags
 }
 
 module "key_vault" {

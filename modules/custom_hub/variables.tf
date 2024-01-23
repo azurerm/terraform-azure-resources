@@ -44,16 +44,40 @@ variable "firewall_default_rules" {
   default     = true
 }
 
+variable "firewall_sku" {
+  description = "(Optional) The SKU of the Firewall."
+  type        = string
+  default     = "Standard"
+}
+
 variable "gateway" {
   description = "(Optional) Include a Gateway."
   type        = bool
   default     = true
 }
 
+variable "gateway_type" {
+  description = "(Optional) The type of the Gateway."
+  type        = string
+  default     = "Vpn"
+}
+
+variable "gateway_sku" {
+  description = "(Optional) The SKU of the Gateway."
+  type        = string
+  default     = "VpnGw1"
+}
+
 variable "bastion" {
   description = "(Optional) Include a Bastion Host."
   type        = bool
   default     = true
+}
+
+variable "bastion_sku" {
+  description = "(Optional) The SKU of the Bastion Host."
+  type        = string
+  default     = "Basic"
 }
 
 variable "key_vault" {

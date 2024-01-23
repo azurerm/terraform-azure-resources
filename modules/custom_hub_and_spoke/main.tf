@@ -41,8 +41,13 @@ module "hub" {
   address_space = var.address_space_hub
   dns_servers   = local.hub_dns_servers
   firewall      = var.firewall
+  firewall_sku  = var.firewall_sku
   gateway       = var.gateway
+  gateway_type  = var.gateway_type
+  gateway_sku   = var.gateway_sku
   bastion       = var.bastion
+  bastion_sku   = var.bastion_sku
+  tags          = local.tags
 }
 
 module "spoke" {
@@ -56,9 +61,9 @@ module "spoke" {
   windows_virtual_machine = each.value.virtual_machine
   dns_servers             = local.vnet_dns_servers
   monitor_agent           = var.private_monitoring
-
-  firewall = var.firewall
-  next_hop = var.firewall ? module.hub.firewall_private_ip_address : ""
+  firewall                = var.firewall
+  next_hop                = var.firewall ? module.hub.firewall_private_ip_address : ""
+  tags                    = local.tags
 }
 
 module "virtual_network_peerings" {
@@ -106,6 +111,7 @@ module "spoke_dns" {
   address_space    = var.address_space_spoke_dns
   firewall         = var.firewall
   default_next_hop = var.firewall ? module.hub.firewall_private_ip_address : null
+  tags             = local.tags
 }
 
 module "virtual_network_peerings_dns" {
@@ -143,6 +149,7 @@ module "spoke_jumphost" {
   firewall           = var.firewall
   firewall_policy_id = module.hub.firewall_policy_id
   firewall_public_ip = module.hub.firewall_public_ip_address
+  tags               = local.tags
 }
 
 module "virtual_network_peerings_jumphost" {
@@ -193,6 +200,7 @@ module "spoke_dmz" {
   firewall                   = var.firewall
   next_hop                   = var.firewall ? module.hub.firewall_private_ip_address : ""
   log_analytics_workspace_id = module.hub.log_analytics_workspace_id
+  tags                       = local.tags
 }
 
 module "virtual_network_peerings_dmz" {
@@ -226,6 +234,7 @@ module "custom_monitoring" {
     module.spoke_dns[0].private_dns_zones["privatelink.oms.opinsights.azure.com"]["id"],
     module.spoke_dns[0].private_dns_zones["privatelink.blob.core.windows.net"]["id"],
   ]
+  tags = local.tags
 }
 
 module "virtual_network_peerings_monitoring" {
