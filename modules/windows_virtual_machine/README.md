@@ -79,6 +79,7 @@ No requirements.
 | <a name="module_locations"></a> [locations](#module\_locations) | ../locations | n/a |
 | <a name="module_monitor_agent"></a> [monitor\_agent](#module\_monitor\_agent) | ../virtual_machine_extension | n/a |
 | <a name="module_naming"></a> [naming](#module\_naming) | ../naming | n/a |
+| <a name="module_watcher_agent"></a> [watcher\_agent](#module\_watcher\_agent) | ../virtual_machine_extension | n/a |
 
 ## Resources
 
@@ -130,6 +131,12 @@ No requirements.
 | <a name="input_source_image_reference_version"></a> [source\_image\_reference\_version](#input\_source\_image\_reference\_version) | (Optional) The version of the image which should be used for the Virtual Machine. | `string` | `"latest"` | no |
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | (Required) The ID of the Subnet which should be used with the Network Interface. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `null` | no |
+| <a name="input_watcher_agent"></a> [watcher\_agent](#input\_watcher\_agent) | (Optional) Install the Azure Monitor Agent? | `bool` | `false` | no |
+| <a name="input_watcher_agent_auto_upgrade_minor_version"></a> [watcher\_agent\_auto\_upgrade\_minor\_version](#input\_watcher\_agent\_auto\_upgrade\_minor\_version) | (Optional) Should the extension be automatically upgraded across minor versions when Azure updates the extension? | `bool` | `true` | no |
+| <a name="input_watcher_agent_automatic_upgrade_enabled"></a> [watcher\_agent\_automatic\_upgrade\_enabled](#input\_watcher\_agent\_automatic\_upgrade\_enabled) | (Optional) Should the extension be automatically upgraded when a new version is published? | `bool` | `true` | no |
+| <a name="input_watcher_agent_publisher"></a> [watcher\_agent\_publisher](#input\_watcher\_agent\_publisher) | (Optional) The name of the extension publisher. | `string` | `"Microsoft.Azure.NetworkWatcher"` | no |
+| <a name="input_watcher_agent_type"></a> [watcher\_agent\_type](#input\_watcher\_agent\_type) | (Optional) The type of the extension. | `string` | `"NetworkWatcherAgentWindows"` | no |
+| <a name="input_watcher_agent_type_handler_version"></a> [watcher\_agent\_type\_handler\_version](#input\_watcher\_agent\_type\_handler\_version) | (Optional) Specifies the version of the script handler. | `string` | `"1.4"` | no |
 | <a name="input_workload"></a> [workload](#input\_workload) | (Optional) The usage or application of the Virtual Network. | `string` | `""` | no |
 | <a name="input_zone"></a> [zone](#input\_zone) | (Optional) The Availability Zone which the Virtual Machine should be allocated in. | `number` | `null` | no |
 

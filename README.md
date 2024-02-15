@@ -9,9 +9,9 @@ It can help you to create a Azure Resources with a simple way.
 Resources are available in the [Terraform Registry](https://registry.terraform.io/modules/azurerm/resources/azure/latest/).
 
 Unit modules are available in the [modules](modules) directory based on the resource name.  
-Composable modules are available in the [modules](modules) directory with custom prefix.
+Composable/pattern modules are available in the [modules](modules) directory with pattern prefix.
 
-The main goal of this set was to deploy a full Hub and Spoke architecture based on best pratices and my own experience. Naming of the resource is based on [Azure naming convention](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming).
+The main goal of this set was to deploy a full Hub and Spoke architecture based on best practices and my own experience. Naming of the resource is based on [Azure naming convention](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming).
 
 The gouvernance is not managed (yet) by this set of modules.
 
@@ -34,7 +34,6 @@ Depending of your needs, you can include or not the following resources:
 - No gouvernance (Azure Policy, ...)
 - No Network Security Group (NSG), security rules are managed by Azure Firewall
 - All logs and all metrics are sent to Log Analytics Workspace
-- More services will be added in the future (backup, monitoring, update, ...)
 
 ## Terraform modules
 
@@ -65,18 +64,18 @@ provider "azurerm" {
   features {}
 }
 
-module "custom_hub_and_spoke" {
-  source                       = "./modules/custom_hub_and_spoke"
-  location                     = "francecentral"
-  firewall                     = true
-  gateway                      = true
-  bastion                      = true
-  address_space_hub            = ["10.100.0.0/24"]
-  spoke_dns                    = true
-  address_space_spoke_dns      = ["10.100.1.0/24"]
-  spoke_jumphost               = true
-  address_space_spoke_dmz      = ["10.100.2.0/24"]
-  web_application_firewall     = true
+module "hub_and_spoke" {
+  source                   = "azurerm/resources/azure//modules/pattern_hub_and_spoke"
+  location                 = "francecentral"
+  firewall                 = true
+  gateway                  = true
+  bastion                  = true
+  address_space_hub        = ["10.100.0.0/24"]
+  spoke_dns                = true
+  address_space_spoke_dns  = ["10.100.1.0/24"]
+  spoke_dmz                = true
+  address_space_spoke_dmz  = ["10.100.2.0/24"]
+  web_application_firewall = true
   address_space_spokes = [
     {
       workload        = "shared"
