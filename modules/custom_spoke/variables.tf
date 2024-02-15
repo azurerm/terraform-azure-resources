@@ -72,6 +72,12 @@ variable "monitor_agent" {
   default     = false
 }
 
+variable "watcher_agent" {
+  description = "(Optional) Include watcher."
+  type        = bool
+  default     = false
+}
+
 variable "module_tags" {
   description = "(Optional) Include the default tags?"
   type        = bool

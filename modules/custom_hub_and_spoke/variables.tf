@@ -87,7 +87,7 @@ variable "address_space_spokes" {
     environment     = string
     instance        = string
     address_space   = list(string)
-    virtual_machine = bool
+    virtual_machine = optional(bool, true)
   }))
   default = []
 }
@@ -144,6 +144,12 @@ variable "address_space_spoke_private_monitoring" {
   description = "(Optional) The address space that is used the Virtual Network."
   type        = list(string)
   default     = null
+}
+
+variable "connection_monitor" {
+  description = "(Optional) Include a Network Watcher Connection Monitor."
+  type        = bool
+  default     = false
 }
 
 variable "module_tags" {

@@ -18,6 +18,8 @@ locals {
     var.tags
   )
 
+  virtual_machines = merge([for k, v in module.spoke : v.virtual_machines]...)
+
   #dns_servers = var.dns_servers != null ? var.dns_servers : var.spoke_dns ? [module.spoke_dns[0].inbound_endpoint_ip] : []
   vnet_dns_servers = var.dns_servers != null ? var.dns_servers : var.firewall ? [module.hub.firewall_private_ip_address] : var.spoke_dns ? [module.spoke_dns[0].inbound_endpoint_ip] : []
   hub_dns_servers  = var.dns_servers != null ? var.dns_servers : var.spoke_dns ? [module.spoke_dns[0].inbound_endpoint_ip] : []
@@ -61,6 +63,7 @@ module "spoke" {
   windows_virtual_machine = each.value.virtual_machine
   dns_servers             = local.vnet_dns_servers
   monitor_agent           = var.private_monitoring
+  watcher_agent           = var.connection_monitor
   firewall                = var.firewall
   next_hop                = var.firewall ? module.hub.firewall_private_ip_address : ""
   tags                    = local.tags
@@ -265,4 +268,92 @@ module "data_collection_endpoint_association" {
   for_each                    = var.private_monitoring ? merge([for k, v in module.spoke : v.virtual_machines]...) : {}
   target_resource_id          = each.value.id
   data_collection_endpoint_id = module.custom_monitoring[0].monitor_data_collection_endpoint_id
+}
+
+data "azurerm_network_watcher" "this" {
+  name                = "NetworkWatcher_${var.location}"
+  resource_group_name = "NetworkWatcherRG"
+}
+
+resource "azurerm_network_connection_monitor" "exxternal" {
+  for_each           = var.connection_monitor ? merge([for k, v in module.spoke : v.virtual_machines]...) : {}
+  name               = "Monitor-Internet-${each.key}"
+  network_watcher_id = data.azurerm_network_watcher.this.id
+  location           = data.azurerm_network_watcher.this.location
+
+  endpoint {
+    name               = each.key
+    target_resource_id = each.value.id
+  }
+
+  endpoint {
+    name    = "terraform-io"
+    address = "terraform.io"
+  }
+
+  endpoint {
+    name    = "ifconfig-me"
+    address = "ifconfig.me"
+  }
+
+  test_configuration {
+    name                      = "HttpTestConfiguration"
+    protocol                  = "Http"
+    test_frequency_in_seconds = 60
+
+    http_configuration {
+      port                     = 80
+      valid_status_code_ranges = ["200-399"]
+    }
+  }
+
+  test_configuration {
+    name                      = "TCP443TestConfiguration"
+    protocol                  = "Tcp"
+    test_frequency_in_seconds = 60
+
+    tcp_configuration {
+      port = 443
+    }
+  }
+
+  test_group {
+    name                     = "Monitor-Internet-${each.key}"
+    destination_endpoints    = ["ifconfig-me", "terraform-io"]
+    source_endpoints         = [each.key]
+    test_configuration_names = ["HttpTestConfiguration", "TCP443TestConfiguration"]
+  }
+
+  output_workspace_resource_ids = [module.hub.log_analytics_workspace_id]
+}
+
+
+resource "azurerm_network_connection_monitor" "internal" {
+  count              = var.connection_monitor ? 1 : 0
+  name               = "Monitor-Private"
+  network_watcher_id = data.azurerm_network_watcher.this.id
+  location           = data.azurerm_network_watcher.this.location
+
+  dynamic "endpoint" {
+    for_each = local.virtual_machines
+    content {
+      name               = endpoint.key
+      target_resource_id = endpoint.value.id
+    }
+  }
+
+  test_configuration {
+    name                      = "IcmpTestConfiguration"
+    protocol                  = "Icmp"
+    test_frequency_in_seconds = 60
+  }
+
+  test_group {
+    name                     = "Monitor-Private"
+    destination_endpoints    = [for k, v in local.virtual_machines : k]
+    source_endpoints         = [for k, v in local.virtual_machines : k]
+    test_configuration_names = ["IcmpTestConfiguration"]
+  }
+
+  output_workspace_resource_ids = [module.hub.log_analytics_workspace_id]
 }

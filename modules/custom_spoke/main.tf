@@ -98,6 +98,7 @@ module "linux_virtual_machine" {
   resource_group_name = module.resource_group.name
   subnet_id           = module.subnet[count.index].id
   monitor_agent       = var.monitor_agent
+  watcher_agent       = var.watcher_agent
   identity_type       = var.monitor_agent ? "SystemAssigned" : "None"
   tags                = local.tags
 }
@@ -112,6 +113,7 @@ module "windows_virtual_machine" {
   resource_group_name = module.resource_group.name
   subnet_id           = module.subnet[count.index].id
   monitor_agent       = var.monitor_agent
+  watcher_agent       = var.watcher_agent
   identity_type       = var.monitor_agent ? "SystemAssigned" : "None"
   tags                = local.tags
 }
