@@ -70,25 +70,25 @@ module "hub_and_spoke" {
   firewall                 = true
   gateway                  = true
   bastion                  = true
-  address_space_hub        = ["10.100.0.0/24"]
+  address_space_hub        = ["10.221.0.0/24"]
   spoke_dns                = true
-  address_space_spoke_dns  = ["10.100.1.0/24"]
+  address_space_spoke_dns  = ["10.221.1.0/24"]
   spoke_dmz                = true
-  address_space_spoke_dmz  = ["10.100.2.0/24"]
+  address_space_spoke_dmz  = ["10.221.2.0/24"]
   web_application_firewall = true
   address_space_spokes = [
     {
       workload        = "shared"
       environment     = "prd"
       instance        = "001"
-      address_space   = ["10.100.5.0/24"]
+      address_space   = ["10.221.5.0/24"]
       virtual_machine = false
     },
     {
       workload        = "app1"
       environment     = "dev"
       instance        = "001"
-      address_space   = ["10.100.10.0/24"]
+      address_space   = ["10.221.10.0/24"]
       virtual_machine = true
     }
   ]
