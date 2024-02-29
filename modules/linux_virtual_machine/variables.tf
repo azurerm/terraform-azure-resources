@@ -217,6 +217,37 @@ variable "monitor_agent_auto_upgrade_minor_version" {
   default     = true
 }
 
+variable "dependency_agent_publisher" {
+  description = "(Optional) The name of the extension publisher."
+  type        = string
+  default     = "Microsoft.Azure.Monitoring.DependencyAgent"
+}
+
+variable "dependency_agent_type" {
+  description = "(Optional) The type of the extension."
+  type        = string
+  default     = "DependencyAgentLinux"
+}
+
+variable "dependency_agent_type_handler_version" {
+  description = "(Optional) Specifies the version of the script handler."
+  type        = string
+  default     = "9.5"
+}
+
+variable "dependency_agent_automatic_upgrade_enabled" {
+  description = "(Optional) Should the extension be automatically upgraded when a new version is published?"
+  type        = bool
+  default     = true
+}
+
+variable "dependency_agent_auto_upgrade_minor_version" {
+  description = "(Optional) Should the extension be automatically upgraded across minor versions when Azure updates the extension?"
+  type        = bool
+  default     = true
+}
+
+
 variable "watcher_agent" {
   description = "(Optional) Install the Azure Monitor Agent?"
   type        = bool

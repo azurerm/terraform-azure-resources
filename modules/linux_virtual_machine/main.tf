@@ -110,6 +110,26 @@ module "monitor_agent" {
   ]
 }
 
+module "dependency_agent" {
+  source                     = "../virtual_machine_extension"
+  count                      = var.monitor_agent ? 1 : 0
+  virtual_machine_id         = azurerm_linux_virtual_machine.this.id
+  publisher                  = var.dependency_agent_publisher
+  type                       = var.dependency_agent_type
+  type_handler_version       = var.dependency_agent_type_handler_version
+  automatic_upgrade_enabled  = var.dependency_agent_automatic_upgrade_enabled
+  auto_upgrade_minor_version = var.dependency_agent_auto_upgrade_minor_version
+  settings = jsonencode(
+    {
+      "enableAMA" = "true"
+    }
+  )
+
+  depends_on = [
+    azurerm_linux_virtual_machine.this
+  ]
+}
+
 module "watcher_agent" {
   source                     = "../virtual_machine_extension"
   count                      = var.watcher_agent ? 1 : 0
