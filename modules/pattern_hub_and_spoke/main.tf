@@ -275,7 +275,7 @@ data "azurerm_network_watcher" "this" {
   resource_group_name = "NetworkWatcherRG"
 }
 
-resource "azurerm_network_connection_monitor" "exxternal" {
+resource "azurerm_network_connection_monitor" "external" {
   for_each           = var.connection_monitor ? merge([for k, v in module.spoke : v.virtual_machines]...) : {}
   name               = "Monitor-Internet-${each.key}"
   network_watcher_id = data.azurerm_network_watcher.this.id
@@ -326,7 +326,6 @@ resource "azurerm_network_connection_monitor" "exxternal" {
 
   output_workspace_resource_ids = [module.hub.log_analytics_workspace_id]
 }
-
 
 resource "azurerm_network_connection_monitor" "internal" {
   count              = var.connection_monitor ? 1 : 0

@@ -76,6 +76,7 @@ No requirements.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_agents"></a> [agents](#module\_agents) | ../virtual_machine_extension | n/a |
+| <a name="module_dependency_agent"></a> [dependency\_agent](#module\_dependency\_agent) | ../virtual_machine_extension | n/a |
 | <a name="module_locations"></a> [locations](#module\_locations) | ../locations | n/a |
 | <a name="module_monitor_agent"></a> [monitor\_agent](#module\_monitor\_agent) | ../virtual_machine_extension | n/a |
 | <a name="module_naming"></a> [naming](#module\_naming) | ../naming | n/a |
@@ -99,6 +100,11 @@ No requirements.
 | <a name="input_custom_name"></a> [custom\_name](#input\_custom\_name) | (Optional) The name of the Virtual Network. | `string` | `""` | no |
 | <a name="input_custom_network_interface_name"></a> [custom\_network\_interface\_name](#input\_custom\_network\_interface\_name) | (Optional) The name of the Network Interface. | `string` | `""` | no |
 | <a name="input_custom_os_disk_name"></a> [custom\_os\_disk\_name](#input\_custom\_os\_disk\_name) | (Optional) The name of the OS Disk. | `string` | `""` | no |
+| <a name="input_dependency_agent_auto_upgrade_minor_version"></a> [dependency\_agent\_auto\_upgrade\_minor\_version](#input\_dependency\_agent\_auto\_upgrade\_minor\_version) | (Optional) Should the extension be automatically upgraded across minor versions when Azure updates the extension? | `bool` | `true` | no |
+| <a name="input_dependency_agent_automatic_upgrade_enabled"></a> [dependency\_agent\_automatic\_upgrade\_enabled](#input\_dependency\_agent\_automatic\_upgrade\_enabled) | (Optional) Should the extension be automatically upgraded when a new version is published? | `bool` | `true` | no |
+| <a name="input_dependency_agent_publisher"></a> [dependency\_agent\_publisher](#input\_dependency\_agent\_publisher) | (Optional) The name of the extension publisher. | `string` | `"Microsoft.Azure.Monitoring.DependencyAgent"` | no |
+| <a name="input_dependency_agent_type"></a> [dependency\_agent\_type](#input\_dependency\_agent\_type) | (Optional) The type of the extension. | `string` | `"DependencyAgentWindows"` | no |
+| <a name="input_dependency_agent_type_handler_version"></a> [dependency\_agent\_type\_handler\_version](#input\_dependency\_agent\_type\_handler\_version) | (Optional) Specifies the version of the script handler. | `string` | `"9.10"` | no |
 | <a name="input_enable_accelerated_networking"></a> [enable\_accelerated\_networking](#input\_enable\_accelerated\_networking) | (Optional) Should Accelerated Networking be enabled on the Network Interface? | `bool` | `false` | no |
 | <a name="input_enable_ip_forwarding"></a> [enable\_ip\_forwarding](#input\_enable\_ip\_forwarding) | (Optional) Should IP Forwarding be enabled on the Network Interface? | `bool` | `false` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | (Optional) The environment of the Virtual Network. | `string` | `""` | no |

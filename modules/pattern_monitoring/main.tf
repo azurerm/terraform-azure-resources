@@ -85,7 +85,7 @@ resource "azurerm_monitor_data_collection_rule" "this" {
     }
   }
   data_flow {
-    streams      = ["Microsoft-Syslog", "Microsoft-Event", "Microsoft-InsightsMetrics"]
+    streams      = ["Microsoft-Syslog", "Microsoft-Event", "Microsoft-InsightsMetrics", "Microsoft-ServiceMap"]
     destinations = ["log_analytics"]
   }
   data_sources {
@@ -124,6 +124,11 @@ resource "azurerm_monitor_data_collection_rule" "this" {
       name                          = "VMInsightsPerfCounters"
       sampling_frequency_in_seconds = 60
       streams                       = ["Microsoft-InsightsMetrics"]
+    }
+    extension {
+      extension_name = "DependencyAgent"
+      name           = "DependencyAgentDataSource"
+      streams        = ["Microsoft-ServiceMap"]
     }
   }
 }
