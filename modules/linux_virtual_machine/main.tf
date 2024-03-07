@@ -119,6 +119,7 @@ module "dependency_agent" {
   type_handler_version       = var.dependency_agent_type_handler_version
   automatic_upgrade_enabled  = var.dependency_agent_automatic_upgrade_enabled
   auto_upgrade_minor_version = var.dependency_agent_auto_upgrade_minor_version
+  time_sleep                 = "10s"
   settings = jsonencode(
     {
       "enableAMA" = "true"
@@ -126,7 +127,7 @@ module "dependency_agent" {
   )
 
   depends_on = [
-    azurerm_linux_virtual_machine.this
+    module.monitor_agent
   ]
 }
 

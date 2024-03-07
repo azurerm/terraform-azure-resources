@@ -152,6 +152,12 @@ variable "connection_monitor" {
   default     = false
 }
 
+variable "update_management" {
+  description = "(Optional) Include an Update Management."
+  type        = bool
+  default     = false
+}
+
 variable "module_tags" {
   description = "(Optional) Include the default tags?"
   type        = bool

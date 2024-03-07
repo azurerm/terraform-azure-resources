@@ -69,6 +69,7 @@ No resources.
 | <a name="input_next_hop"></a> [next\_hop](#input\_next\_hop) | (Optional) The default next hop of the Virtual Network. | `string` | `""` | no |
 | <a name="input_subnet_count"></a> [subnet\_count](#input\_subnet\_count) | (Optional) The number of subnets to be created within the Virtual Network. | `number` | `1` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `null` | no |
+| <a name="input_update_management"></a> [update\_management](#input\_update\_management) | (Optional) Include update management. | `bool` | `false` | no |
 | <a name="input_virtual_machine_size"></a> [virtual\_machine\_size](#input\_virtual\_machine\_size) | (Optional) The size of the Virtual Machine. | `string` | `"Standard_B1ls"` | no |
 | <a name="input_watcher_agent"></a> [watcher\_agent](#input\_watcher\_agent) | (Optional) Include watcher. | `bool` | `false` | no |
 | <a name="input_windows_virtual_machine"></a> [windows\_virtual\_machine](#input\_windows\_virtual\_machine) | (Optional) Include one Windows VM created per subnet. | `bool` | `true` | no |

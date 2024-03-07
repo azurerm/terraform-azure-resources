@@ -78,6 +78,12 @@ variable "watcher_agent" {
   default     = false
 }
 
+variable "update_management" {
+  description = "(Optional) Include update management."
+  type        = bool
+  default     = false
+}
+
 variable "module_tags" {
   description = "(Optional) Include the default tags?"
   type        = bool
