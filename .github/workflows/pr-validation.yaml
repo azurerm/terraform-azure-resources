@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: TF Validate
+    name: Terrraform Validation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,10 +14,10 @@ jobs:
         id: fmt
         run: terraform fmt --recursive -check
 
-      # - name: Terraform Init
-      #   id: init
-      #   run: terraform init
+      - name: Terraform Init
+        id: init
+        run: terraform init
 
-      # - name: Terraform Validate
-      #   id: validate
-      #   run: terraform validate -no-color
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color

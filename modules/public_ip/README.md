@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Public IP
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/public_ip)
 
@@ -87,3 +88,4 @@ No requirements.
 | <a name="output_id"></a> [id](#output\_id) | The ID of the Public IP. |
 | <a name="output_ip_address"></a> [ip\_address](#output\_ip\_address) | The IP address associated with the Public IP. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the Public IP. |
+<!-- END_TF_DOCS -->

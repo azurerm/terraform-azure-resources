@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Virtual Network Gateway
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/virtual_network_gateway)
 
@@ -121,3 +122,4 @@ No requirements.
 | <a name="output_id"></a> [id](#output\_id) | The ID of the Virtual Network Gateway. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the Virtual Network Gateway. |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | The name of the resource group in which to create the Virtual Network Gateway. |
+<!-- END_TF_DOCS -->

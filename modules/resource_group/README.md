@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Resource Group
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/resource_group)
 
@@ -71,3 +72,4 @@ No requirements.
 | <a name="output_id"></a> [id](#output\_id) | The ID of the Resource Group. |
 | <a name="output_location"></a> [location](#output\_location) | The location of the Resource Group. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the Resource Group. |
+<!-- END_TF_DOCS -->

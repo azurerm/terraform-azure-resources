@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Log Analytics Workspace
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/log_analytics_workspace)
 
@@ -88,3 +89,4 @@ No requirements.
 | <a name="output_id"></a> [id](#output\_id) | The ID of the Log Analytics Workspace. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the Log Analytics Workspace. |
 | <a name="output_workspace_id"></a> [workspace\_id](#output\_workspace\_id) | The Workspace (or Customer) ID of the Log Analytics Workspace. |
+<!-- END_TF_DOCS -->

@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Monitor Data Collection Rule Association
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/monitor_data_collection_rule_association)
 
@@ -62,3 +63,4 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The ID of the monitor data collection rule association. |
+<!-- END_TF_DOCS -->

@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Private DNS Resolver Forwarding Ruleset
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/private_dns_zone)
 
@@ -75,3 +76,4 @@ No modules.
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The ID of the Private DNS Zone. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the Private DNS Zone. |
+<!-- END_TF_DOCS -->

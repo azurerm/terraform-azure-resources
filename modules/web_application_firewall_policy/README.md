@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Firewall
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/web_application_firewall_policy)
 
@@ -80,3 +81,4 @@ No requirements.
 | Name | Description |
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The ID of the WAF Policy. |
+<!-- END_TF_DOCS -->

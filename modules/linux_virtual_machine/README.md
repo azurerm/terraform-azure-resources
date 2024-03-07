@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Linux Virtual Machine
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/linux_virtual_machine)
 
@@ -157,3 +158,4 @@ No requirements.
 | <a name="output_private_ip_address"></a> [private\_ip\_address](#output\_private\_ip\_address) | The private IP address of the Linux Virtual Machine. |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | The name of the resource group in which the Linux Virtual Machine is created. |
 | <a name="output_source_image_reference_offer"></a> [source\_image\_reference\_offer](#output\_source\_image\_reference\_offer) | The offer of the source image used to create the Linux Virtual Machine. |
+<!-- END_TF_DOCS -->

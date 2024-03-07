@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Key Vault
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/key_vault_secret)
 
@@ -79,3 +80,4 @@ No modules.
 ## Outputs
 
 No outputs.
+<!-- END_TF_DOCS -->

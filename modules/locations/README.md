@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Locations
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/locations)
 
@@ -74,3 +75,4 @@ No resources.
 | <a name="output_paired_region_name"></a> [paired\_region\_name](#output\_paired\_region\_name) | Paired region name of the location. Return 'none' if location is not found and null if there is no paired region name for this location. |
 | <a name="output_regional_display_name"></a> [regional\_display\_name](#output\_regional\_display\_name) | Regional display name of the location. Return 'none' if location is not found. |
 | <a name="output_short_name"></a> [short\_name](#output\_short\_name) | Short name of the location. Return 'none' if location is not found and null if there is no short name for this location. |
+<!-- END_TF_DOCS -->

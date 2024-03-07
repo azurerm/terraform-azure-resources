@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Association subnet / route table
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/subnet_route_table_association)
 
@@ -95,3 +96,4 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The ID of the Subnet Route Table Association. |
+<!-- END_TF_DOCS -->

@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Spoke with Private Monitoring Configuration
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/pattern_monitoring)
 
@@ -80,3 +81,4 @@ No requirements.
 | <a name="output_monitor_data_collection_rule_id"></a> [monitor\_data\_collection\_rule\_id](#output\_monitor\_data\_collection\_rule\_id) | The monitor data collection rule. |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | The name of the resource group of the spoke. |
 | <a name="output_virtual_network_id"></a> [virtual\_network\_id](#output\_virtual\_network\_id) | The ID of the virtual network. |
+<!-- END_TF_DOCS -->
