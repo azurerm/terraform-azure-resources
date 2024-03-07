@@ -17,4 +17,5 @@ jobs:
         recursive: true
         recursive-path: modules
         output-file: README.md
+        output-method: replace
         git-push: "true"
