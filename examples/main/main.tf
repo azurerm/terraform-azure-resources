@@ -13,17 +13,21 @@ provider "azurerm" {
 }
 
 module "hub_and_spoke" {
-  source                   = "azurerm/resources/azure//modules/pattern_hub_and_spoke"
-  location                 = "francecentral"
-  firewall                 = true
-  gateway                  = true
-  bastion                  = true
-  address_space_hub        = ["10.100.0.0/24"]
-  spoke_dns                = true
-  address_space_spoke_dns  = ["10.100.1.0/24"]
-  spoke_dmz                = true
-  address_space_spoke_dmz  = ["10.100.2.0/24"]
-  web_application_firewall = true
+  source                                 = "azurerm/resources/azure//modules/pattern_hub_and_spoke"
+  location                               = "francecentral"
+  firewall                               = true
+  gateway                                = true
+  bastion                                = true
+  address_space_hub                      = ["10.100.0.0/24"]
+  spoke_dns                              = true
+  address_space_spoke_dns                = ["10.100.1.0/24"]
+  spoke_dmz                              = true
+  address_space_spoke_dmz                = ["10.100.2.0/24"]
+  web_application_firewall               = true
+  private_monitoring                     = true
+  address_space_spoke_private_monitoring = ["10.100.3.0/27"]
+  connection_monitor                     = true
+  update_management                      = true
   address_space_spokes = [
     {
       workload        = "shared"
