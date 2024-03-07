@@ -64,6 +64,7 @@ module "spoke" {
   dns_servers             = local.vnet_dns_servers
   monitor_agent           = var.private_monitoring
   watcher_agent           = var.connection_monitor
+  update_management       = var.update_management
   firewall                = var.firewall
   next_hop                = var.firewall ? module.hub.firewall_private_ip_address : ""
   tags                    = local.tags

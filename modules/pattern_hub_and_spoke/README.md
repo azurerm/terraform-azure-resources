@@ -126,6 +126,7 @@ No requirements.
 | <a name="input_spoke_dns"></a> [spoke\_dns](#input\_spoke\_dns) | (Optional) Include a Spoke DNS. | `bool` | `true` | no |
 | <a name="input_spoke_jumphost"></a> [spoke\_jumphost](#input\_spoke\_jumphost) | (Optional) Include a Spoke Jump Host. | `bool` | `false` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `null` | no |
+| <a name="input_update_management"></a> [update\_management](#input\_update\_management) | (Optional) Include an Update Management. | `bool` | `false` | no |
 | <a name="input_web_application_firewall"></a> [web\_application\_firewall](#input\_web\_application\_firewall) | (Optional) Include a WAF. | `bool` | `false` | no |
 | <a name="input_workload"></a> [workload](#input\_workload) | (Optional) The usage of the Hub. | `string` | `"hub"` | no |
 

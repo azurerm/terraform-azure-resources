@@ -89,31 +89,35 @@ module "routing" {
 }
 
 module "linux_virtual_machine" {
-  source              = "../linux_virtual_machine"
-  count               = var.linux_virtual_machine ? var.subnet_count : 0
-  location            = var.location
-  environment         = var.environment
-  workload            = var.workload
-  instance            = format("%03d", count.index + 1)
-  resource_group_name = module.resource_group.name
-  subnet_id           = module.subnet[count.index].id
-  monitor_agent       = var.monitor_agent
-  watcher_agent       = var.watcher_agent
-  identity_type       = var.monitor_agent ? "SystemAssigned" : "None"
-  tags                = local.tags
+  source                = "../linux_virtual_machine"
+  count                 = var.linux_virtual_machine ? var.subnet_count : 0
+  location              = var.location
+  environment           = var.environment
+  workload              = var.workload
+  instance              = format("%03d", count.index + 1)
+  resource_group_name   = module.resource_group.name
+  subnet_id             = module.subnet[count.index].id
+  monitor_agent         = var.monitor_agent
+  watcher_agent         = var.watcher_agent
+  identity_type         = var.monitor_agent ? "SystemAssigned" : "None"
+  patch_mode            = var.update_management ? "AutomaticByPlatform" : "ImageDefault"
+  patch_assessment_mode = var.update_management ? "AutomaticByPlatform" : "ImageDefault"
+  tags                  = local.tags
 }
 
 module "windows_virtual_machine" {
-  source              = "../windows_virtual_machine"
-  count               = var.windows_virtual_machine ? var.subnet_count : 0
-  location            = var.location
-  environment         = var.environment
-  workload            = var.workload
-  instance            = format("%03d", count.index + 1)
-  resource_group_name = module.resource_group.name
-  subnet_id           = module.subnet[count.index].id
-  monitor_agent       = var.monitor_agent
-  watcher_agent       = var.watcher_agent
-  identity_type       = var.monitor_agent ? "SystemAssigned" : "None"
-  tags                = local.tags
+  source                = "../windows_virtual_machine"
+  count                 = var.windows_virtual_machine ? var.subnet_count : 0
+  location              = var.location
+  environment           = var.environment
+  workload              = var.workload
+  instance              = format("%03d", count.index + 1)
+  resource_group_name   = module.resource_group.name
+  subnet_id             = module.subnet[count.index].id
+  monitor_agent         = var.monitor_agent
+  watcher_agent         = var.watcher_agent
+  identity_type         = var.monitor_agent ? "SystemAssigned" : "None"
+  patch_mode            = var.update_management ? "AutomaticByPlatform" : "ImageDefault"
+  patch_assessment_mode = var.update_management ? "AutomaticByPlatform" : "ImageDefault"
+  tags                  = local.tags
 }
