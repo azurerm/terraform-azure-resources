@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Spoke
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/pattern_spoke)
 
@@ -89,3 +90,4 @@ No resources.
 | <a name="output_windows_virtual_machine_admin_password"></a> [windows\_virtual\_machine\_admin\_password](#output\_windows\_virtual\_machine\_admin\_password) | The password of the Windows Virtual Machine. |
 | <a name="output_windows_virtual_machine_admin_username"></a> [windows\_virtual\_machine\_admin\_username](#output\_windows\_virtual\_machine\_admin\_username) | The password of the Windows Virtual Machine. |
 | <a name="output_windows_virtual_machine_name"></a> [windows\_virtual\_machine\_name](#output\_windows\_virtual\_machine\_name) | The name of the Windows Virtual Machine. |
+<!-- END_TF_DOCS -->

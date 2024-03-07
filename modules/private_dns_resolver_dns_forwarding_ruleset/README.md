@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Private DNS Resolver Forwarding Ruleset
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/dns_forwarding_ruleset)
 
@@ -93,3 +94,4 @@ No requirements.
 | Name | Description |
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The ID of the DNS forwarding rule. |
+<!-- END_TF_DOCS -->

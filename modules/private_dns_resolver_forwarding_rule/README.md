@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Private DNS Resolver Forwarding Rule
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/dns_forwarding_rule)
 
@@ -91,3 +92,4 @@ No modules.
 ## Outputs
 
 No outputs.
+<!-- END_TF_DOCS -->

@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Virtual Network Peering
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/virtual_networl_peering)
 
@@ -97,3 +98,4 @@ No requirements.
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The ID of the Virutal Network Peering. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the Virutal Network Peering. |
+<!-- END_TF_DOCS -->

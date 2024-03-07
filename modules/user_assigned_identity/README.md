@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # User Assigned Identity
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/user_assigned_identity)
 
@@ -81,3 +82,4 @@ No requirements.
 | <a name="output_id"></a> [id](#output\_id) | The ID of the User Assigned Identity. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the User Assigned Identity. |
 | <a name="output_uuid"></a> [uuid](#output\_uuid) | The UUID of the User Assigned Identity. |
+<!-- END_TF_DOCS -->

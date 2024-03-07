@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Route Table
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/pattern_routing)
 
@@ -113,3 +114,4 @@ No resources.
 ## Outputs
 
 No outputs.
+<!-- END_TF_DOCS -->

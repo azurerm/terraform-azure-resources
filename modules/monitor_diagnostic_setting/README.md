@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Resource Group
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/monitor_diagnostic_setting)
 
@@ -55,3 +56,4 @@ No requirements.
 ## Outputs
 
 No outputs.
+<!-- END_TF_DOCS -->
