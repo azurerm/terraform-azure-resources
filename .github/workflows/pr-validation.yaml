@@ -14,10 +14,10 @@ jobs:
         id: fmt
         run: terraform fmt --recursive -check
 
-      # - name: Terraform Init
-      #   id: init
-      #   run: terraform init
+      - name: Terraform Init
+        id: init
+        run: terraform init
 
-      # - name: Terraform Validate
-      #   id: validate
-      #   run: terraform validate -no-color
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
