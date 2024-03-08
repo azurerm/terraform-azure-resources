@@ -389,16 +389,16 @@ module "key_vault_diagnostic_setting" {
 }
 
 module "storage_account" {
-  count                         = var.storage_account ? 1 : 0
-  source                        = "../storage_account"
-  location                      = var.location
-  environment                   = var.environment
-  workload                      = var.workload
-  resource_group_name           = module.resource_group.name
-  network_rules_default_action  = "Deny"
-  network_rules_bypass          = ["AzureServices"]
-  network_rules_ip_rules        = [data.http.ipinfo[0].response_body]
-  tags                          = local.tags
+  count                        = var.storage_account ? 1 : 0
+  source                       = "../storage_account"
+  location                     = var.location
+  environment                  = var.environment
+  workload                     = var.workload
+  resource_group_name          = module.resource_group.name
+  network_rules_default_action = "Deny"
+  network_rules_bypass         = ["AzureServices"]
+  network_rules_ip_rules       = [data.http.ipinfo[0].response_body]
+  tags                         = local.tags
 }
 
 # module "storage_account_diagnostic_setting" {
