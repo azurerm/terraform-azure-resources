@@ -61,6 +61,7 @@ No requirements.
 | <a name="module_public_ip_gateway"></a> [public\_ip\_gateway](#module\_public\_ip\_gateway) | ../public_ip | n/a |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | ../resource_group | n/a |
 | <a name="module_route_table_gateway"></a> [route\_table\_gateway](#module\_route\_table\_gateway) | ../route_table | n/a |
+| <a name="module_storage_account"></a> [storage\_account](#module\_storage\_account) | ../storage_account | n/a |
 | <a name="module_subnet_bastion"></a> [subnet\_bastion](#module\_subnet\_bastion) | ../subnet | n/a |
 | <a name="module_subnet_firewall"></a> [subnet\_firewall](#module\_subnet\_firewall) | ../subnet | n/a |
 | <a name="module_subnet_gateway"></a> [subnet\_gateway](#module\_subnet\_gateway) | ../subnet | n/a |
@@ -95,6 +96,7 @@ No requirements.
 | <a name="input_key_vault"></a> [key\_vault](#input\_key\_vault) | (Optional) Include a Key Vault. | `bool` | `true` | no |
 | <a name="input_location"></a> [location](#input\_location) | (Required) The location/region where the Virtual Network is created. Changing this forces a new resource to be created. | `string` | n/a | yes |
 | <a name="input_module_tags"></a> [module\_tags](#input\_module\_tags) | (Optional) Include the default tags? | `bool` | `true` | no |
+| <a name="input_storage_account"></a> [storage\_account](#input\_storage\_account) | (Optional) Include a Storage Account. | `bool` | `true` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `null` | no |
 | <a name="input_workload"></a> [workload](#input\_workload) | (Required) The usage or application of the Virtual Network. | `string` | `"hub"` | no |
 
@@ -107,8 +109,10 @@ No requirements.
 | <a name="output_firewall_public_ip_address"></a> [firewall\_public\_ip\_address](#output\_firewall\_public\_ip\_address) | The public IP address of the Firewall. |
 | <a name="output_key_vault_id"></a> [key\_vault\_id](#output\_key\_vault\_id) | The ID of the Key Vault. |
 | <a name="output_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#output\_log\_analytics\_workspace\_id) | The ID of the Log Analytics Workspace. |
+| <a name="output_log_analytics_workspace_workspace_id"></a> [log\_analytics\_workspace\_workspace\_id](#output\_log\_analytics\_workspace\_workspace\_id) | The resource ID of the Log Analytics Workspace. |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | The name of the resource group of the spoke. |
 | <a name="output_route_table_name"></a> [route\_table\_name](#output\_route\_table\_name) | The name of the Route Table. |
+| <a name="output_storage_account_id"></a> [storage\_account\_id](#output\_storage\_account\_id) | The ID of the Storage Account. |
 | <a name="output_virtual_network_id"></a> [virtual\_network\_id](#output\_virtual\_network\_id) | The ID of the virtual network of the spoke. |
 | <a name="output_virtual_network_name"></a> [virtual\_network\_name](#output\_virtual\_network\_name) | The name of the virtual network of the spoke. |
 <!-- END_TF_DOCS -->

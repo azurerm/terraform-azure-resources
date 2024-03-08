@@ -54,3 +54,8 @@ output "address_space" {
   description = "The address space of the virtual network."
   value       = var.address_space
 }
+
+output "network_security_group_id" {
+  description = "The ID of the Network Security Group."
+  value       = var.network_security_group ? module.network_security_group[0].id : null
+}

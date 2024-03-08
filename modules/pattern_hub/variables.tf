@@ -86,6 +86,12 @@ variable "key_vault" {
   default     = true
 }
 
+variable "storage_account" {
+  description = "(Optional) Include a Storage Account."
+  type        = bool
+  default     = true
+}
+
 variable "module_tags" {
   description = "(Optional) Include the default tags?"
   type        = bool

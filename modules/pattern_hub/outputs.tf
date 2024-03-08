@@ -42,3 +42,13 @@ output "log_analytics_workspace_id" {
   description = "The ID of the Log Analytics Workspace."
   value       = module.log_analytics_workspace.id
 }
+
+output "log_analytics_workspace_workspace_id" {
+  description = "The resource ID of the Log Analytics Workspace."
+  value       = module.log_analytics_workspace.workspace_id
+}
+
+output "storage_account_id" {
+  description = "The ID of the Storage Account."
+  value       = var.storage_account ? module.storage_account[0].id : null
+}
