@@ -84,6 +84,12 @@ variable "update_management" {
   default     = false
 }
 
+variable "network_security_group" {
+  description = "(Optional) Include a Network Security Group."
+  type        = bool
+  default     = false
+}
+
 variable "module_tags" {
   description = "(Optional) Include the default tags?"
   type        = bool

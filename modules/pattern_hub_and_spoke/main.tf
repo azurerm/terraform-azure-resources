@@ -36,20 +36,21 @@ module "naming" {
 }
 
 module "hub" {
-  source        = "../pattern_hub"
-  location      = var.location
-  environment   = var.environment
-  workload      = var.workload
-  address_space = var.address_space_hub
-  dns_servers   = local.hub_dns_servers
-  firewall      = var.firewall
-  firewall_sku  = var.firewall_sku
-  gateway       = var.gateway
-  gateway_type  = var.gateway_type
-  gateway_sku   = var.gateway_sku
-  bastion       = var.bastion
-  bastion_sku   = var.bastion_sku
-  tags          = local.tags
+  source          = "../pattern_hub"
+  location        = var.location
+  environment     = var.environment
+  workload        = var.workload
+  address_space   = var.address_space_hub
+  dns_servers     = local.hub_dns_servers
+  firewall        = var.firewall
+  firewall_sku    = var.firewall_sku
+  gateway         = var.gateway
+  gateway_type    = var.gateway_type
+  gateway_sku     = var.gateway_sku
+  bastion         = var.bastion
+  bastion_sku     = var.bastion_sku
+  storage_account = var.network_security_group
+  tags            = local.tags
 }
 
 module "spoke" {
@@ -65,6 +66,7 @@ module "spoke" {
   monitor_agent           = var.private_monitoring
   watcher_agent           = var.connection_monitor
   update_management       = var.update_management
+  network_security_group  = var.network_security_group
   firewall                = var.firewall
   next_hop                = var.firewall ? module.hub.firewall_private_ip_address : ""
   tags                    = local.tags
@@ -356,4 +358,29 @@ resource "azurerm_network_connection_monitor" "internal" {
   }
 
   output_workspace_resource_ids = [module.hub.log_analytics_workspace_id]
+}
+
+resource "azurerm_network_watcher_flow_log" "this" {
+  for_each             = var.network_security_group ? module.spoke : {}
+  network_watcher_name = data.azurerm_network_watcher.this.name
+  resource_group_name  = data.azurerm_network_watcher.this.resource_group_name
+  name                 = "flowlog-${each.key}"
+
+  network_security_group_id = each.value.network_security_group_id
+  storage_account_id        = module.hub.storage_account_id
+  enabled                   = true
+  version                   = 2
+
+  retention_policy {
+    enabled = true
+    days    = 7
+  }
+
+  traffic_analytics {
+    enabled               = true
+    workspace_id          = module.hub.log_analytics_workspace_workspace_id
+    workspace_region      = var.location
+    workspace_resource_id = module.hub.log_analytics_workspace_id
+    interval_in_minutes   = 10
+  }
 }

@@ -75,6 +75,23 @@ module "subnet" {
   private_endpoint_network_policies_enabled = true
 }
 
+module "network_security_group" {
+  source              = "../network_security_group"
+  count               = var.network_security_group ? 1 : 0
+  location            = var.location
+  environment         = var.environment
+  workload            = var.workload
+  instance            = var.instance
+  resource_group_name = module.resource_group.name
+}
+
+module "subnet_network_security_group_association" {
+  source                    = "../subnet_network_security_group_association"
+  count                     = var.network_security_group ? var.subnet_count : 0
+  network_security_group_id = module.network_security_group[0].id
+  subnet_id                 = module.subnet[count.index].id
+}
+
 module "routing" {
   source              = "../pattern_routing"
   count               = var.firewall ? var.subnet_count : 0

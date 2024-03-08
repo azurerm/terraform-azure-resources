@@ -387,3 +387,23 @@ module "key_vault_diagnostic_setting" {
   target_resource_id         = module.key_vault[0].id
   log_analytics_workspace_id = module.log_analytics_workspace.id
 }
+
+module "storage_account" {
+  count                         = var.storage_account ? 1 : 0
+  source                        = "../storage_account"
+  location                      = var.location
+  environment                   = var.environment
+  workload                      = var.workload
+  resource_group_name           = module.resource_group.name
+  network_rules_default_action  = "Deny"
+  network_rules_bypass          = ["AzureServices"]
+  network_rules_ip_rules        = [data.http.ipinfo[0].response_body]
+  tags                          = local.tags
+}
+
+# module "storage_account_diagnostic_setting" {
+#   source                     = "../monitor_diagnostic_setting"
+#   count                      = var.storage_account ? 1 : 0
+#   target_resource_id         = module.storage_account[0].id
+#   log_analytics_workspace_id = module.log_analytics_workspace.id
+# }
