@@ -37,13 +37,16 @@ No requirements.
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_linux_virtual_machine"></a> [linux\_virtual\_machine](#module\_linux\_virtual\_machine) | ../linux_virtual_machine | n/a |
+| <a name="module_maintenance_configuration"></a> [maintenance\_configuration](#module\_maintenance\_configuration) | ../maintenance_configuration | n/a |
 | <a name="module_network_security_group"></a> [network\_security\_group](#module\_network\_security\_group) | ../network_security_group | n/a |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | ../resource_group | n/a |
 | <a name="module_routing"></a> [routing](#module\_routing) | ../pattern_routing | n/a |
@@ -54,7 +57,10 @@ No providers.
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [azurerm_maintenance_assignment_virtual_machine.linux_virtual_machine](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/maintenance_assignment_virtual_machine) | resource |
+| [azurerm_maintenance_assignment_virtual_machine.windows_virtual_machine](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/maintenance_assignment_virtual_machine) | resource |
 
 ## Inputs
 

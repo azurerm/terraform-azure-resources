@@ -138,3 +138,30 @@ module "windows_virtual_machine" {
   patch_assessment_mode = var.update_management ? "AutomaticByPlatform" : "ImageDefault"
   tags                  = local.tags
 }
+
+module "maintenance_configuration" {
+  source                 = "../maintenance_configuration"
+  count                  = var.update_management ? 1 : 0
+  location               = var.location
+  environment            = var.environment
+  workload               = var.workload
+  instance               = var.instance
+  resource_group_name    = module.resource_group.name
+  scope                  = "InGuestPatch"
+  window_start_date_time = formatdate("YYYY-MM-DD 00:00", timestamp())
+  tags                   = local.tags
+}
+
+resource "azurerm_maintenance_assignment_virtual_machine" "linux_virtual_machine" {
+  count                        = (var.update_management && var.linux_virtual_machine) ? var.subnet_count : 0
+  location                     = var.location
+  maintenance_configuration_id = module.maintenance_configuration[0].id
+  virtual_machine_id           = module.linux_virtual_machine[count.index].id
+}
+
+resource "azurerm_maintenance_assignment_virtual_machine" "windows_virtual_machine" {
+  count                        = (var.update_management && var.windows_virtual_machine) ? var.subnet_count : 0
+  location                     = var.location
+  maintenance_configuration_id = module.maintenance_configuration[0].id
+  virtual_machine_id           = module.windows_virtual_machine[count.index].id
+}
