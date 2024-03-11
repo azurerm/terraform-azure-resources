@@ -421,7 +421,7 @@ module "backup_policy_vm_development" {
 }
 
 resource "azurerm_backup_protected_vm" "this" {
-  for_each = var.backup ? local.virtual_machines : {}
+  for_each            = var.backup ? local.virtual_machines : {}
   resource_group_name = module.hub.resource_group_management_name
   recovery_vault_name = module.recovery_services_vault[0].name
   source_vm_id        = each.value.id
