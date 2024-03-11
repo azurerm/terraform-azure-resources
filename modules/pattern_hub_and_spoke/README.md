@@ -68,6 +68,8 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_backup_policy_vm_development"></a> [backup\_policy\_vm\_development](#module\_backup\_policy\_vm\_development) | ../backup_policy_vm | n/a |
+| <a name="module_backup_policy_vm_production"></a> [backup\_policy\_vm\_production](#module\_backup\_policy\_vm\_production) | ../backup_policy_vm | n/a |
 | <a name="module_data_collection_endpoint_association"></a> [data\_collection\_endpoint\_association](#module\_data\_collection\_endpoint\_association) | ../monitor_data_collection_rule_association | n/a |
 | <a name="module_data_collection_rule_association"></a> [data\_collection\_rule\_association](#module\_data\_collection\_rule\_association) | ../monitor_data_collection_rule_association | n/a |
 | <a name="module_hub"></a> [hub](#module\_hub) | ../pattern_hub | n/a |
@@ -76,6 +78,7 @@ No requirements.
 | <a name="module_locations"></a> [locations](#module\_locations) | ../locations | n/a |
 | <a name="module_naming"></a> [naming](#module\_naming) | ../naming | n/a |
 | <a name="module_pattern_monitoring"></a> [pattern\_monitoring](#module\_pattern\_monitoring) | ../pattern_monitoring | n/a |
+| <a name="module_recovery_services_vault"></a> [recovery\_services\_vault](#module\_recovery\_services\_vault) | ../recovery_services_vault | n/a |
 | <a name="module_route_to_spoke"></a> [route\_to\_spoke](#module\_route\_to\_spoke) | ../route | n/a |
 | <a name="module_route_to_spoke_dns"></a> [route\_to\_spoke\_dns](#module\_route\_to\_spoke\_dns) | ../route | n/a |
 | <a name="module_route_to_spoke_jumphost"></a> [route\_to\_spoke\_jumphost](#module\_route\_to\_spoke\_jumphost) | ../route | n/a |
@@ -93,6 +96,7 @@ No requirements.
 
 | Name | Type |
 |------|------|
+| [azurerm_backup_protected_vm.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_protected_vm) | resource |
 | [azurerm_network_connection_monitor.external](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_connection_monitor) | resource |
 | [azurerm_network_connection_monitor.internal](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_connection_monitor) | resource |
 | [azurerm_network_watcher_flow_log.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_watcher_flow_log) | resource |
@@ -108,6 +112,7 @@ No requirements.
 | <a name="input_address_space_spoke_jumphost"></a> [address\_space\_spoke\_jumphost](#input\_address\_space\_spoke\_jumphost) | (Optional) The address space that is used the Virtual Network. | `list(string)` | `null` | no |
 | <a name="input_address_space_spoke_private_monitoring"></a> [address\_space\_spoke\_private\_monitoring](#input\_address\_space\_spoke\_private\_monitoring) | (Optional) The address space that is used the Virtual Network. | `list(string)` | `null` | no |
 | <a name="input_address_space_spokes"></a> [address\_space\_spokes](#input\_address\_space\_spokes) | (Optional) The address space that is used the Virtual Network. | <pre>list(object({<br>    workload        = string<br>    environment     = string<br>    instance        = string<br>    address_space   = list(string)<br>    virtual_machine = optional(bool, true)<br>  }))</pre> | `[]` | no |
+| <a name="input_backup"></a> [backup](#input\_backup) | (Optional) Include a backup configuration for the Virtual Machine. | `bool` | `false` | no |
 | <a name="input_bastion"></a> [bastion](#input\_bastion) | (Optional) Include a Bastion Host. | `bool` | `true` | no |
 | <a name="input_bastion_sku"></a> [bastion\_sku](#input\_bastion\_sku) | (Optional) The SKU of the Bastion Host. | `string` | `"Basic"` | no |
 | <a name="input_connection_monitor"></a> [connection\_monitor](#input\_connection\_monitor) | (Optional) Include a Network Watcher Connection Monitor. | `bool` | `false` | no |
@@ -128,9 +133,10 @@ No requirements.
 | <a name="input_spoke_dns"></a> [spoke\_dns](#input\_spoke\_dns) | (Optional) Include a Spoke DNS. | `bool` | `true` | no |
 | <a name="input_spoke_jumphost"></a> [spoke\_jumphost](#input\_spoke\_jumphost) | (Optional) Include a Spoke Jump Host. | `bool` | `false` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `null` | no |
-| <a name="input_update_management"></a> [update\_management](#input\_update\_management) | (Optional) Include an Update Management. | `bool` | `false` | no |
+| <a name="input_update_management"></a> [update\_management](#input\_update\_management) | (Optional) Include Update Management for the Virtual Machine. | `bool` | `false` | no |
 | <a name="input_web_application_firewall"></a> [web\_application\_firewall](#input\_web\_application\_firewall) | (Optional) Include a WAF. | `bool` | `false` | no |
 | <a name="input_workload"></a> [workload](#input\_workload) | (Optional) The usage of the Hub. | `string` | `"hub"` | no |
+| <a name="input_workload_management"></a> [workload\_management](#input\_workload\_management) | (Required) Management workload | `string` | `"mgt"` | no |
 
 ## Outputs
 

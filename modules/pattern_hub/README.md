@@ -60,6 +60,7 @@ No requirements.
 | <a name="module_public_ip_firewall"></a> [public\_ip\_firewall](#module\_public\_ip\_firewall) | ../public_ip | n/a |
 | <a name="module_public_ip_gateway"></a> [public\_ip\_gateway](#module\_public\_ip\_gateway) | ../public_ip | n/a |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | ../resource_group | n/a |
+| <a name="module_resource_group_management"></a> [resource\_group\_management](#module\_resource\_group\_management) | ../resource_group | n/a |
 | <a name="module_route_table_gateway"></a> [route\_table\_gateway](#module\_route\_table\_gateway) | ../route_table | n/a |
 | <a name="module_storage_account"></a> [storage\_account](#module\_storage\_account) | ../storage_account | n/a |
 | <a name="module_subnet_bastion"></a> [subnet\_bastion](#module\_subnet\_bastion) | ../subnet | n/a |
@@ -81,24 +82,25 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_address_space"></a> [address\_space](#input\_address\_space) | (Required) The address space that is used the Virtual Network. | `list(string)` | n/a | yes |
+| <a name="input_address_space"></a> [address\_space](#input\_address\_space) | (Required) The address space that is used the Hub. | `list(string)` | n/a | yes |
 | <a name="input_bastion"></a> [bastion](#input\_bastion) | (Optional) Include a Bastion Host. | `bool` | `true` | no |
 | <a name="input_bastion_sku"></a> [bastion\_sku](#input\_bastion\_sku) | (Optional) The SKU of the Bastion Host. | `string` | `"Basic"` | no |
-| <a name="input_dns_servers"></a> [dns\_servers](#input\_dns\_servers) | (Optional) The DNS servers to be used with the Virtual Network. | `list(string)` | `null` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | (Required) The environment of the Virtual Network. | `string` | `"prd"` | no |
+| <a name="input_dns_servers"></a> [dns\_servers](#input\_dns\_servers) | (Optional) The DNS servers to be used. | `list(string)` | `null` | no |
+| <a name="input_environment"></a> [environment](#input\_environment) | (Required) The environment of the Hub. | `string` | `"prd"` | no |
 | <a name="input_firewall"></a> [firewall](#input\_firewall) | (Optional) Include a Firewall. | `bool` | `true` | no |
 | <a name="input_firewall_default_rules"></a> [firewall\_default\_rules](#input\_firewall\_default\_rules) | (Optional) Include the default rules for the Firewall. | `bool` | `true` | no |
 | <a name="input_firewall_sku"></a> [firewall\_sku](#input\_firewall\_sku) | (Optional) The SKU of the Firewall. | `string` | `"Standard"` | no |
 | <a name="input_gateway"></a> [gateway](#input\_gateway) | (Optional) Include a Gateway. | `bool` | `true` | no |
 | <a name="input_gateway_sku"></a> [gateway\_sku](#input\_gateway\_sku) | (Optional) The SKU of the Gateway. | `string` | `"VpnGw1AZ"` | no |
 | <a name="input_gateway_type"></a> [gateway\_type](#input\_gateway\_type) | (Optional) The type of the Gateway. | `string` | `"Vpn"` | no |
-| <a name="input_instance"></a> [instance](#input\_instance) | (Optional) The instance count for the Virtual Network. | `string` | `"001"` | no |
+| <a name="input_instance"></a> [instance](#input\_instance) | (Optional) The instance count for the Hub. | `string` | `"001"` | no |
 | <a name="input_key_vault"></a> [key\_vault](#input\_key\_vault) | (Optional) Include a Key Vault. | `bool` | `true` | no |
-| <a name="input_location"></a> [location](#input\_location) | (Required) The location/region where the Virtual Network is created. Changing this forces a new resource to be created. | `string` | n/a | yes |
+| <a name="input_location"></a> [location](#input\_location) | (Required) The location/region where the Hub is created. Changing this forces a new resource to be created. | `string` | n/a | yes |
 | <a name="input_module_tags"></a> [module\_tags](#input\_module\_tags) | (Optional) Include the default tags? | `bool` | `true` | no |
 | <a name="input_storage_account"></a> [storage\_account](#input\_storage\_account) | (Optional) Include a Storage Account. | `bool` | `true` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `null` | no |
-| <a name="input_workload"></a> [workload](#input\_workload) | (Required) The usage or application of the Virtual Network. | `string` | `"hub"` | no |
+| <a name="input_workload"></a> [workload](#input\_workload) | (Required) Default workload | `string` | `"hub"` | no |
+| <a name="input_workload_management"></a> [workload\_management](#input\_workload\_management) | (Required) Management workload | `string` | `"mgt"` | no |
 
 ## Outputs
 
@@ -110,9 +112,10 @@ No requirements.
 | <a name="output_key_vault_id"></a> [key\_vault\_id](#output\_key\_vault\_id) | The ID of the Key Vault. |
 | <a name="output_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#output\_log\_analytics\_workspace\_id) | The ID of the Log Analytics Workspace. |
 | <a name="output_log_analytics_workspace_workspace_id"></a> [log\_analytics\_workspace\_workspace\_id](#output\_log\_analytics\_workspace\_workspace\_id) | The resource ID of the Log Analytics Workspace. |
-| <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | The name of the resource group of the spoke. |
+| <a name="output_resource_group_management_name"></a> [resource\_group\_management\_name](#output\_resource\_group\_management\_name) | The name of the management resource group. |
+| <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | The name of the resource group of the hub. |
 | <a name="output_route_table_name"></a> [route\_table\_name](#output\_route\_table\_name) | The name of the Route Table. |
 | <a name="output_storage_account_id"></a> [storage\_account\_id](#output\_storage\_account\_id) | The ID of the Storage Account. |
-| <a name="output_virtual_network_id"></a> [virtual\_network\_id](#output\_virtual\_network\_id) | The ID of the virtual network of the spoke. |
-| <a name="output_virtual_network_name"></a> [virtual\_network\_name](#output\_virtual\_network\_name) | The name of the virtual network of the spoke. |
+| <a name="output_virtual_network_id"></a> [virtual\_network\_id](#output\_virtual\_network\_id) | The ID of the virtual network of the hub. |
+| <a name="output_virtual_network_name"></a> [virtual\_network\_name](#output\_virtual\_network\_name) | The name of the virtual network of the hub. |
 <!-- END_TF_DOCS -->

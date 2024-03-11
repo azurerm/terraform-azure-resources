@@ -4,6 +4,12 @@ variable "workload" {
   default     = "hub"
 }
 
+variable "workload_management" {
+  description = "(Required) Management workload"
+  type        = string
+  default     = "mgt"
+}
+
 variable "environment" {
   description = "(Optional) The environment of the Hub."
   type        = string
@@ -153,7 +159,13 @@ variable "connection_monitor" {
 }
 
 variable "update_management" {
-  description = "(Optional) Include an Update Management."
+  description = "(Optional) Include Update Management for the Virtual Machine."
+  type        = bool
+  default     = false
+}
+
+variable "backup" {
+  description = "(Optional) Include a backup configuration for the Virtual Machine."
   type        = bool
   default     = false
 }
