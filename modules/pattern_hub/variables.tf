@@ -1,33 +1,39 @@
 variable "workload" {
-  description = "(Required) The usage or application of the Virtual Network."
+  description = "(Required) Default workload"
   type        = string
   default     = "hub"
 }
 
+variable "workload_management" {
+  description = "(Required) Management workload"
+  type        = string
+  default     = "mgt"
+}
+
 variable "environment" {
-  description = "(Required) The environment of the Virtual Network."
+  description = "(Required) The environment of the Hub."
   type        = string
   default     = "prd"
 }
 
 variable "location" {
-  description = "(Required) The location/region where the Virtual Network is created. Changing this forces a new resource to be created."
+  description = "(Required) The location/region where the Hub is created. Changing this forces a new resource to be created."
   type        = string
 }
 
 variable "instance" {
-  description = "(Optional) The instance count for the Virtual Network."
+  description = "(Optional) The instance count for the Hub."
   type        = string
   default     = "001"
 }
 
 variable "address_space" {
-  description = "(Required) The address space that is used the Virtual Network."
+  description = "(Required) The address space that is used the Hub."
   type        = list(string)
 }
 
 variable "dns_servers" {
-  description = "(Optional) The DNS servers to be used with the Virtual Network."
+  description = "(Optional) The DNS servers to be used."
   type        = list(string)
   default     = null
 }

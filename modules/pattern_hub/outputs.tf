@@ -1,15 +1,20 @@
 output "resource_group_name" {
-  description = "The name of the resource group of the spoke."
+  description = "The name of the resource group of the hub."
   value       = module.resource_group.name
 }
 
+output "resource_group_management_name" {
+  description = "The name of the management resource group."
+  value       = module.resource_group_management.name
+}
+
 output "virtual_network_name" {
-  description = "The name of the virtual network of the spoke."
+  description = "The name of the virtual network of the hub."
   value       = module.virtual_network.name
 }
 
 output "virtual_network_id" {
-  description = "The ID of the virtual network of the spoke."
+  description = "The ID of the virtual network of the hub."
   value       = module.virtual_network.id
 }
 

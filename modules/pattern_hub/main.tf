@@ -36,13 +36,22 @@ module "resource_group" {
   tags        = local.tags
 }
 
+module "resource_group_management" {
+  source      = "../resource_group"
+  location    = var.location
+  environment = var.environment
+  workload    = var.workload_management
+  instance    = var.instance
+  tags        = local.tags
+}
+
 module "log_analytics_workspace" {
   source              = "../log_analytics_workspace"
   location            = var.location
   environment         = var.environment
-  workload            = var.workload
+  workload            = var.workload_management
   instance            = var.instance
-  resource_group_name = module.resource_group.name
+  resource_group_name = module.resource_group_management.name
   tags                = local.tags
 }
 
@@ -285,9 +294,9 @@ module "user_assigned_identity" {
   source              = "../user_assigned_identity"
   location            = var.location
   environment         = var.environment
-  workload            = var.workload
+  workload            = var.workload_management
   instance            = var.instance
-  resource_group_name = module.resource_group.name
+  resource_group_name = module.resource_group_management.name
   tags                = local.tags
 }
 
@@ -297,9 +306,9 @@ module "key_vault" {
   tenant_id           = data.azurerm_client_config.current.tenant_id
   location            = var.location
   environment         = var.environment
-  workload            = var.workload
+  workload            = var.workload_management
   instance            = var.instance
-  resource_group_name = module.resource_group.name
+  resource_group_name = module.resource_group_management.name
   access_policy = [
     {
       tenant_id = data.azurerm_client_config.current.tenant_id
@@ -393,8 +402,8 @@ module "storage_account" {
   source                       = "../storage_account"
   location                     = var.location
   environment                  = var.environment
-  workload                     = var.workload
-  resource_group_name          = module.resource_group.name
+  workload                     = var.workload_management
+  resource_group_name          = module.resource_group_management.name
   network_rules_default_action = "Deny"
   network_rules_bypass         = ["AzureServices"]
   network_rules_ip_rules       = [data.http.ipinfo[0].response_body]

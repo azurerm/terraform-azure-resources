@@ -384,3 +384,46 @@ resource "azurerm_network_watcher_flow_log" "this" {
     interval_in_minutes   = 10
   }
 }
+
+module "recovery_services_vault" {
+  source              = "../recovery_services_vault"
+  count               = var.backup ? 1 : 0
+  location            = var.location
+  environment         = var.environment
+  workload            = var.workload_management
+  instance            = var.instance
+  resource_group_name = module.hub.resource_group_management_name
+  tags                = local.tags
+}
+
+module "backup_policy_vm_production" {
+  source                = "../backup_policy_vm"
+  count                 = var.backup ? 1 : 0
+  location              = var.location
+  environment           = "prd"
+  workload              = var.workload_management
+  instance              = var.instance
+  resource_group_name   = module.hub.resource_group_management_name
+  recovery_vault_name   = module.recovery_services_vault[0].name
+  retention_daily_count = 14
+}
+
+module "backup_policy_vm_development" {
+  source                = "../backup_policy_vm"
+  count                 = var.backup ? 1 : 0
+  location              = var.location
+  environment           = "dev"
+  workload              = var.workload_management
+  instance              = var.instance
+  resource_group_name   = module.hub.resource_group_management_name
+  recovery_vault_name   = module.recovery_services_vault[0].name
+  retention_daily_count = 7
+}
+
+resource "azurerm_backup_protected_vm" "this" {
+  for_each = var.backup ? local.virtual_machines : {}
+  resource_group_name = module.hub.resource_group_management_name
+  recovery_vault_name = module.recovery_services_vault[0].name
+  source_vm_id        = each.value.id
+  backup_policy_id    = strcontains(each.value.id, "prd") ? module.backup_policy_vm_production[0].id : module.backup_policy_vm_development[0].id
+}

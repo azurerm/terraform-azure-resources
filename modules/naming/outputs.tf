@@ -93,6 +93,11 @@ output "availability_set" {
   description = "Availability Set"
 }
 
+output "backup_policy_vm" {
+  value       = local.az.backup_policy_vm
+  description = "Backup Policy VM"
+}
+
 output "bastion_host" {
   value       = local.az.bastion_host
   description = "Bastion Host"
