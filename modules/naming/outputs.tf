@@ -648,6 +648,11 @@ output "machine_learning_workspace" {
   description = "Machine Learning Workspace"
 }
 
+output "maintenance_configuration" {
+  value       = local.az.maintenance_configuration
+  description = "Maintenance Configuration"
+}
+
 output "managed_disk" {
   value       = local.az.managed_disk
   description = "Managed Disk"

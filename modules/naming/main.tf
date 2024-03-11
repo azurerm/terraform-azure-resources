@@ -1307,6 +1307,16 @@ locals {
       scope       = "resourceGroup"
       regex       = "^[^<>*%:.?\\+\\/]+[^<>*%:.?\\+\\/ ]$"
     }
+    maintenance_configuration = {
+      name        = substr(join("-", compact([local.prefix, "mc", local.suffix])), 0, 80)
+      name_unique = substr(join("-", compact([local.prefix, "mc", local.suffix_unique])), 0, 80)
+      dashes      = true
+      slug        = "mc"
+      min_length  = 1
+      max_length  = 80
+      scope       = "resourceGroup"
+      regex       = "^[a-zA-Z0-9][a-zA-Z0-9-_.]+[a-zA-Z0-9_]$"
+    }
     managed_disk = {
       name        = substr(join("-", compact([local.prefix, "dsk", local.suffix])), 0, 80)
       name_unique = substr(join("-", compact([local.prefix, "dsk", local.suffix_unique])), 0, 80)
