@@ -2,6 +2,12 @@ name: PR Validation
 
 on: [push, pull_request]
 
+env:
+  ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }} 
+  ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }} 
+  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }} 
+
 jobs:
   build:
     name: Terrraform Validation
@@ -13,6 +19,9 @@ jobs:
       - name: Terraform fmt
         id: fmt
         run: terraform fmt --recursive -check
+
+      - name: 'Az CLI login'
+        uses: azure/login@v1
 
       - name: Terraform Init
         id: init
