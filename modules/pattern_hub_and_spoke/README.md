@@ -130,7 +130,7 @@ No requirements.
 | <a name="input_network_security_group"></a> [network\_security\_group](#input\_network\_security\_group) | (Optional) Include a Network Security Group with Flow Log. | `bool` | `false` | no |
 | <a name="input_private_monitoring"></a> [private\_monitoring](#input\_private\_monitoring) | (Optional) Include a Private Monitoring. | `bool` | `false` | no |
 | <a name="input_spoke_dmz"></a> [spoke\_dmz](#input\_spoke\_dmz) | (Optional) Include a DMZ Spoke. | `bool` | `false` | no |
-| <a name="input_spoke_dns"></a> [spoke\_dns](#input\_spoke\_dns) | (Optional) Include a Spoke DNS. | `bool` | `true` | no |
+| <a name="input_spoke_dns"></a> [spoke\_dns](#input\_spoke\_dns) | (Optional) Include a Spoke DNS. | `bool` | `false` | no |
 | <a name="input_spoke_jumphost"></a> [spoke\_jumphost](#input\_spoke\_jumphost) | (Optional) Include a Spoke Jump Host. | `bool` | `false` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `null` | no |
 | <a name="input_update_management"></a> [update\_management](#input\_update\_management) | (Optional) Include Update Management for the Virtual Machine. | `bool` | `false` | no |
