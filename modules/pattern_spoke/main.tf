@@ -134,7 +134,7 @@ module "windows_virtual_machine" {
   monitor_agent         = var.monitor_agent
   watcher_agent         = var.watcher_agent
   identity_type         = var.monitor_agent ? "SystemAssigned" : "None"
-  patch_mode            = var.update_management ? "AutomaticByPlatform" : "ImageDefault"
+  patch_mode            = var.update_management ? "AutomaticByPlatform" : "AutomaticByOS"
   patch_assessment_mode = var.update_management ? "AutomaticByPlatform" : "ImageDefault"
   tags                  = local.tags
 }
