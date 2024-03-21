@@ -14,10 +14,18 @@ jobs:
         id: fmt
         run: terraform fmt --recursive -check
 
+      - uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Terraform Init
         id: init
-        run: terraform init
+        run: terraform -chdir=tests init
 
       - name: Terraform Validate
         id: validate
-        run: terraform validate -no-color
+        run: terraform -chdir=tests validate -no-color
+
+      - name: Terraform Test
+        id: test
+        run: terraform -chdir=tests test -no-color

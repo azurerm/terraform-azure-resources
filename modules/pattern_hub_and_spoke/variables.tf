@@ -101,7 +101,7 @@ variable "address_space_spokes" {
 variable "spoke_dns" {
   description = "(Optional) Include a Spoke DNS."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "address_space_spoke_dns" {
