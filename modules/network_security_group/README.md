@@ -1,5 +1,5 @@
 <!-- BEGIN_TF_DOCS -->
-# Network Interface
+# Network Security Group
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurerm/resources/azure/latest/submodules/network_security_group)
 
 Terraform module to create and manage a Network Security Group.
@@ -29,14 +29,6 @@ module "resource_group" {
   instance    = "001"
 }
 
-module "network_interface" {
-  source              = "azurerm/resources/azure//modules/network_security_group"
-  location            = "westeurope"
-  environment         = "dev"
-  workload            = "example"
-  instance            = "001"
-  resource_group_name = module.resource_group.name
-}
 ```
 
 ## Requirements

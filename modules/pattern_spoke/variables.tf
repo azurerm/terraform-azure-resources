@@ -90,6 +90,78 @@ variable "network_security_group" {
   default     = false
 }
 
+variable "network_security_rules" {
+  description = "(Optional) A list of Network Security Rules."
+  type = list(object({
+    name                       = string
+    priority                   = number
+    direction                  = string
+    access                     = string
+    protocol                   = string
+    source_port_range          = string
+    destination_port_range     = string
+    source_address_prefix      = string
+    destination_address_prefix = string
+  }))
+  default = [
+    {
+      name                       = "A-IN-Net10-Net10"
+      priority                   = 1000
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "*"
+      source_port_range          = "*"
+      destination_port_range     = "*"
+      source_address_prefix      = "10.0.0.0/8"
+      destination_address_prefix = "10.0.0.0/8"
+    },
+    {
+      name                       = "D-IN-AzureLoadBalancer-Any"
+      priority                   = 4095
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "*"
+      source_port_range          = "*"
+      destination_port_range     = "*"
+      source_address_prefix      = "AzureLoadBalancer"
+      destination_address_prefix = "*"
+    },
+    {
+      name                       = "D-IN-Any-Any"
+      priority                   = 4096
+      direction                  = "Inbound"
+      access                     = "Deny"
+      protocol                   = "*"
+      source_port_range          = "*"
+      destination_port_range     = "*"
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
+    },
+    {
+      name                       = "A-OUT-Net10-Net10"
+      priority                   = 1000
+      direction                  = "Outbound"
+      access                     = "Allow"
+      protocol                   = "*"
+      source_port_range          = "*"
+      destination_port_range     = "*"
+      source_address_prefix      = "10.0.0.0/8"
+      destination_address_prefix = "10.0.0.0/8"
+    },
+    {
+      name                       = "D-OUT-Any-Any"
+      priority                   = 4096
+      direction                  = "Outbound"
+      access                     = "Deny"
+      protocol                   = "*"
+      source_port_range          = "*"
+      destination_port_range     = "*"
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
+    }
+  ]
+}
+
 variable "module_tags" {
   description = "(Optional) Include the default tags?"
   type        = bool
