@@ -85,6 +85,22 @@ module "network_security_group" {
   resource_group_name = module.resource_group.name
 }
 
+module "network_security_rules" {
+  source                    = "../network_security_rule"
+  count                     = var.network_security_group ? length(var.network_security_rules) : 0
+  name = var.network_security_rules[count.index].name
+  priority = var.network_security_rules[count.index].priority
+  direction = var.network_security_rules[count.index].direction
+  access = var.network_security_rules[count.index].access
+  protocol = var.network_security_rules[count.index].protocol
+  source_port_range = var.network_security_rules[count.index].source_port_range
+  destination_port_range = var.network_security_rules[count.index].destination_port_range
+  source_address_prefix = var.network_security_rules[count.index].source_address_prefix
+  destination_address_prefix = var.network_security_rules[count.index].destination_address_prefix
+  resource_group_name = module.resource_group.name
+  network_security_group_name = module.network_security_group[0].name
+}
+
 module "subnet_network_security_group_association" {
   source                    = "../subnet_network_security_group_association"
   count                     = var.network_security_group ? var.subnet_count : 0
