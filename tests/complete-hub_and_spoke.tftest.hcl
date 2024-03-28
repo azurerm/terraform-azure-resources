@@ -1,10 +1,6 @@
 run "complete-hub_and_spoke" {
   command = plan
 
-  module {
-    source = "./tests/setup"
-  }
-
   variables {
     firewall                               = true
     gateway                                = true
