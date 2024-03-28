@@ -102,7 +102,7 @@ variable "address_space_spokes" {
 }
 
 module "hub_and_spoke" {
-  source                                 = "../../modules/pattern_hub_and_spoke"
+  source                                 = "../modules/pattern_hub_and_spoke"
   location                               = var.location
   firewall                               = var.firewall
   gateway                                = var.gateway
