@@ -1,7 +1,5 @@
-name: PR Validation
-
+name: Terraform Validation
 on: [push, pull_request]
-
 jobs:
   build:
     name: Terrraform Validation
