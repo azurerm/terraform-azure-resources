@@ -20,12 +20,12 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: terraform -chdir=tests init
+        run: terraform init
 
       - name: Terraform Validate
         id: validate
-        run: terraform -chdir=tests validate -no-color
+        run: terraform validate -no-color
 
       - name: Terraform Test
         id: test
-        run: terraform -chdir=tests test -no-color
+        run: terraform test -no-color
