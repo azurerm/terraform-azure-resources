@@ -49,6 +49,7 @@ module "hub" {
   gateway_sku     = var.gateway_sku
   bastion         = var.bastion
   bastion_sku     = var.bastion_sku
+  key_vault       = var.key_vault
   storage_account = var.network_security_group
   tags            = local.tags
 }
@@ -99,7 +100,7 @@ module "route_to_spoke" {
 
 module "key_vault_secret" {
   source   = "../key_vault_secret"
-  for_each = merge([for k, v in module.spoke : v.virtual_machines]...)
+  for_each = var.key_vault ? merge([for k, v in module.spoke : v.virtual_machines]...) : {}
   name     = each.key
   value    = each.value.admin_password
   tags = {
@@ -185,7 +186,7 @@ module "route_to_spoke_jumphost" {
 
 module "key_vault_secret_jumphost" {
   source   = "../key_vault_secret"
-  for_each = merge([for k, v in module.spoke_jumphost : v.virtual_machines]...)
+  for_each = var.key_vault ? merge([for k, v in module.spoke_jumphost : v.virtual_machines]...) : {}
   name     = each.key
   value    = each.value.admin_password
   tags = {
