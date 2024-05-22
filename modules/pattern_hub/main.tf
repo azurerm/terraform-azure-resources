@@ -382,8 +382,8 @@ module "key_vault" {
   network_acls = [
     {
       bypass                     = "AzureServices"
-      default_action             = "Deny"
-      ip_rules                   = [data.http.ipinfo[0].response_body]
+      default_action             = var.ip_filter ? "Deny" : "Allow"
+      ip_rules                   = var.ip_filter ? [data.http.ipinfo[0].response_body] : []
       virtual_network_subnet_ids = []
     }
   ]
@@ -404,9 +404,9 @@ module "storage_account" {
   environment                  = var.environment
   workload                     = var.workload_management
   resource_group_name          = module.resource_group_management.name
-  network_rules_default_action = "Deny"
+  network_rules_default_action = var.ip_filter ? "Deny" : "Allow"
   network_rules_bypass         = ["AzureServices"]
-  network_rules_ip_rules       = [data.http.ipinfo[0].response_body]
+  network_rules_ip_rules       = var.ip_filter ? [data.http.ipinfo[0].response_body] : []
   tags                         = local.tags
 }
 

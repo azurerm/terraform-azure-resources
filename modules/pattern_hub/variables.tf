@@ -92,6 +92,12 @@ variable "key_vault" {
   default     = true
 }
 
+variable "ip_filter" {
+  description = "(Optional) Include an IP Filter."
+  type        = bool
+  default     = true
+}
+
 variable "storage_account" {
   description = "(Optional) Include a Storage Account."
   type        = bool
