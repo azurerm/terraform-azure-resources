@@ -158,7 +158,7 @@ variable "network_security_rules" {
       destination_port_range     = "443"
       source_address_prefix      = "10.0.0.0/8"
       destination_address_prefix = "Internet"
-    },    
+    },
     {
       name                       = "D-OUT-Any-Any"
       priority                   = 4096
