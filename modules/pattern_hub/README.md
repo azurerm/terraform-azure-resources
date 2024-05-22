@@ -94,6 +94,7 @@ No requirements.
 | <a name="input_gateway_sku"></a> [gateway\_sku](#input\_gateway\_sku) | (Optional) The SKU of the Gateway. | `string` | `"VpnGw1AZ"` | no |
 | <a name="input_gateway_type"></a> [gateway\_type](#input\_gateway\_type) | (Optional) The type of the Gateway. | `string` | `"Vpn"` | no |
 | <a name="input_instance"></a> [instance](#input\_instance) | (Optional) The instance count for the Hub. | `string` | `"001"` | no |
+| <a name="input_ip_filter"></a> [ip\_filter](#input\_ip\_filter) | (Optional) Include an IP Filter. | `bool` | `true` | no |
 | <a name="input_key_vault"></a> [key\_vault](#input\_key\_vault) | (Optional) Include a Key Vault. | `bool` | `true` | no |
 | <a name="input_location"></a> [location](#input\_location) | (Required) The location/region where the Hub is created. Changing this forces a new resource to be created. | `string` | n/a | yes |
 | <a name="input_module_tags"></a> [module\_tags](#input\_module\_tags) | (Optional) Include the default tags? | `bool` | `true` | no |
