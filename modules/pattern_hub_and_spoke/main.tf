@@ -51,6 +51,7 @@ module "hub" {
   bastion_sku     = var.bastion_sku
   key_vault       = var.key_vault
   storage_account = var.network_security_group
+  ip_filter       = var.ip_filter 
   tags            = local.tags
 }
 

@@ -20,7 +20,7 @@ locals {
     var.tags
   )
 
-  admin_password = var.admin_password == "" ? random_password.this[0].result : var.admin_password
+  admin_password = coalesce(var.admin_password, random_password.this[0].result)
 }
 
 module "locations" {
@@ -91,7 +91,7 @@ resource "azurerm_linux_virtual_machine" "this" {
       identity_ids = var.identity_ids
     }
   }
-  custom_data = var.run_bootstrap == true ? coalesce(var.custom_data, base64encode("${path.module}/cloud-init.txt")) : null
+  custom_data = var.run_bootstrap ? coalesce(var.custom_data, base64encode("${path.module}/cloud-init.txt")) : null
   tags        = local.tags
 }
 

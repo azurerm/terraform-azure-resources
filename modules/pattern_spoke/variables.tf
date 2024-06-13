@@ -116,7 +116,7 @@ variable "network_security_rules" {
       destination_address_prefix = "10.0.0.0/8"
     },
     {
-      name                       = "D-IN-AzureLoadBalancer-Any"
+      name                       = "A-IN-AzureLoadBalancer-Any"
       priority                   = 4095
       direction                  = "Inbound"
       access                     = "Allow"
