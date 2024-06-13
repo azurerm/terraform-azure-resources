@@ -86,6 +86,12 @@ variable "key_vault" {
   default     = true
 }
 
+variable "ip_filter" {
+  description = "(Optional) Include an IP Filter."
+  type        = bool
+  default     = true
+}
+
 variable "address_space_spokes" {
   description = "(Optional) The address space that is used the Virtual Network."
   type = list(object({

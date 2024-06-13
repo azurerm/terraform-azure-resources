@@ -20,7 +20,7 @@ locals {
     var.tags
   )
 
-  admin_password = var.admin_password == "" ? random_password.this[0].result : var.admin_password
+  admin_password = coalesce(var.admin_password, random_password.this[0].result)
 }
 
 module "locations" {
@@ -86,7 +86,7 @@ resource "azurerm_windows_virtual_machine" "this" {
     version   = var.source_image_reference_version
   }
   dynamic "identity" {
-    for_each = var.identity_type == "SystemAssigned" ? [1] : []
+    for_each = var.identity_type != "None" ? [1] : []
     content {
       type         = var.identity_type
       identity_ids = var.identity_ids
