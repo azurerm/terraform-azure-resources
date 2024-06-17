@@ -18,4 +18,5 @@ module "hub_and_spoke" {
   network_security_group                 = var.network_security_group
   backup                                 = var.backup
   address_space_spokes                   = var.address_space_spokes
+  additional_access_policy_object_id     = var.additional_access_policy_object_id
 }

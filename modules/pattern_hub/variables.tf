@@ -104,6 +104,12 @@ variable "ip_filter" {
   default     = false
 }
 
+variable "additional_access_policy_object_id" {
+  description = "(Optional) An additional Object ID to add to the Key Vault Access Policy."
+  type        = string
+  default     = ""
+}
+
 variable "module_tags" {
   description = "(Optional) Include the default tags?"
   type        = bool

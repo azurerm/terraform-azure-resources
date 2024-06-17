@@ -36,23 +36,24 @@ module "naming" {
 }
 
 module "hub" {
-  source          = "../pattern_hub"
-  location        = var.location
-  environment     = var.environment
-  workload        = var.workload
-  address_space   = var.address_space_hub
-  dns_servers     = local.hub_dns_servers
-  firewall        = var.firewall
-  firewall_sku    = var.firewall_sku
-  gateway         = var.gateway
-  gateway_type    = var.gateway_type
-  gateway_sku     = var.gateway_sku
-  bastion         = var.bastion
-  bastion_sku     = var.bastion_sku
-  key_vault       = var.key_vault
-  storage_account = var.network_security_group
-  ip_filter       = var.ip_filter
-  tags            = local.tags
+  source                             = "../pattern_hub"
+  location                           = var.location
+  environment                        = var.environment
+  workload                           = var.workload
+  address_space                      = var.address_space_hub
+  dns_servers                        = local.hub_dns_servers
+  firewall                           = var.firewall
+  firewall_sku                       = var.firewall_sku
+  gateway                            = var.gateway
+  gateway_type                       = var.gateway_type
+  gateway_sku                        = var.gateway_sku
+  bastion                            = var.bastion
+  bastion_sku                        = var.bastion_sku
+  key_vault                          = var.key_vault
+  storage_account                    = var.network_security_group
+  ip_filter                          = var.ip_filter
+  additional_access_policy_object_id = var.additional_access_policy_object_id
+  tags                               = local.tags
 }
 
 module "spoke" {

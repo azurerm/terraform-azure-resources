@@ -101,3 +101,8 @@ variable "address_space_spokes" {
     }
   ]
 }
+
+variable "additional_access_policy_object_id" {
+  type    = string
+  default = "a3e0a76c-f251-447d-8244-e47dbe6746e3"
+}
