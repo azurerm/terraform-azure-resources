@@ -1,5 +1,6 @@
 module "hub_and_spoke" {
   source                                 = "../modules/pattern_hub_and_spoke"
+  ip_filter                              = var.ip_filter
   location                               = var.location
   firewall                               = var.firewall
   gateway                                = var.gateway
