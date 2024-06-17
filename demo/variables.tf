@@ -1,3 +1,8 @@
+variable "ip_filter" {
+  type    = bool
+  default = false
+}
+
 variable "location" {
   type    = string
   default = "northeurope"
