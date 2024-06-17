@@ -45,11 +45,11 @@ resource "random_password" "this" {
 }
 
 resource "azurerm_network_interface" "this" {
-  name                          = coalesce(var.custom_network_interface_name, "${module.naming.windows_virtual_machine.name}-nic")
-  location                      = var.location
-  resource_group_name           = var.resource_group_name
-  enable_ip_forwarding          = var.enable_ip_forwarding
-  enable_accelerated_networking = var.enable_accelerated_networking
+  name                           = coalesce(var.custom_network_interface_name, "${module.naming.windows_virtual_machine.name}-nic")
+  location                       = var.location
+  resource_group_name            = var.resource_group_name
+  ip_forwarding_enabled          = var.enable_ip_forwarding
+  accelerated_networking_enabled = var.enable_accelerated_networking
   ip_configuration {
     name                          = var.ip_configuration_name
     subnet_id                     = var.subnet_id
