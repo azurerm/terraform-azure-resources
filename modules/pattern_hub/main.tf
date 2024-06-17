@@ -309,7 +309,7 @@ module "key_vault" {
   workload            = var.workload_management
   instance            = var.instance
   resource_group_name = module.resource_group_management.name
-  access_policy = [
+  access_policy = concat([
     {
       tenant_id = data.azurerm_client_config.current.tenant_id
       object_id = data.azurerm_client_config.current.object_id
@@ -377,8 +377,43 @@ module "key_vault" {
         "Purge"
       ]
       storage_permissions = []
-    }
-  ]
+    }],
+    var.additional_access_policy_object_id != "" ? [
+      {
+        tenant_id = data.azurerm_client_config.current.tenant_id
+        object_id = var.additional_access_policy_object_id
+        secret_permissions = [
+          "Get",
+          "List",
+          "Set",
+          "Delete",
+          "Recover",
+          "Backup",
+          "Restore",
+          "Purge"
+        ]
+        key_permissions = []
+        certificate_permissions = [
+          "Get",
+          "List",
+          "Update",
+          "Create",
+          "Import",
+          "Delete",
+          "Recover",
+          "Backup",
+          "Restore",
+          "ManageContacts",
+          "ManageIssuers",
+          "GetIssuers",
+          "ListIssuers",
+          "SetIssuers",
+          "DeleteIssuers",
+          "Purge"
+        ]
+        storage_permissions = []
+      }
+  ] : [])
   network_acls = [
     {
       bypass                     = "AzureServices"
