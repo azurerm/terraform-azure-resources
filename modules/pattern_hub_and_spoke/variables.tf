@@ -185,7 +185,7 @@ variable "network_security_group" {
 variable "additional_access_policy_object_ids" {
   description = "(Optional) An additional Object ID to add to the Key Vault Access Policy."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "module_tags" {
