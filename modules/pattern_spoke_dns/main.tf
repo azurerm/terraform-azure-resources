@@ -40,15 +40,14 @@ module "virtual_network" {
 }
 
 module "subnet_inbound" {
-  source                                    = "../subnet"
-  location                                  = var.location
-  environment                               = var.environment
-  workload                                  = "in"
-  instance                                  = var.instance
-  resource_group_name                       = module.resource_group.name
-  virtual_network_name                      = module.virtual_network.name
-  address_prefixes                          = [cidrsubnet(var.address_space[0], 1, 0)]
-  private_endpoint_network_policies_enabled = true
+  source               = "../subnet"
+  location             = var.location
+  environment          = var.environment
+  workload             = "in"
+  instance             = var.instance
+  resource_group_name  = module.resource_group.name
+  virtual_network_name = module.virtual_network.name
+  address_prefixes     = [cidrsubnet(var.address_space[0], 1, 0)]
   delegation = {
     "Microsoft.Network.dnsResolvers" = {
       name    = "Microsoft.Network/dnsResolvers"
@@ -71,15 +70,14 @@ module "routing_inbound" {
 }
 
 module "subnet_outbound" {
-  source                                    = "../subnet"
-  location                                  = var.location
-  environment                               = var.environment
-  workload                                  = "out"
-  instance                                  = var.instance
-  resource_group_name                       = module.resource_group.name
-  virtual_network_name                      = module.virtual_network.name
-  address_prefixes                          = [cidrsubnet(var.address_space[0], 1, 1)]
-  private_endpoint_network_policies_enabled = true
+  source               = "../subnet"
+  location             = var.location
+  environment          = var.environment
+  workload             = "out"
+  instance             = var.instance
+  resource_group_name  = module.resource_group.name
+  virtual_network_name = module.virtual_network.name
+  address_prefixes     = [cidrsubnet(var.address_space[0], 1, 1)]
   delegation = {
     "Microsoft.Network.dnsResolvers" = {
       name    = "Microsoft.Network/dnsResolvers"
