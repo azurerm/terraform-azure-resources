@@ -101,6 +101,16 @@ variable "address_space_spokes" {
   ]
 }
 
+variable "standalone_site" {
+  type    = bool
+  default = false
+}
+
+variable "address_space_standalone_site" {
+  type    = list(string)
+  default = ["10.200.0.0/23"]
+}
+
 module "hub_and_spoke" {
   source                                 = "../modules/pattern_hub_and_spoke"
   location                               = var.location
@@ -120,4 +130,11 @@ module "hub_and_spoke" {
   network_security_group                 = var.network_security_group
   backup                                 = var.backup
   address_space_spokes                   = var.address_space_spokes
+}
+
+module "standalone_site" {
+  source        = "../modules/pattern_standalone_site"
+  count         = var.standalone_site ? 1 : 0
+  location      = var.location
+  address_space = var.address_space_standalone_site
 }
