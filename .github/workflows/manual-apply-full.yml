@@ -1,4 +1,4 @@
-name: Terraform Apply
+name: Terraform Apply - Full
 on:
   push:
     branches: [ master ]
@@ -32,5 +32,5 @@ jobs:
 
       - name: Terraform Apply 
         id: apply
-        run: terraform -chdir=demo apply -auto-approve -no-color
+        run: terraform -chdir=demo apply -var-file=full.tfvars -auto-approve -no-color
         

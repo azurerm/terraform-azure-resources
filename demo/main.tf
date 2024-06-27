@@ -18,5 +18,12 @@ module "hub_and_spoke" {
   network_security_group                 = var.network_security_group
   backup                                 = var.backup
   address_space_spokes                   = var.address_space_spokes
-  additional_access_policy_object_id     = var.additional_access_policy_object_id
+  additional_access_policy_object_ids    = var.additional_access_policy_object_ids
+}
+
+module "standalone_site" {
+  source        = "../modules/pattern_standalone_site"
+  count         = var.standalone_site ? 1 : 0
+  location      = var.location
+  address_space = var.address_space_standalone_site
 }

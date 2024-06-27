@@ -115,15 +115,14 @@ module "firewall" {
 }
 
 module "subnet_workload" {
-  source                                    = "../subnet"
-  location                                  = var.location
-  environment                               = var.environment
-  workload                                  = var.workload
-  instance                                  = var.instance
-  resource_group_name                       = module.resource_group.name
-  virtual_network_name                      = module.virtual_network.name
-  address_prefixes                          = [cidrsubnet(var.address_space[0], 2, 2)]
-  private_endpoint_network_policies_enabled = true
+  source               = "../subnet"
+  location             = var.location
+  environment          = var.environment
+  workload             = var.workload
+  instance             = var.instance
+  resource_group_name  = module.resource_group.name
+  virtual_network_name = module.virtual_network.name
+  address_prefixes     = [cidrsubnet(var.address_space[0], 2, 2)]
 }
 
 module "linux_virtual_machine" {

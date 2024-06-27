@@ -63,16 +63,15 @@ module "virtual_network" {
 }
 
 module "subnet" {
-  source                                    = "../subnet"
-  count                                     = var.subnet_count
-  location                                  = var.location
-  environment                               = var.environment
-  workload                                  = var.workload
-  instance                                  = format("%03d", count.index + 1)
-  resource_group_name                       = module.resource_group.name
-  virtual_network_name                      = module.virtual_network.name
-  address_prefixes                          = [cidrsubnet(var.address_space[0], ceil(var.subnet_count / 2), count.index)]
-  private_endpoint_network_policies_enabled = true
+  source               = "../subnet"
+  count                = var.subnet_count
+  location             = var.location
+  environment          = var.environment
+  workload             = var.workload
+  instance             = format("%03d", count.index + 1)
+  resource_group_name  = module.resource_group.name
+  virtual_network_name = module.virtual_network.name
+  address_prefixes     = [cidrsubnet(var.address_space[0], ceil(var.subnet_count / 2), count.index)]
 }
 
 module "network_security_group" {

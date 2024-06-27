@@ -160,7 +160,7 @@ variable "patch_assessment_mode" {
 variable "identity_type" {
   description = "(Optional) The type of Managed Service Identity which should be used for the Virtual Machine."
   type        = string
-  default     = ""
+  default     = "None"
 }
 
 variable "identity_ids" {
