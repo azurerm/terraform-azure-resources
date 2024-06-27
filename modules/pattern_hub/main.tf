@@ -18,7 +18,7 @@ locals {
     var.tags
   )
 
-  access_policy_object_ids = compact(concat([data.azurerm_client_config.current.object_id, module.user_assigned_identity.uuid], var.additional_access_policy_object_ids))
+  access_policy_object_ids = concat([data.azurerm_client_config.current.object_id, module.user_assigned_identity.uuid], var.additional_access_policy_object_ids)
 }
 
 data "azurerm_client_config" "current" {}
