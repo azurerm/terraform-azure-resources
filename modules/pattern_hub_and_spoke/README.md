@@ -106,7 +106,7 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_additional_access_policy_object_id"></a> [additional\_access\_policy\_object\_id](#input\_additional\_access\_policy\_object\_id) | (Optional) An additional Object ID to add to the Key Vault Access Policy. | `string` | `""` | no |
+| <a name="input_additional_access_policy_object_ids"></a> [additional\_access\_policy\_object\_ids](#input\_additional\_access\_policy\_object\_ids) | (Optional) An additional Object ID to add to the Key Vault Access Policy. | `list(string)` | `null` | no |
 | <a name="input_address_space_hub"></a> [address\_space\_hub](#input\_address\_space\_hub) | (Required) The address space that is used the Hub. | `list(string)` | n/a | yes |
 | <a name="input_address_space_spoke_dmz"></a> [address\_space\_spoke\_dmz](#input\_address\_space\_spoke\_dmz) | (Optional) The address space that is used the Virtual Network. | `list(string)` | `null` | no |
 | <a name="input_address_space_spoke_dns"></a> [address\_space\_spoke\_dns](#input\_address\_space\_spoke\_dns) | (Optional) The address space that is used the Virtual Network. | `list(string)` | `null` | no |
