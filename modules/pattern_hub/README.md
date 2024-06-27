@@ -82,7 +82,7 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_additional_access_policy_object_ids"></a> [additional\_access\_policy\_object\_ids](#input\_additional\_access\_policy\_object\_ids) | (Optional) An additional Object ID to add to the Key Vault Access Policy. | `list(string)` | `null` | no |
+| <a name="input_additional_access_policy_object_ids"></a> [additional\_access\_policy\_object\_ids](#input\_additional\_access\_policy\_object\_ids) | (Optional) An additional Object ID to add to the Key Vault Access Policy. | `list(string)` | `[]` | no |
 | <a name="input_address_space"></a> [address\_space](#input\_address\_space) | (Required) The address space that is used the Hub. | `list(string)` | n/a | yes |
 | <a name="input_bastion"></a> [bastion](#input\_bastion) | (Optional) Include a Bastion Host. | `bool` | `true` | no |
 | <a name="input_bastion_sku"></a> [bastion\_sku](#input\_bastion\_sku) | (Optional) The SKU of the Bastion Host. | `string` | `"Basic"` | no |
