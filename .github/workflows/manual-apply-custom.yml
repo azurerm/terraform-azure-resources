@@ -22,11 +22,6 @@ on:
         required: true
         default: false
         type: boolean
-      bastion: 
-        description: 'Include an Azure Bastion'
-        required: true
-        default: true
-        type: boolean
       spokeDNS:
         description: 'Include a spoke with a Private DNS Resolver'
         required: true
@@ -42,38 +37,23 @@ on:
         required: true
         default: false
         type: boolean
-      connectionMonitor: 
-        description: 'Include Connection Monitor tests'
-        required: true
-        default: false
-        type: boolean
-      updateManagement: 
-        description: 'Include Update Management configuration'
-        required: true
-        default: false
-        type: boolean
-      backup: 
-        description: 'Include Backup configuration'
-        required: true
-        default: false
-        type: boolean
-      networkSecurityGroup: 
-        description: 'Include Network Security Group configuration'
-        required: true
-        default: false
-        type: boolean
       spokesCount:
         description: 'Number of Spokes to deploy'
         required: true
-        default: '2'
+        default: 2
         type: number
       virtualMachines:
-        description: 'Include Virtual Machines in the Spokes'
+        description: 'Include Azure Bastion in Hub & Virtual Machines in the Spokes'
         required: true
         default: true
         type: boolean
-      standaloneSite:
-        description: 'Include a standalone site'
+      virtualMachinesServices:
+        description: 'Include Virtual Machines Services : Update Management / Backup'
+        required: true
+        default: false
+        type: boolean
+      networkServices:
+        description: 'Include Additional Network Services : NSG / Connection Monitor tests'
         required: true
         default: false
         type: boolean
@@ -110,15 +90,14 @@ jobs:
           TF_VAR_location: ${{ github.event.inputs.location }}
           TF_VAR_firewall: ${{ github.event.inputs.firewall }}
           TF_VAR_gateway: ${{ github.event.inputs.gateway }}
-          TF_VAR_bastion: ${{ github.event.inputs.bastion }}
+          TF_VAR_bastion: ${{ github.event.inputs.virtualMachines }}
           TF_VAR_spoke_dns: ${{ github.event.inputs.spokeDNS }}
           TF_VAR_spoke_dmz: ${{ github.event.inputs.spokeDMZ }}
           TF_VAR_private_monitoring: ${{ github.event.inputs.privateMonitoring }}
-          TF_VAR_connection_monitor: ${{ github.event.inputs.connectionMonitor }}
-          TF_VAR_update_management: ${{ github.event.inputs.updateManagement }}
-          TF_VAR_backup: ${{ github.event.inputs.backup }}
-          TF_VAR_network_security_group: ${{ github.event.inputs.networkSecurityGroup }}
+          TF_VAR_connection_monitor: ${{ github.event.inputs.networkServices }}
+          TF_VAR_update_management: ${{ github.event.inputs.virtualMachinesServices }}
+          TF_VAR_backup: ${{ github.event.inputs.virtualMachinesServices }}
+          TF_VAR_network_security_group: ${{ github.event.inputs.networkServices }}
           TF_VAR_spokes_count: ${{ github.event.inputs.spokesCount }}
           TF_VAR_virtual_machines: ${{ github.event.inputs.virtualMachines }}
-          TF_VAR_standalone_site: ${{ github.event.inputs.standaloneSite }}
         run: terraform -chdir=demo apply -auto-approve -no-color
