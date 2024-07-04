@@ -1,8 +1,9 @@
-name: Generate terraform docs
+name: Terraform documentation
 on:
   - pull_request
 jobs:
-  docs:
+  build:
+    name: Generate Terraform documentation
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
