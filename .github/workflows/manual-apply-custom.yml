@@ -8,10 +8,10 @@ on:
         default: 'northeurope'
         type: choice
         options:
-          - northeurope
-          - francecentral
-          - eastus2
-          - southeastasia
+          - 'northeurope'
+          - 'francecentral'
+          - 'eastus2'
+          - 'southeastasia'
       firewall: 
         description: 'Include an Azure Firewall'
         required: true
@@ -65,7 +65,7 @@ on:
       spokesCount:
         description: 'Number of Spokes to deploy'
         required: true
-        default: 2
+        default: '2'
         type: number
       virtualMachines:
         description: 'Include Virtual Machines in the Spokes'
