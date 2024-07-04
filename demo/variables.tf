@@ -55,7 +55,7 @@ variable "private_monitoring" {
 
 variable "address_space_spoke_private_monitoring" {
   type    = list(string)
-  default = []
+  default = ["10.100.3.0/27"]
 }
 
 variable "connection_monitor" {
