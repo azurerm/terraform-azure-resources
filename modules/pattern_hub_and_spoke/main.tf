@@ -72,6 +72,8 @@ module "spoke" {
   network_security_group  = var.network_security_group
   firewall                = var.firewall
   next_hop                = var.firewall ? module.hub.firewall_private_ip_address : ""
+  single_route_table      = var.spokes_single_route_table
+  route_table_id          = var.spokes_single_route_table ? module.spokes_single_route_table[0].id : ""
   tags                    = local.tags
 }
 
@@ -88,6 +90,28 @@ module "virtual_network_peerings" {
     module.hub,
     module.spoke
   ]
+}
+
+module "spokes_single_route_table" {
+  source                        = "../route_table"
+  count                         = var.spokes_single_route_table ? 1 : 0
+  location                      = var.location
+  environment                   = var.environment
+  workload                      = "spokes"
+  instance                      = var.instance
+  resource_group_name           = module.hub.resource_group_name
+  disable_bgp_route_propagation = true
+  tags                          = local.tags
+}
+
+module "spokes_default_route" {
+  source                 = "../route"
+  count                  = var.spokes_single_route_table ? 1 : 0
+  resource_group_name    = module.hub.resource_group_name
+  route_table_name       = module.spokes_single_route_table[0].name
+  address_prefix         = "0.0.0.0/0"
+  next_hop_type          = "VirtualAppliance"
+  next_hop_in_ip_address = module.hub.firewall_private_ip_address
 }
 
 module "route_to_spoke" {
@@ -225,6 +249,16 @@ module "virtual_network_peerings_dmz" {
     module.hub,
     module.spoke_dmz
   ]
+}
+
+module "route_to_spoke_dmz" {
+  source                 = "../route"
+  count                  = (var.gateway && var.firewall && var.spoke_dmz && var.address_space_spoke_dmz != null) ? 1 : 0
+  resource_group_name    = module.hub.resource_group_name
+  route_table_name       = module.hub.route_table_name
+  address_prefix         = module.spoke_dmz[0].address_space[0]
+  next_hop_type          = "VirtualAppliance"
+  next_hop_in_ip_address = module.hub.firewall_private_ip_address
 }
 
 module "pattern_monitoring" {
