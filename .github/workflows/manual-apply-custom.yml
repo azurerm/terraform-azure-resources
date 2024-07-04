@@ -1,6 +1,17 @@
-name: Terraform Apply - Standard
+name: Terraform Apply - Custom
 on:
   workflow_dispatch:
+    inputs:
+      firewall: 
+        description: 'Deploy a firewall'
+        required: true
+        default: true
+        type: boolean
+      spokesCount:
+        description: 'Number of spokes to deploy'
+        required: true
+        default: 2
+        type: number
 jobs:
   build:
     name: Terraform Apply
@@ -24,11 +35,18 @@ jobs:
           echo "ARM_TENANT_ID=$( jq -r '.tenantId' <<< $AZURE_CREDENTIALS )" >> $GITHUB_ENV
         shell: bash          
 
-      - name: Terraform Init 
+      - name: Terraform Init
         id: init
         run: terraform -chdir=demo init
 
-      - name: Terraform Apply 
+      - name: Terraform Apply
         id: apply
+        env:
+          TF_VAR_firewall: ${{ github.event.inputs.firewall }}
+          TF_VAR_spokes_count: ${{ github.event.inputs.spokesCount }}
         run: terraform -chdir=demo apply -auto-approve -no-color
+
+
+
+          
         
