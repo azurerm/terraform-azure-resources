@@ -99,5 +99,5 @@ jobs:
           TF_VAR_backup: ${{ github.event.inputs.virtualMachinesServices }}
           TF_VAR_network_security_group: ${{ github.event.inputs.networkServices }}
           TF_VAR_spokes_count: ${{ github.event.inputs.spokesCount }}
-          TF_VAR_virtual_machines: ${{ github.event.inputs.virtualMachines }}
+          TF_VAR_spokes_virtual_machines: ${{ github.event.inputs.virtualMachines }}
         run: terraform -chdir=demo apply -auto-approve -no-color

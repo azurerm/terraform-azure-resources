@@ -95,11 +95,11 @@ variable "ip_filter" {
 variable "address_space_spokes" {
   description = "(Optional) The address space that is used the Virtual Network."
   type = list(object({
-    workload        = string
-    environment     = string
-    instance        = string
-    address_space   = list(string)
-    virtual_machine = optional(bool, true)
+    workload         = string
+    environment      = string
+    instance         = string
+    address_space    = list(string)
+    virtual_machines = optional(bool, true)
   }))
   default = []
 }

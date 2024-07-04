@@ -63,8 +63,8 @@ module "spoke" {
   environment             = each.value.environment
   workload                = each.value.workload
   address_space           = each.value.address_space
-  linux_virtual_machine   = each.value.virtual_machine
-  windows_virtual_machine = each.value.virtual_machine
+  linux_virtual_machine   = each.value.virtual_machines
+  windows_virtual_machine = each.value.virtual_machines
   dns_servers             = local.vnet_dns_servers
   monitor_agent           = var.private_monitoring
   watcher_agent           = var.connection_monitor
