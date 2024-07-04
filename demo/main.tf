@@ -17,8 +17,16 @@ module "hub_and_spoke" {
   update_management                      = var.update_management
   network_security_group                 = var.network_security_group
   backup                                 = var.backup
-  address_space_spokes                   = var.address_space_spokes
   additional_access_policy_object_ids    = var.additional_access_policy_object_ids
+  address_space_spokes = [for s in range(1, var.spokes_count) :
+    {
+      workload        = "app${s}"
+      environment     = "prd"
+      instance        = "001"
+      address_space   = ["10.${100 + ceil(s / 255)}.${s % 256}.0/24"]
+      virtual_machine = var.spokes_virtual_machines
+    }
+  ]
 }
 
 module "standalone_site" {

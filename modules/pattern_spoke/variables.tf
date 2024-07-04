@@ -149,15 +149,37 @@ variable "network_security_rules" {
       destination_address_prefix = "10.0.0.0/8"
     },
     {
-      name                       = "A-OUT-Net10-Internet"
-      priority                   = 4095
+      name                       = "A-OUT-Net10-Internet-Web"
+      priority                   = 1005
       direction                  = "Outbound"
       access                     = "Allow"
       protocol                   = "Tcp"
       source_port_range          = "*"
-      destination_port_range     = "443"
+      destination_port_range     = "80, 443"
       source_address_prefix      = "10.0.0.0/8"
       destination_address_prefix = "Internet"
+    },
+    {
+      name                       = "A-OUT-Net10-AzureKMS"
+      priority                   = 1010
+      direction                  = "Outbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = "1688"
+      source_address_prefix      = "10.0.0.0/8"
+      destination_address_prefix = "20.118.99.224, 40.83.235.53"
+    },
+    {
+      name                       = "A-OUT-Net10-AzureNTP"
+      priority                   = 1020
+      direction                  = "Outbound"
+      access                     = "Allow"
+      protocol                   = "Udp"
+      source_port_range          = "*"
+      destination_port_range     = "123"
+      source_address_prefix      = "10.0.0.0/8"
+      destination_address_prefix = "51.145.123.29"
     },
     {
       name                       = "D-OUT-Any-Any"
@@ -171,6 +193,18 @@ variable "network_security_rules" {
       destination_address_prefix = "*"
     }
   ]
+}
+
+variable "single_route_table" {
+  description = "(Optional) Use a single Route Table for all the Applications Spokes."
+  type        = bool
+  default     = false
+}
+
+variable "route_table_id" {
+  description = "(Optianal) The Route Table ID only used if single_route_table is set to true."
+  type        = string
+  default     = ""
 }
 
 variable "module_tags" {

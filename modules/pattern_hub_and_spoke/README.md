@@ -80,12 +80,15 @@ No requirements.
 | <a name="module_pattern_monitoring"></a> [pattern\_monitoring](#module\_pattern\_monitoring) | ../pattern_monitoring | n/a |
 | <a name="module_recovery_services_vault"></a> [recovery\_services\_vault](#module\_recovery\_services\_vault) | ../recovery_services_vault | n/a |
 | <a name="module_route_to_spoke"></a> [route\_to\_spoke](#module\_route\_to\_spoke) | ../route | n/a |
+| <a name="module_route_to_spoke_dmz"></a> [route\_to\_spoke\_dmz](#module\_route\_to\_spoke\_dmz) | ../route | n/a |
 | <a name="module_route_to_spoke_dns"></a> [route\_to\_spoke\_dns](#module\_route\_to\_spoke\_dns) | ../route | n/a |
 | <a name="module_route_to_spoke_jumphost"></a> [route\_to\_spoke\_jumphost](#module\_route\_to\_spoke\_jumphost) | ../route | n/a |
 | <a name="module_spoke"></a> [spoke](#module\_spoke) | ../pattern_spoke | n/a |
 | <a name="module_spoke_dmz"></a> [spoke\_dmz](#module\_spoke\_dmz) | ../pattern_spoke_dmz | n/a |
 | <a name="module_spoke_dns"></a> [spoke\_dns](#module\_spoke\_dns) | ../pattern_spoke_dns | n/a |
 | <a name="module_spoke_jumphost"></a> [spoke\_jumphost](#module\_spoke\_jumphost) | ../pattern_spoke_jumphost | n/a |
+| <a name="module_spokes_default_route"></a> [spokes\_default\_route](#module\_spokes\_default\_route) | ../route | n/a |
+| <a name="module_spokes_single_route_table"></a> [spokes\_single\_route\_table](#module\_spokes\_single\_route\_table) | ../route_table | n/a |
 | <a name="module_virtual_network_peerings"></a> [virtual\_network\_peerings](#module\_virtual\_network\_peerings) | ../virtual_network_peerings | n/a |
 | <a name="module_virtual_network_peerings_dmz"></a> [virtual\_network\_peerings\_dmz](#module\_virtual\_network\_peerings\_dmz) | ../virtual_network_peerings | n/a |
 | <a name="module_virtual_network_peerings_dns"></a> [virtual\_network\_peerings\_dns](#module\_virtual\_network\_peerings\_dns) | ../virtual_network_peerings | n/a |
@@ -134,6 +137,7 @@ No requirements.
 | <a name="input_spoke_dmz"></a> [spoke\_dmz](#input\_spoke\_dmz) | (Optional) Include a DMZ Spoke. | `bool` | `false` | no |
 | <a name="input_spoke_dns"></a> [spoke\_dns](#input\_spoke\_dns) | (Optional) Include a Spoke DNS. | `bool` | `false` | no |
 | <a name="input_spoke_jumphost"></a> [spoke\_jumphost](#input\_spoke\_jumphost) | (Optional) Include a Spoke Jump Host. | `bool` | `false` | no |
+| <a name="input_spokes_single_route_table"></a> [spokes\_single\_route\_table](#input\_spokes\_single\_route\_table) | (Optional) Use a single Route Table for all the Applications Spokes. | `bool` | `false` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `null` | no |
 | <a name="input_update_management"></a> [update\_management](#input\_update\_management) | (Optional) Include Update Management for the Virtual Machine. | `bool` | `false` | no |
 | <a name="input_web_application_firewall"></a> [web\_application\_firewall](#input\_web\_application\_firewall) | (Optional) Include a WAF. | `bool` | `false` | no |

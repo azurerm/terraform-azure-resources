@@ -188,6 +188,12 @@ variable "additional_access_policy_object_ids" {
   default     = []
 }
 
+variable "spokes_single_route_table" {
+  description = "(Optional) Use a single Route Table for all the Applications Spokes."
+  type        = bool
+  default     = false
+}
+
 variable "module_tags" {
   description = "(Optional) Include the default tags?"
   type        = bool

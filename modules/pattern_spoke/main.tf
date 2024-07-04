@@ -107,9 +107,16 @@ module "subnet_network_security_group_association" {
   subnet_id                 = module.subnet[count.index].id
 }
 
+module "subnet_single_route_table_association" {
+  source         = "../subnet_route_table_association"
+  count          = (var.firewall && var.single_route_table) ? var.subnet_count : 0
+  route_table_id = var.route_table_id
+  subnet_id      = module.subnet[count.index].id
+}
+
 module "routing" {
   source              = "../pattern_routing"
-  count               = var.firewall ? var.subnet_count : 0
+  count               = (var.firewall && var.single_route_table == false) ? var.subnet_count : 0
   location            = var.location
   environment         = var.environment
   workload            = var.workload

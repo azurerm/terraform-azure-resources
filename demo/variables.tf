@@ -78,28 +78,38 @@ variable "backup" {
   default = false
 }
 
-variable "address_space_spokes" {
-  type = list(object({
-    workload        = string
-    environment     = string
-    instance        = string
-    address_space   = list(string)
-    virtual_machine = optional(bool, true)
-  }))
-  default = [
-    {
-      workload      = "app1"
-      environment   = "dev"
-      instance      = "001"
-      address_space = ["10.100.10.0/24"]
-    },
-    {
-      workload      = "app1"
-      environment   = "prd"
-      instance      = "001"
-      address_space = ["10.100.110.0/24"]
-    }
-  ]
+# variable "address_space_spokes" {
+#   type = list(object({
+#     workload        = string
+#     environment     = string
+#     instance        = string
+#     address_space   = list(string)
+#     virtual_machine = optional(bool, true)
+#   }))
+#   default = [
+#     {
+#       workload      = "app1"
+#       environment   = "dev"
+#       instance      = "001"
+#       address_space = ["10.100.10.0/24"]
+#     },
+#     {
+#       workload      = "app1"
+#       environment   = "prd"
+#       instance      = "001"
+#       address_space = ["10.100.110.0/24"]
+#     }
+#   ]
+# }
+
+variable "spokes_count" {
+  type    = number
+  default = 2
+}
+
+variable "spokes_virtual_machines" {
+  type    = bool
+  default = true
 }
 
 variable "additional_access_policy_object_ids" {
