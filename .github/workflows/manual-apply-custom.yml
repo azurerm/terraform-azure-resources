@@ -122,8 +122,3 @@ jobs:
           TF_VAR_virtual_machines: ${{ github.event.inputs.virtualMachines }}
           TF_VAR_standalone_site: ${{ github.event.inputs.standaloneSite }}
         run: terraform -chdir=demo apply -auto-approve -no-color
-
-
-
-          
-        
