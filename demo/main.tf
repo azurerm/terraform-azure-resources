@@ -18,7 +18,7 @@ module "hub_and_spoke" {
   network_security_group                 = var.network_security_group
   backup                                 = var.backup
   additional_access_policy_object_ids    = var.additional_access_policy_object_ids
-  address_space_spokes = [for s in range(1, var.spokes_count) :
+  address_space_spokes = [for s in range(1, var.spokes_count + 1) :
     {
       workload         = "app${s}"
       environment      = "prd"
