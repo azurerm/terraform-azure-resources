@@ -42,10 +42,14 @@ resource "azurerm_bastion_host" "this" {
   scale_units            = var.scale_units
   shareable_link_enabled = var.shareable_link_enabled
   tunneling_enabled      = var.tunneling_enabled
-  ip_configuration {
-    name                 = var.ip_configuration_name
-    subnet_id            = var.subnet_id
-    public_ip_address_id = var.public_ip_address_id
+  virtual_network_id     = var.virtual_network_id
+  dynamic "ip_configuration" {
+    for_each = var.sku != "Developer" ? [var.ip_configuration_name] : []
+    content {
+      name                 = var.ip_configuration_name
+      subnet_id            = var.subnet_id
+      public_ip_address_id = var.public_ip_address_id
+    }
   }
   tags = local.tags
 }

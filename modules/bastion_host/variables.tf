@@ -81,13 +81,21 @@ variable "ip_configuration_name" {
 }
 
 variable "subnet_id" {
-  description = "(Required) The ID of the Subnet to which the Bastion Host should be attached."
+  description = "(Optional) The ID of the Subnet to which the Bastion Host should be attached."
   type        = string
+  default     = null
 }
 
 variable "public_ip_address_id" {
-  description = "(Required) The ID of the Public IP Address to which the Bastion Host should be attached."
+  description = "(Optional) The ID of the Public IP Address to which the Bastion Host should be attached."
   type        = string
+  default     = null
+}
+
+variable "virtual_network_id" {
+  description = "(Optional) The ID of the Virtual Network for the Developer Bastion Host. Changing this forces a new resource to be created."
+  type        = string
+  default     = null
 }
 
 variable "module_tags" {

@@ -31,8 +31,9 @@ module "hub_and_spoke" {
 }
 
 module "standalone_site" {
-  source        = "../modules/pattern_standalone_site"
-  count         = var.standalone_site ? 1 : 0
-  location      = var.location
-  address_space = var.address_space_standalone_site
+  source                              = "../modules/pattern_standalone_site"
+  count                               = var.standalone_site ? 1 : 0
+  location                            = var.location
+  address_space                       = var.address_space_standalone_site
+  additional_access_policy_object_ids = var.additional_access_policy_object_ids
 }
