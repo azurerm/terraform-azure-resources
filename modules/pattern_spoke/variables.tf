@@ -149,30 +149,52 @@ variable "network_security_rules" {
       destination_address_prefix = "10.0.0.0/8"
     },
     {
-      name                       = "A-OUT-Net10-Internet-Web"
+      name                       = "A-OUT-Net10-Internet-TCP-80"
       priority                   = 1005
       direction                  = "Outbound"
       access                     = "Allow"
       protocol                   = "Tcp"
       source_port_range          = "*"
-      destination_port_range     = "80, 443"
+      destination_port_range     = "80"
       source_address_prefix      = "10.0.0.0/8"
       destination_address_prefix = "Internet"
     },
     {
-      name                       = "A-OUT-Net10-AzureKMS"
+      name                       = "A-OUT-Net10-Internet-TCP-443"
       priority                   = 1010
+      direction                  = "Outbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = "443"
+      source_address_prefix      = "10.0.0.0/8"
+      destination_address_prefix = "Internet"
+    },
+    {
+      name                       = "A-OUT-Net10-AzureKMS1-TCP-1688"
+      priority                   = 1015
       direction                  = "Outbound"
       access                     = "Allow"
       protocol                   = "Tcp"
       source_port_range          = "*"
       destination_port_range     = "1688"
       source_address_prefix      = "10.0.0.0/8"
-      destination_address_prefix = "20.118.99.224, 40.83.235.53"
+      destination_address_prefix = "20.118.99.224"
     },
     {
-      name                       = "A-OUT-Net10-AzureNTP"
+      name                       = "A-OUT-Net10-AzureKMS2-TCP-1688"
       priority                   = 1020
+      direction                  = "Outbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = "1688"
+      source_address_prefix      = "10.0.0.0/8"
+      destination_address_prefix = "40.83.235.53"
+    },
+    {
+      name                       = "A-OUT-Net10-AzureNTP-UDP-123"
+      priority                   = 1025
       direction                  = "Outbound"
       access                     = "Allow"
       protocol                   = "Udp"
