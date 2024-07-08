@@ -12,6 +12,11 @@ variable "firewall" {
   default = false
 }
 
+variable "firewall_sku" {
+  type    = string
+  default = "Standard"
+}
+
 variable "gateway" {
   type    = bool
   default = false
@@ -115,6 +120,7 @@ module "hub_and_spoke" {
   source                                 = "../modules/pattern_hub_and_spoke"
   location                               = var.location
   firewall                               = var.firewall
+  firewall_sku                           = var.firewall_sku
   gateway                                = var.gateway
   bastion                                = var.bastion
   address_space_hub                      = var.address_space_hub

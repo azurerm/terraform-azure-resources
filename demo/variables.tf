@@ -13,6 +13,11 @@ variable "firewall" {
   default = true
 }
 
+variable "firewall_sku" {
+  type    = string
+  default = "Standard"
+}
+
 variable "gateway" {
   type    = bool
   default = false
