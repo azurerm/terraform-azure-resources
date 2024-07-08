@@ -3,6 +3,7 @@ module "hub_and_spoke" {
   ip_filter                              = var.ip_filter
   location                               = var.location
   firewall                               = var.firewall
+  firewall_sku                           = var.firewall_sku
   gateway                                = var.gateway
   bastion                                = var.bastion
   address_space_hub                      = var.address_space_hub

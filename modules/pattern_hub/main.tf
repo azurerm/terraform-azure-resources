@@ -163,6 +163,7 @@ module "firewall_policy" {
   workload            = var.workload
   instance            = var.instance
   resource_group_name = module.resource_group.name
+  sku                 = var.firewall_sku
   dns_servers         = var.dns_servers
   dns_proxy_enabled   = var.dns_servers != [] ? true : false
   tags                = local.tags

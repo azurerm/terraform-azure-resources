@@ -3,6 +3,7 @@ run "complete-hub_and_spoke" {
 
   variables {
     firewall                               = true
+    firewall_sku                           = "Premium"
     gateway                                = true
     bastion                                = true
     spoke_dns                              = true
