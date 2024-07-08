@@ -35,7 +35,7 @@ variable "dns_servers" {
 variable "gateway" {
   description = "(Optional) Include a Gateway."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "firewall" {
@@ -60,6 +60,12 @@ variable "virtual_machine_size" {
   description = "(Optional) The size of the Virtual Machine."
   type        = string
   default     = "Standard_B1ls"
+}
+
+variable "additional_access_policy_object_ids" {
+  description = "(Optional) An additional Object ID to add to the Key Vault Access Policy."
+  type        = list(string)
+  default     = []
 }
 
 variable "module_tags" {
