@@ -13,7 +13,7 @@ on:
           - 'eastus2'
           - 'southeastasia'
       firewall: 
-        description: 'Include an Azure Firewall'
+        description: 'Include an Azure Firewall and a Private DNS Resolver'
         required: true
         default: true
         type: boolean
@@ -21,11 +21,6 @@ on:
         description: 'Include a VPN Gateway'
         required: true
         default: false
-        type: boolean
-      spokeDNS:
-        description: 'Include a spoke with a Private DNS Resolver'
-        required: true
-        default: true
         type: boolean
       spokeDMZ: 
         description: 'Include a spoke with a Application Gateway'
@@ -54,6 +49,11 @@ on:
         type: boolean
       networkServices:
         description: 'Include Additional Network Services : NSG / Connection Monitor tests'
+        required: true
+        default: false
+        type: boolean
+      standaloneSite:
+        description: 'Deploy a standalone site'
         required: true
         default: false
         type: boolean
@@ -91,7 +91,7 @@ jobs:
           TF_VAR_firewall: ${{ github.event.inputs.firewall }}
           TF_VAR_gateway: ${{ github.event.inputs.gateway }}
           TF_VAR_bastion: ${{ github.event.inputs.virtualMachines }}
-          TF_VAR_spoke_dns: ${{ github.event.inputs.spokeDNS }}
+          TF_VAR_spoke_dns: ${{ github.event.inputs.firewall }}
           TF_VAR_spoke_dmz: ${{ github.event.inputs.spokeDMZ }}
           TF_VAR_private_monitoring: ${{ github.event.inputs.privateMonitoring }}
           TF_VAR_connection_monitor: ${{ github.event.inputs.networkServices }}
@@ -100,4 +100,5 @@ jobs:
           TF_VAR_network_security_group: ${{ github.event.inputs.networkServices }}
           TF_VAR_spokes_count: ${{ github.event.inputs.spokesCount }}
           TF_VAR_spokes_virtual_machines: ${{ github.event.inputs.virtualMachines }}
+          TF_VAR_standalone_site: ${{ github.event.inputs.standaloneSite }}
         run: terraform -chdir=demo apply -auto-approve -no-color

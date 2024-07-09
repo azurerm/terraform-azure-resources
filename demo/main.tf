@@ -34,6 +34,8 @@ module "standalone_site" {
   source                              = "../modules/pattern_standalone_site"
   count                               = var.standalone_site ? 1 : 0
   location                            = var.location
+  gateway                             = var.gateway
   address_space                       = var.address_space_standalone_site
+  linux_virtual_machine               = var.spokes_virtual_machines
   additional_access_policy_object_ids = var.additional_access_policy_object_ids
 }
