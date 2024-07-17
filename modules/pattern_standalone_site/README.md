@@ -48,8 +48,6 @@ No requirements.
 | <a name="module_key_vault"></a> [key\_vault](#module\_key\_vault) | ../key_vault | n/a |
 | <a name="module_key_vault_secret"></a> [key\_vault\_secret](#module\_key\_vault\_secret) | ../key_vault_secret | n/a |
 | <a name="module_linux_virtual_machine"></a> [linux\_virtual\_machine](#module\_linux\_virtual\_machine) | ../linux_virtual_machine | n/a |
-| <a name="module_locations"></a> [locations](#module\_locations) | ../locations | n/a |
-| <a name="module_naming"></a> [naming](#module\_naming) | ../naming | n/a |
 | <a name="module_public_ip_firewall"></a> [public\_ip\_firewall](#module\_public\_ip\_firewall) | ../public_ip | n/a |
 | <a name="module_public_ip_gateway"></a> [public\_ip\_gateway](#module\_public\_ip\_gateway) | ../public_ip | n/a |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | ../resource_group | n/a |
@@ -70,6 +68,7 @@ No requirements.
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_access_policy_object_ids"></a> [additional\_access\_policy\_object\_ids](#input\_additional\_access\_policy\_object\_ids) | (Optional) An additional Object ID to add to the Key Vault Access Policy. | `list(string)` | `[]` | no |
 | <a name="input_address_space"></a> [address\_space](#input\_address\_space) | (Required) The address space that is used the Virtual Network. | `list(string)` | n/a | yes |
+| <a name="input_asn"></a> [asn](#input\_asn) | (Optional) The ASN of the Gateway. | `number` | `0` | no |
 | <a name="input_dns_servers"></a> [dns\_servers](#input\_dns\_servers) | (Optional) The DNS servers to be used with the Virtual Network. | `list(string)` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | (Required) The environment of the ressources. | `string` | `"prd"` | no |
 | <a name="input_firewall"></a> [firewall](#input\_firewall) | (Optional) Include a Firewall. | `bool` | `false` | no |
@@ -87,6 +86,8 @@ No requirements.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_gateway_id"></a> [gateway\_id](#output\_gateway\_id) | The ID of the Virtual Network Gateway. |
+| <a name="output_gateway_public_ip_address"></a> [gateway\_public\_ip\_address](#output\_gateway\_public\_ip\_address) | The public IP address of the Gateway. |
 | <a name="output_linux_virtual_machine_admin_password"></a> [linux\_virtual\_machine\_admin\_password](#output\_linux\_virtual\_machine\_admin\_password) | The password of the Linux Virtual Machine. |
 | <a name="output_linux_virtual_machine_admin_username"></a> [linux\_virtual\_machine\_admin\_username](#output\_linux\_virtual\_machine\_admin\_username) | The password of the Linux Virtual Machine. |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | The name of the resource group of the spoke. |

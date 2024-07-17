@@ -84,6 +84,7 @@ No requirements.
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_access_policy_object_ids"></a> [additional\_access\_policy\_object\_ids](#input\_additional\_access\_policy\_object\_ids) | (Optional) An additional Object ID to add to the Key Vault Access Policy. | `list(string)` | `[]` | no |
 | <a name="input_address_space"></a> [address\_space](#input\_address\_space) | (Required) The address space that is used the Hub. | `list(string)` | n/a | yes |
+| <a name="input_asn"></a> [asn](#input\_asn) | (Optional) The ASN of the Gateway. | `number` | `0` | no |
 | <a name="input_bastion"></a> [bastion](#input\_bastion) | (Optional) Include a Bastion Host. | `bool` | `true` | no |
 | <a name="input_bastion_sku"></a> [bastion\_sku](#input\_bastion\_sku) | (Optional) The SKU of the Bastion Host. | `string` | `"Basic"` | no |
 | <a name="input_dns_servers"></a> [dns\_servers](#input\_dns\_servers) | (Optional) The DNS servers to be used. | `list(string)` | `null` | no |
@@ -111,6 +112,8 @@ No requirements.
 | <a name="output_firewall_policy_id"></a> [firewall\_policy\_id](#output\_firewall\_policy\_id) | The ID of the Firewall Policy. |
 | <a name="output_firewall_private_ip_address"></a> [firewall\_private\_ip\_address](#output\_firewall\_private\_ip\_address) | The private IP address of the Firewall. |
 | <a name="output_firewall_public_ip_address"></a> [firewall\_public\_ip\_address](#output\_firewall\_public\_ip\_address) | The public IP address of the Firewall. |
+| <a name="output_gateway_id"></a> [gateway\_id](#output\_gateway\_id) | The ID of the Gateway. |
+| <a name="output_gateway_public_ip_address"></a> [gateway\_public\_ip\_address](#output\_gateway\_public\_ip\_address) | The public IP address of the Gateway. |
 | <a name="output_key_vault_id"></a> [key\_vault\_id](#output\_key\_vault\_id) | The ID of the Key Vault. |
 | <a name="output_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#output\_log\_analytics\_workspace\_id) | The ID of the Log Analytics Workspace. |
 | <a name="output_log_analytics_workspace_workspace_id"></a> [log\_analytics\_workspace\_workspace\_id](#output\_log\_analytics\_workspace\_workspace\_id) | The resource ID of the Log Analytics Workspace. |
