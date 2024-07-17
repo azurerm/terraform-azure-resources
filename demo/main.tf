@@ -46,7 +46,7 @@ module "vpn_connection" {
   count        = (var.gateway && var.standalone_site != 0) ? var.standalone_site : 0
   location     = var.location
   gateway_1_id = module.hub_and_spoke.gateway_id
-  gateway_2_id = module.standalone_dc[count.index].gateway_id
+  gateway_2_id = module.standalone[count.index].gateway_id
   vault_psk    = true
   key_vault_id = module.hub_and_spoke.key_vault_id
 }
