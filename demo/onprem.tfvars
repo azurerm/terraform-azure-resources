@@ -1,2 +1,2 @@
 gateway         = true
-standalone_site = true
+standalone_site = 1

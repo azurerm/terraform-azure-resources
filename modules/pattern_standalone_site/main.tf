@@ -22,16 +22,6 @@ locals {
 
 data "azurerm_client_config" "current" {}
 
-module "locations" {
-  source   = "../locations"
-  location = var.location
-}
-
-module "naming" {
-  source = "../naming"
-  suffix = [var.workload, var.environment, module.locations.short_name, var.instance]
-}
-
 module "resource_group" {
   source      = "../resource_group"
   location    = var.location
@@ -74,15 +64,19 @@ module "public_ip_gateway" {
 }
 
 module "gateway" {
-  source               = "../virtual_network_gateway"
-  count                = var.gateway ? 1 : 0
-  location             = var.location
-  environment          = var.environment
-  workload             = var.workload
-  instance             = var.instance
-  resource_group_name  = module.resource_group.name
-  public_ip_address_id = module.public_ip_gateway[0].id
-  subnet_id            = module.subnet_gateway[0].id
+  source              = "../virtual_network_gateway"
+  count               = var.gateway ? 1 : 0
+  location            = var.location
+  environment         = var.environment
+  workload            = var.workload
+  instance            = var.instance
+  resource_group_name = module.resource_group.name
+  asn                 = var.asn
+  ip_configurations = [{
+    public_ip_address_id = module.public_ip_gateway[0].id,
+    subnet_id            = module.subnet_gateway[0].id
+    }
+  ]
 }
 
 module "subnet_firewall" {

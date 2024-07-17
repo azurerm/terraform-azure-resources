@@ -53,10 +53,10 @@ on:
         default: false
         type: boolean
       standaloneSite:
-        description: 'Deploy a standalone site'
+        description: 'Deploy standalone site(s)'
         required: true
-        default: false
-        type: boolean
+        default: 0
+        type: number
 jobs:
   build:
     name: Terraform Apply

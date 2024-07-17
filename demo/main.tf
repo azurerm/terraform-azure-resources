@@ -24,18 +24,29 @@ module "hub_and_spoke" {
       workload         = "app${s}"
       environment      = "prd"
       instance         = "001"
-      address_space    = ["10.${100 + ceil(s / 255)}.${s % 256}.0/24"]
+      address_space    = ["10.${99 + ceil(s / 255)}.${(s + 9) % 256}.0/24"]
       virtual_machines = var.spokes_virtual_machines
     }
   ]
 }
 
-module "standalone_site" {
+module "standalone" {
   source                              = "../modules/pattern_standalone_site"
-  count                               = var.standalone_site ? 1 : 0
+  count                               = var.standalone_site
   location                            = var.location
+  workload                            = "dc${count.index + 1}"
   gateway                             = var.gateway
-  address_space                       = var.address_space_standalone_site
+  address_space                       = ["10.200.${count.index}.0/24"]
   linux_virtual_machine               = var.spokes_virtual_machines
   additional_access_policy_object_ids = var.additional_access_policy_object_ids
+}
+
+module "vpn_connection" {
+  source       = "../modules/pattern_vpn_connection"
+  count        = (var.gateway && var.standalone_site != 0) ? var.standalone_site : 0
+  location     = var.location
+  gateway_1_id = module.hub_and_spoke.gateway_id
+  gateway_2_id = module.standalone_dc[count.index].gateway_id
+  vault_psk    = true
+  key_vault_id = module.hub_and_spoke.key_vault_id
 }

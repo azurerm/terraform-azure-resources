@@ -74,6 +74,12 @@ variable "gateway_sku" {
   default     = "VpnGw1AZ"
 }
 
+variable "asn" {
+  description = "(Optional) The ASN of the Gateway."
+  type        = number
+  default     = 0
+}
+
 variable "bastion" {
   description = "(Optional) Include a Bastion Host."
   type        = bool

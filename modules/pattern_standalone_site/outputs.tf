@@ -3,6 +3,16 @@ output "resource_group_name" {
   value       = module.resource_group.name
 }
 
+output "gateway_public_ip_address" {
+  description = "The public IP address of the Gateway."
+  value       = var.gateway ? module.public_ip_gateway[0].ip_address : null
+}
+
+output "gateway_id" {
+  description = "The ID of the Virtual Network Gateway."
+  value       = var.gateway ? module.gateway[0].id : null
+}
+
 output "linux_virtual_machine_admin_username" {
   description = "The password of the Linux Virtual Machine."
   value       = module.linux_virtual_machine[*].admin_username

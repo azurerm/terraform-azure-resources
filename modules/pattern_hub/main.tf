@@ -81,28 +81,39 @@ module "subnet_gateway" {
 
 module "public_ip_gateway" {
   source              = "../public_ip"
-  count               = var.gateway ? 1 : 0
+  count               = var.gateway ? 2 : 0
   location            = var.location
   environment         = var.environment
   workload            = "gw"
-  instance            = var.instance
+  instance            = "00${count.index + 1}"
   resource_group_name = module.resource_group.name
   tags                = local.tags
 }
 
 module "gateway" {
-  source               = "../virtual_network_gateway"
-  count                = var.gateway ? 1 : 0
-  location             = var.location
-  environment          = var.environment
-  workload             = var.workload
-  instance             = var.instance
-  resource_group_name  = module.resource_group.name
-  public_ip_address_id = module.public_ip_gateway[0].id
-  subnet_id            = module.subnet_gateway[0].id
-  type                 = var.gateway_type
-  sku                  = var.gateway_sku
-  tags                 = local.tags
+  source              = "../virtual_network_gateway"
+  count               = var.gateway ? 1 : 0
+  location            = var.location
+  environment         = var.environment
+  workload            = var.workload
+  instance            = var.instance
+  resource_group_name = module.resource_group.name
+  type                = var.gateway_type
+  sku                 = var.gateway_sku
+  asn                 = var.asn
+  active_active       = true
+  ip_configurations = [{
+    name                 = "ipconfig1",
+    public_ip_address_id = module.public_ip_gateway[0].id,
+    subnet_id            = module.subnet_gateway[0].id
+    },
+    {
+      name                 = "ipconfig2",
+      public_ip_address_id = module.public_ip_gateway[1].id,
+      subnet_id            = module.subnet_gateway[0].id
+    }
+  ]
+  tags = local.tags
 }
 
 module "gateway_diagnostic_setting" {
