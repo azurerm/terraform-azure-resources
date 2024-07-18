@@ -31,6 +31,11 @@ module "naming" {
   suffix = [var.workload, var.environment, module.locations.short_name, var.instance]
 }
 
+resource "random_integer" "this" {
+  min = 65000
+  max = 65999
+}
+
 resource "azurerm_virtual_network_gateway" "this" {
   name                = coalesce(var.custom_name, module.naming.virtual_network_gateway.name)
   location            = var.location
@@ -43,17 +48,19 @@ resource "azurerm_virtual_network_gateway" "this" {
 
   dynamic "bgp_settings" {
     for_each = var.enable_bgp ? [1] : []
-
     content {
-      asn = var.asn
+      asn = var.asn == 0 ? random_integer.this.id : var.asn
     }
   }
 
-  ip_configuration {
-    name                          = var.ip_configuration_name
-    public_ip_address_id          = var.public_ip_address_id
-    private_ip_address_allocation = var.private_ip_address_allocation
-    subnet_id                     = var.subnet_id
+  dynamic "ip_configuration" {
+    for_each = var.ip_configurations
+    content {
+      name                          = ip_configuration.value.name
+      public_ip_address_id          = ip_configuration.value.public_ip_address_id
+      private_ip_address_allocation = ip_configuration.value.private_ip_address_allocation
+      subnet_id                     = ip_configuration.value.subnet_id
+    }
   }
 
   tags = local.tags

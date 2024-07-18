@@ -107,8 +107,8 @@ variable "address_space_spokes" {
 }
 
 variable "standalone_site" {
-  type    = bool
-  default = false
+  type    = number
+  default = 0
 }
 
 variable "address_space_standalone_site" {
@@ -140,7 +140,7 @@ module "hub_and_spoke" {
 
 module "standalone_site" {
   source        = "../modules/pattern_standalone_site"
-  count         = var.standalone_site ? 1 : 0
+  count         = var.standalone_site
   location      = var.location
   address_space = var.address_space_standalone_site
 }

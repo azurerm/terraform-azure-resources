@@ -16,6 +16,6 @@ run "complete-hub_and_spoke" {
     update_management                      = true
     network_security_group                 = true
     backup                                 = true
-    standalone_site                        = true
+    standalone_site                        = 1
   }
 }

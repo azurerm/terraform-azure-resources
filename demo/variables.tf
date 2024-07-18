@@ -119,15 +119,10 @@ variable "spokes_virtual_machines" {
 
 variable "additional_access_policy_object_ids" {
   type    = list(string)
-  default = ["a3e0a76c-f251-447d-8244-e47dbe6746e3", "12238d65-4cc0-4114-b51e-2f39b0075dce"]
+  default = ["12238d65-4cc0-4114-b51e-2f39b0075dce"]
 }
 
 variable "standalone_site" {
-  type    = bool
-  default = false
-}
-
-variable "address_space_standalone_site" {
-  type    = list(string)
-  default = ["10.200.0.0/23"]
+  type    = number
+  default = 0
 }

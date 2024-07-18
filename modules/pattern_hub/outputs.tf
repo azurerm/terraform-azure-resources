@@ -23,6 +23,16 @@ output "key_vault_id" {
   value       = var.key_vault ? module.key_vault[0].id : null
 }
 
+output "gateway_public_ip_address" {
+  description = "The public IP address of the Gateway."
+  value       = var.gateway ? module.public_ip_gateway[*].ip_address : null
+}
+
+output "gateway_id" {
+  description = "The ID of the Gateway."
+  value       = var.gateway ? module.gateway[0].id : null
+}
+
 output "firewall_private_ip_address" {
   description = "The private IP address of the Firewall."
   value       = var.firewall ? module.firewall[0].private_ip_address : null

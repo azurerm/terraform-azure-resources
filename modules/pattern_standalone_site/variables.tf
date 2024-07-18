@@ -38,6 +38,12 @@ variable "gateway" {
   default     = false
 }
 
+variable "asn" {
+  description = "(Optional) The ASN of the Gateway."
+  type        = number
+  default     = 0
+}
+
 variable "firewall" {
   description = "(Optional) Include a Firewall."
   type        = bool

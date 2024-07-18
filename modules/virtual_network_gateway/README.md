@@ -78,6 +78,7 @@ No requirements.
 | Name | Version |
 |------|---------|
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
 
 ## Modules
 
@@ -91,25 +92,23 @@ No requirements.
 | Name | Type |
 |------|------|
 | [azurerm_virtual_network_gateway.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network_gateway) | resource |
+| [random_integer.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/integer) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_active_active"></a> [active\_active](#input\_active\_active) | (Optional) Is Active Active? | `bool` | `false` | no |
-| <a name="input_asn"></a> [asn](#input\_asn) | (Optional) The BGP speaker's ASN. | `number` | `65515` | no |
+| <a name="input_asn"></a> [asn](#input\_asn) | (Optional) The BGP speaker's ASN. Default is set to 65000 to avoid conflit with Azure default ASN. If set to 0, random ASN is generated | `number` | `65000` | no |
 | <a name="input_custom_name"></a> [custom\_name](#input\_custom\_name) | (Optional) The name of the Virtual Network. | `string` | `""` | no |
 | <a name="input_enable_bgp"></a> [enable\_bgp](#input\_enable\_bgp) | (Optional) Is BGP Enabled? | `bool` | `true` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | (Optional) The environment of the Virtual Network. | `string` | `""` | no |
 | <a name="input_instance"></a> [instance](#input\_instance) | (Optional) The instance count for the Virtual Network. | `string` | `""` | no |
-| <a name="input_ip_configuration_name"></a> [ip\_configuration\_name](#input\_ip\_configuration\_name) | (Optional) The name of the IP Configuration. | `string` | `"ipconfig"` | no |
+| <a name="input_ip_configurations"></a> [ip\_configurations](#input\_ip\_configurations) | (Required) List of IP configuration of the Gateway | <pre>list(object({<br>    name                          = optional(string, "ipconfig")<br>    public_ip_address_id          = string<br>    private_ip_address_allocation = optional(string, "Dynamic")<br>    subnet_id                     = string<br>  }))</pre> | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | (Required) The location/region where the Virtual Network is created. Changing this forces a new resource to be created. | `string` | n/a | yes |
 | <a name="input_module_tags"></a> [module\_tags](#input\_module\_tags) | (Optional) Include the default tags? | `bool` | `true` | no |
-| <a name="input_private_ip_address_allocation"></a> [private\_ip\_address\_allocation](#input\_private\_ip\_address\_allocation) | (Optional) The Private IP Address Allocation Method. | `string` | `"Dynamic"` | no |
-| <a name="input_public_ip_address_id"></a> [public\_ip\_address\_id](#input\_public\_ip\_address\_id) | (Required) The ID of the Public IP Address. | `string` | n/a | yes |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | (Required) The name of the resource group in which to create the Virtual Network. | `string` | n/a | yes |
 | <a name="input_sku"></a> [sku](#input\_sku) | (Optional) The Sku name of the Virtual Network Gateway. | `string` | `"VpnGw1AZ"` | no |
-| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | (Required) The ID of the Subnet. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `null` | no |
 | <a name="input_type"></a> [type](#input\_type) | (Optional) The type of the Virtual Network Gateway : ExpressRoute or Vpn. | `string` | `"Vpn"` | no |
 | <a name="input_vpn_type"></a> [vpn\_type](#input\_vpn\_type) | (Optional) The type of this Virtual Network Gateway : PolicyBased or RouteBased. | `string` | `"RouteBased"` | no |

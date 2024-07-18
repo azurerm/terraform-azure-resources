@@ -64,31 +64,41 @@ variable "sku" {
 }
 
 variable "asn" {
-  description = "(Optional) The BGP speaker's ASN."
+  description = "(Optional) The BGP speaker's ASN. Default is set to 65000 to avoid conflit with Azure default ASN. If set to 0, random ASN is generated"
   type        = number
-  default     = 65515
+  default     = 65000
 }
 
-variable "ip_configuration_name" {
-  description = "(Optional) The name of the IP Configuration."
-  type        = string
-  default     = "ipconfig"
-}
+# variable "ip_configuration_name" {
+#   description = "(Optional) The name of the IP Configuration."
+#   type        = string
+#   default     = "ipconfig"
+# }
 
-variable "public_ip_address_id" {
-  description = "(Required) The ID of the Public IP Address."
-  type        = string
-}
+# variable "public_ip_address_id" {
+#   description = "(Required) The ID of the Public IP Address."
+#   type        = string
+# }
 
-variable "private_ip_address_allocation" {
-  description = "(Optional) The Private IP Address Allocation Method."
-  type        = string
-  default     = "Dynamic"
-}
+# variable "private_ip_address_allocation" {
+#   description = "(Optional) The Private IP Address Allocation Method."
+#   type        = string
+#   default     = "Dynamic"
+# }
 
-variable "subnet_id" {
-  description = "(Required) The ID of the Subnet."
-  type        = string
+# variable "subnet_id" {
+#   description = "(Required) The ID of the Subnet."
+#   type        = string
+# }
+
+variable "ip_configurations" {
+  description = "(Required) List of IP configuration of the Gateway"
+  type = list(object({
+    name                          = optional(string, "ipconfig")
+    public_ip_address_id          = string
+    private_ip_address_allocation = optional(string, "Dynamic")
+    subnet_id                     = string
+  }))
 }
 
 variable "module_tags" {

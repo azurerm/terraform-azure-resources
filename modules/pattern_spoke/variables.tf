@@ -201,7 +201,7 @@ variable "network_security_rules" {
       source_port_range          = "*"
       destination_port_range     = "123"
       source_address_prefix      = "10.0.0.0/8"
-      destination_address_prefix = "51.145.123.29"
+      destination_address_prefix = "51.145.123.29, 51.137.137.111"
     },
     {
       name                       = "D-OUT-Any-Any"

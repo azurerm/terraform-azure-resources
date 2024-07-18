@@ -44,7 +44,7 @@ resource "azurerm_bastion_host" "this" {
   tunneling_enabled      = var.tunneling_enabled
   virtual_network_id     = var.virtual_network_id
   dynamic "ip_configuration" {
-    for_each = var.sku != "Developer" ? [var.ip_configuration_name] : []
+    for_each = var.sku != "Developer" ? [1] : []
     content {
       name                 = var.ip_configuration_name
       subnet_id            = var.subnet_id
