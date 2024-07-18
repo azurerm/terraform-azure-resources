@@ -193,7 +193,7 @@ variable "network_security_rules" {
       destination_address_prefix = "40.83.235.53"
     },
     {
-      name                       = "A-OUT-Net10-AzureNTP-UDP-123"
+      name                       = "A-OUT-Net10-AzureNTP1-UDP-123"
       priority                   = 1025
       direction                  = "Outbound"
       access                     = "Allow"
@@ -201,8 +201,19 @@ variable "network_security_rules" {
       source_port_range          = "*"
       destination_port_range     = "123"
       source_address_prefix      = "10.0.0.0/8"
-      destination_address_prefix = "51.145.123.29, 51.137.137.111"
+      destination_address_prefix = "51.145.123.29"
     },
+    {
+      name                       = "A-OUT-Net10-AzureNTP2-UDP-123"
+      priority                   = 1030
+      direction                  = "Outbound"
+      access                     = "Allow"
+      protocol                   = "Udp"
+      source_port_range          = "*"
+      destination_port_range     = "123"
+      source_address_prefix      = "10.0.0.0/8"
+      destination_address_prefix = "51.137.137.111"
+    },    
     {
       name                       = "D-OUT-Any-Any"
       priority                   = 4096
