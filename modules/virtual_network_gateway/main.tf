@@ -32,8 +32,8 @@ module "naming" {
 }
 
 resource "random_integer" "this" {
-  min = 65000
-  max = 65999
+  min = 64512
+  max = 65514
 }
 
 resource "azurerm_virtual_network_gateway" "this" {
@@ -49,7 +49,7 @@ resource "azurerm_virtual_network_gateway" "this" {
   dynamic "bgp_settings" {
     for_each = var.enable_bgp ? [1] : []
     content {
-      asn = var.asn == 0 ? random_integer.this.id : var.asn
+      asn = var.asn == 0 ? random_integer.this.result : var.asn
     }
   }
 

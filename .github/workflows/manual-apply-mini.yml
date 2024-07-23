@@ -30,5 +30,7 @@ jobs:
 
       - name: Terraform Apply 
         id: apply
+        env:
+          TF_VAR_additional_access_policy_object_ids: ${{ vars.ADDITIONAL_ACCESS_POLICY_OBJECT_IDS }}
         run: terraform -chdir=demo apply -var-file=mini.tfvars -auto-approve -no-color
         

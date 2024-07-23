@@ -213,7 +213,7 @@ variable "network_security_rules" {
       destination_port_range     = "123"
       source_address_prefix      = "10.0.0.0/8"
       destination_address_prefix = "51.137.137.111"
-    },    
+    },
     {
       name                       = "D-OUT-Any-Any"
       priority                   = 4096
