@@ -21,21 +21,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so follow-up steps can access it
       - uses: actions/checkout@v3
 
-      - name: Checkov GitHub Action
-        uses: bridgecrewio/checkov-action@v12
+      - name: Run Checkov action
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
         with:
-          # This will add both a CLI output to the console and create a results.sarif file
-          output_format: cli,sarif
-          output_file_path: console,results.sarif
-        
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v2
-        
-        # Results are generated only on a success or failure
-        # this is required since GitHub by default won't run the next step
-        # when the previous one has failed. Security checks that do not pass will 'fail'.
-        # An alternative is to add `continue-on-error: true` to the previous step
-        # Or 'soft_fail: true' to checkov.
-        if: success() || failure()
-        with:
-          sarif_file: results.sarif
+          directory: demo/
+          soft_fail: true
+          download_external_modules: true
