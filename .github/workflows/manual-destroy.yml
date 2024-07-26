@@ -1,6 +1,8 @@
 name: Terraform Destroy
 on:
   workflow_dispatch:
+  schedule:
+    - cron:  '15 16 * * 5'    
 jobs:
   build:
     name: Terraform Destroy
