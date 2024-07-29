@@ -19,11 +19,11 @@ jobs:
   
         - name: Run Infracost on default branch and update Infracost Cloud
           run: |
-            infracost breakdown --path=. \
+            infracost breakdown \
+                      --path=demo/ \
+                      --terraform-var-file full.tfvars \
                       --format=json \
-                      --out-file=infracost.json
-  
-            infracost upload --path=infracost.json"
+                      --out-file=infracost.json        
   
     # # Update PR status in Infracost Cloud
     # infracost-pull-request-status-update:
