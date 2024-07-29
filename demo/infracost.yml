@@ -1,0 +1,18 @@
+version: 0.1
+projects:
+  - name: mini
+    path: demo/
+    terraform_var_files:
+      - mini.tfvars
+  - name: onprem
+    path: demo/
+    terraform_var_files:
+      - onprem.tfvars
+  - name: full
+    path: demo/
+    terraform_var_files:
+      - full.tfvars
+  - name: standard
+    path: demo/
+    terraform_var_files:
+      - standard.tfvars
