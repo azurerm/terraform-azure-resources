@@ -29,6 +29,7 @@ jobs:
           run: |
             infracost breakdown --path=demo/ \
                                 --format=json \
+                                --terraform-var-file full.tfvars \
                                 --out-file=/tmp/infracost-base.json
   
         # Checkout the current PR branch so we can create a diff.
@@ -40,6 +41,7 @@ jobs:
           run: |
             infracost diff --path=demo/ \
                             --format=json \
+                            --terraform-var-file full.tfvars
                             --compare-to=/tmp/infracost-base.json \
                             --out-file=/tmp/infracost.json
   
