@@ -20,6 +20,6 @@ jobs:
         - name: Run Infracost on default branch and update Infracost Cloud
           run: |
             infracost breakdown \
-                      --path=demo/ \
+                      --config-file==demo/infracost.yml \
                       --terraform-var-file full.tfvars \   
   
