@@ -1,0 +1,25 @@
+name: FinOps
+on:
+    workflow_dispatch:
+jobs:
+   # Run Infracost on default branch and update Infracost Cloud
+    infracost-default-branch-update:
+      # If you use private modules, or store Terraform variables or modules in a 3rd party
+      # such as TFC or Spacelift, include the same steps/variables as the infracost-pull-request-checks job
+      name: Infracost 
+      runs-on: ubuntu-latest
+      steps:
+        - name: Setup Infracost
+          uses: infracost/actions/setup@v3
+          with:
+            api-key: ${{ secrets.INFRACOST_API_KEY }}
+  
+        - name: Checkout main/master branch
+          uses: actions/checkout@v4
+  
+        - name: Run Infracost on default branch and update Infracost Cloud
+          run: |
+            infracost breakdown \
+                      --path=demo/ \
+                      --terraform-var-file full.tfvars \   
+  
