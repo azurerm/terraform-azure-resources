@@ -66,8 +66,8 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_bgp_route_propagation_enabled"></a> [bgp\_route\_propagation\_enabled](#input\_bgp\_route\_propagation\_enabled) | (Optional) Should BGP route propagation be enabled? Defaults to true. | `bool` | `true` | no |
 | <a name="input_custom_name"></a> [custom\_name](#input\_custom\_name) | (Optional) The name of the Route Table. | `string` | `""` | no |
-| <a name="input_disable_bgp_route_propagation"></a> [disable\_bgp\_route\_propagation](#input\_disable\_bgp\_route\_propagation) | (Optional) Should BGP route propagation be disabled? Defaults to false. | `bool` | `false` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | (Optional) The environment of the Route Table. | `string` | `""` | no |
 | <a name="input_instance"></a> [instance](#input\_instance) | (Optional) The instance count for the Route Table. | `string` | `""` | no |
 | <a name="input_location"></a> [location](#input\_location) | (Required) The location/region where the Route Table is created. Changing this forces a new resource to be created. | `string` | n/a | yes |
