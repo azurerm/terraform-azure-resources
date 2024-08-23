@@ -100,7 +100,7 @@ module "spokes_single_route_table" {
   workload                      = "spokes"
   instance                      = var.instance
   resource_group_name           = module.hub.resource_group_name
-  disable_bgp_route_propagation = true
+  bgp_route_propagation_enabled = false
   tags                          = local.tags
 }
 
