@@ -32,10 +32,10 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "disable_bgp_route_propagation" {
-  description = "(Optional) Should BGP route propagation be disabled? Defaults to false."
+variable "bgp_route_propagation_enabled" {
+  description = "(Optional) Should BGP route propagation be enabled? Defaults to true."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "module_tags" {

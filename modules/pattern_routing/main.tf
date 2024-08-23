@@ -29,7 +29,7 @@ module "route_table" {
   workload                      = var.workload
   instance                      = var.instance
   resource_group_name           = var.resource_group_name
-  disable_bgp_route_propagation = true
+  bgp_route_propagation_enabled = false
   tags                          = local.tags
 }
 

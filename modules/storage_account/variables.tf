@@ -44,7 +44,7 @@ variable "account_replication_type" {
   default     = "LRS"
 }
 
-variable "enable_https_traffic_only" {
+variable "https_traffic_only_enabled" {
   description = "(Optional) Allows https traffic only to storage service if set to true."
   type        = bool
   default     = true

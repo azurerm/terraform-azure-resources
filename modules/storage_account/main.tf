@@ -44,7 +44,7 @@ resource "azurerm_storage_account" "this" {
   account_tier                     = var.account_tier
   account_replication_type         = var.account_replication_type
   cross_tenant_replication_enabled = var.cross_tenant_replication_enabled
-  enable_https_traffic_only        = var.enable_https_traffic_only
+  https_traffic_only_enabled        = var.https_traffic_only_enabled
   min_tls_version                  = var.min_tls_version
   allow_nested_items_to_be_public  = var.allow_nested_items_to_be_public
   shared_access_key_enabled        = var.shared_access_key_enabled
