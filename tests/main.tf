@@ -1,8 +1,3 @@
-provider "azurerm" {
-  subscription_id = "bfa339d4-ee2f-4040-810b-8ce1c3fb4877"
-  features {}
-}
-
 variable "location" {
   type    = string
   default = "northeurope"
