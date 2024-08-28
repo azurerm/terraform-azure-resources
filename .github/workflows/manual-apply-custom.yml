@@ -90,6 +90,7 @@ jobs:
           TF_VAR_location: ${{ github.event.inputs.location }}
           TF_VAR_firewall: ${{ github.event.inputs.firewall }}
           TF_VAR_gateway: ${{ github.event.inputs.gateway }}
+          TF_VAR_p2s_vpn: ${{ github.event.inputs.gateway }}  
           TF_VAR_bastion: ${{ github.event.inputs.virtualMachines }}
           TF_VAR_spoke_dns: ${{ github.event.inputs.firewall }}
           TF_VAR_spoke_dmz: ${{ github.event.inputs.spokeDMZ }}

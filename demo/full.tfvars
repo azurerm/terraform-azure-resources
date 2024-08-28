@@ -1,3 +1,5 @@
+gateway                                = true
+p2s_vpn                                = true
 firewall_sku                           = "Premium"
 private_monitoring                     = true
 address_space_spoke_private_monitoring = ["10.100.3.0/27"]

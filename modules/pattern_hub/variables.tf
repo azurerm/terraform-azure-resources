@@ -80,6 +80,12 @@ variable "asn" {
   default     = 0
 }
 
+variable "p2s_vpn" {
+  description = "(Optional) Include a Point-to-Site VPN configuration."
+  type        = bool
+  default     = false
+}
+
 variable "bastion" {
   description = "(Optional) Include a Bastion Host."
   type        = bool

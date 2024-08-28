@@ -47,6 +47,7 @@ module "hub" {
   gateway                             = var.gateway
   gateway_type                        = var.gateway_type
   gateway_sku                         = var.gateway_sku
+  p2s_vpn                             = var.p2s_vpn
   bastion                             = var.bastion
   bastion_sku                         = var.bastion_sku
   key_vault                           = var.key_vault

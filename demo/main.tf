@@ -5,6 +5,7 @@ module "hub_and_spoke" {
   firewall                               = var.firewall
   firewall_sku                           = var.firewall_sku
   gateway                                = var.gateway
+  p2s_vpn                                = var.p2s_vpn
   bastion                                = var.bastion
   address_space_hub                      = var.address_space_hub
   spoke_dns                              = var.spoke_dns

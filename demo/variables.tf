@@ -23,6 +23,11 @@ variable "gateway" {
   default = false
 }
 
+variable "p2s_vpn" {
+  type    = bool
+  default = false
+}
+
 variable "bastion" {
   type    = bool
   default = true
