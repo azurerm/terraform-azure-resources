@@ -93,12 +93,14 @@ No requirements.
 |------|------|
 | [azurerm_virtual_network_gateway.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network_gateway) | resource |
 | [random_integer.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/integer) | resource |
+| [azurerm_client_config.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_active_active"></a> [active\_active](#input\_active\_active) | (Optional) Is Active Active? | `bool` | `false` | no |
+| <a name="input_address_space"></a> [address\_space](#input\_address\_space) | (Optional) The address space that is used the Hub. | `list(string)` | <pre>[<br>  "10.99.255.0/24"<br>]</pre> | no |
 | <a name="input_asn"></a> [asn](#input\_asn) | (Optional) The BGP speaker's ASN. Default is set to 65000 to avoid conflit with Azure default ASN. If set to 0, random ASN is generated | `number` | `65000` | no |
 | <a name="input_custom_name"></a> [custom\_name](#input\_custom\_name) | (Optional) The name of the Virtual Network. | `string` | `""` | no |
 | <a name="input_enable_bgp"></a> [enable\_bgp](#input\_enable\_bgp) | (Optional) Is BGP Enabled? | `bool` | `true` | no |
@@ -107,6 +109,7 @@ No requirements.
 | <a name="input_ip_configurations"></a> [ip\_configurations](#input\_ip\_configurations) | (Required) List of IP configuration of the Gateway | <pre>list(object({<br>    name                          = optional(string, "ipconfig")<br>    public_ip_address_id          = string<br>    private_ip_address_allocation = optional(string, "Dynamic")<br>    subnet_id                     = string<br>  }))</pre> | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | (Required) The location/region where the Virtual Network is created. Changing this forces a new resource to be created. | `string` | n/a | yes |
 | <a name="input_module_tags"></a> [module\_tags](#input\_module\_tags) | (Optional) Include the default tags? | `bool` | `true` | no |
+| <a name="input_p2s_vpn"></a> [p2s\_vpn](#input\_p2s\_vpn) | (Optional) Include a Point-to-Site VPN configuration. | `bool` | `false` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | (Required) The name of the resource group in which to create the Virtual Network. | `string` | n/a | yes |
 | <a name="input_sku"></a> [sku](#input\_sku) | (Optional) The Sku name of the Virtual Network Gateway. | `string` | `"VpnGw1AZ"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `null` | no |

@@ -81,7 +81,7 @@ module "subnet_gateway" {
 
 module "public_ip_gateway" {
   source              = "../public_ip"
-  count               = var.gateway ? 2 : 0
+  count               = var.gateway ? var.p2s_vpn ? 3 : 2 : 0
   location            = var.location
   environment         = var.environment
   workload            = "gw"
@@ -102,17 +102,12 @@ module "gateway" {
   sku                 = var.gateway_sku
   asn                 = var.asn
   active_active       = true
-  ip_configurations = [{
-    name                 = "ipconfig1",
-    public_ip_address_id = module.public_ip_gateway[0].id,
+  p2s_vpn             = var.p2s_vpn
+  ip_configurations = [for index, pip in module.public_ip_gateway : {
+    name                 = "ipconfig${index + 1}"
+    public_ip_address_id = pip.id
     subnet_id            = module.subnet_gateway[0].id
-    },
-    {
-      name                 = "ipconfig2",
-      public_ip_address_id = module.public_ip_gateway[1].id,
-      subnet_id            = module.subnet_gateway[0].id
-    }
-  ]
+  }]
   tags = local.tags
 }
 

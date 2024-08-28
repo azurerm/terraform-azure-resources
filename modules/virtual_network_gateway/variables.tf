@@ -69,28 +69,6 @@ variable "asn" {
   default     = 65000
 }
 
-# variable "ip_configuration_name" {
-#   description = "(Optional) The name of the IP Configuration."
-#   type        = string
-#   default     = "ipconfig"
-# }
-
-# variable "public_ip_address_id" {
-#   description = "(Required) The ID of the Public IP Address."
-#   type        = string
-# }
-
-# variable "private_ip_address_allocation" {
-#   description = "(Optional) The Private IP Address Allocation Method."
-#   type        = string
-#   default     = "Dynamic"
-# }
-
-# variable "subnet_id" {
-#   description = "(Required) The ID of the Subnet."
-#   type        = string
-# }
-
 variable "ip_configurations" {
   description = "(Required) List of IP configuration of the Gateway"
   type = list(object({
@@ -99,6 +77,18 @@ variable "ip_configurations" {
     private_ip_address_allocation = optional(string, "Dynamic")
     subnet_id                     = string
   }))
+}
+
+variable "p2s_vpn" {
+  description = "(Optional) Include a Point-to-Site VPN configuration."
+  type        = bool
+  default     = false
+}
+
+variable "address_space" {
+  description = "(Optional) The address space that is used the Hub."
+  type        = list(string)
+  default     = ["10.99.255.0/24"]
 }
 
 variable "module_tags" {

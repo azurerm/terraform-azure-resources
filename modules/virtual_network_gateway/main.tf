@@ -21,6 +21,8 @@ locals {
   )
 }
 
+data "azurerm_client_config" "current" {}
+
 module "locations" {
   source   = "../locations"
   location = var.location
@@ -60,6 +62,22 @@ resource "azurerm_virtual_network_gateway" "this" {
       public_ip_address_id          = ip_configuration.value.public_ip_address_id
       private_ip_address_allocation = ip_configuration.value.private_ip_address_allocation
       subnet_id                     = ip_configuration.value.subnet_id
+    }
+  }
+
+  dynamic "vpn_client_configuration" {
+    for_each = var.p2s_vpn ? [1] : []
+    content {
+      aad_audience  = "41b23e61-6c1e-4545-b367-cd054e0ed4b4"
+      aad_issuer    = "https://sts.windows.net/${data.azurerm_client_config.current.tenant_id}/"
+      aad_tenant    = "https://login.microsoftonline.com/${data.azurerm_client_config.current.tenant_id}"
+      address_space = var.address_space
+      vpn_auth_types = [
+        "AAD"
+      ]
+      vpn_client_protocols = [
+        "OpenVPN"
+      ]
     }
   }
 
