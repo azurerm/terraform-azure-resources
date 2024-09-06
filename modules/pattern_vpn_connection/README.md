@@ -60,8 +60,6 @@ No requirements.
 | <a name="module_gateway_1"></a> [gateway\_1](#module\_gateway\_1) | ../local_network_gateway | n/a |
 | <a name="module_gateway_2"></a> [gateway\_2](#module\_gateway\_2) | ../local_network_gateway | n/a |
 | <a name="module_key_vault_secret"></a> [key\_vault\_secret](#module\_key\_vault\_secret) | ../key_vault_secret | n/a |
-| <a name="module_locations"></a> [locations](#module\_locations) | ../locations | n/a |
-| <a name="module_naming"></a> [naming](#module\_naming) | ../naming | n/a |
 
 ## Resources
 
