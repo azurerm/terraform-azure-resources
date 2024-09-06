@@ -23,7 +23,7 @@ on:
         default: true
         type: boolean
       spokeAI: 
-          description: 'Include a spoke with a AI Solution'
+          description: 'Include a spoke with a AI Spoke'
           required: true
           default: false
           type: boolean        
