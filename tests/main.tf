@@ -58,6 +58,16 @@ variable "address_space_spoke_private_monitoring" {
   default = []
 }
 
+variable "spoke_ai" {
+  type    = bool
+  default = false
+}
+
+variable "address_space_spoke_ai" {
+  type    = list(string)
+  default = []
+}
+
 variable "connection_monitor" {
   type    = bool
   default = false
@@ -124,6 +134,8 @@ module "hub_and_spoke" {
   address_space_spoke_dns                = var.address_space_spoke_dns
   spoke_dmz                              = var.spoke_dmz
   address_space_spoke_dmz                = var.address_space_spoke_dmz
+  spoke_ai                               = var.spoke_ai
+  address_space_spoke_ai                 = var.address_space_spoke_ai
   web_application_firewall               = var.spoke_dmz
   private_monitoring                     = var.private_monitoring
   address_space_spoke_private_monitoring = var.address_space_spoke_private_monitoring

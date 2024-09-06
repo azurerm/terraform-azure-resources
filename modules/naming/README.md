@@ -51,6 +51,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_ai_services"></a> [ai\_services](#output\_ai\_services) | AI Services |
 | <a name="output_analysis_services_server"></a> [analysis\_services\_server](#output\_analysis\_services\_server) | Analysis Services Server |
 | <a name="output_api_management"></a> [api\_management](#output\_api\_management) | Api Management |
 | <a name="output_app_configuration"></a> [app\_configuration](#output\_app\_configuration) | App Configuration |

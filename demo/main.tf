@@ -13,6 +13,8 @@ module "hub_and_spoke" {
   spoke_dmz                              = var.spoke_dmz
   address_space_spoke_dmz                = var.address_space_spoke_dmz
   web_application_firewall               = var.spoke_dmz
+  spoke_ai                               = var.spoke_ai
+  address_space_spoke_ai                 = var.address_space_spoke_ai
   private_monitoring                     = var.private_monitoring
   address_space_spoke_private_monitoring = var.address_space_spoke_private_monitoring
   connection_monitor                     = var.connection_monitor

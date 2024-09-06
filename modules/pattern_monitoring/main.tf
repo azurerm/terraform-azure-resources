@@ -160,10 +160,11 @@ resource "azurerm_monitor_private_link_scoped_service" "mdce" {
 }
 
 resource "azurerm_private_endpoint" "this" {
-  name                = "pe-${azurerm_monitor_private_link_scope.this.name}"
-  location            = module.resource_group.location
-  resource_group_name = module.resource_group.name
-  subnet_id           = module.subnet.id
+  name                          = "${azurerm_monitor_private_link_scope.this.name}-pe"
+  custom_network_interface_name = "${azurerm_monitor_private_link_scope.this.name}-nic"
+  location                      = module.resource_group.location
+  resource_group_name           = module.resource_group.name
+  subnet_id                     = module.subnet.id
 
   private_service_connection {
     name                           = "psc-${azurerm_monitor_private_link_scope.this.name}"

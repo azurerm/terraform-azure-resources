@@ -29,6 +29,11 @@ output "app_service" {
   description = "App Service"
 }
 
+output "ai_services" {
+  value       = local.az.ai_services
+  description = "AI Services"
+}
+
 output "app_service_environment" {
   value = local.az.app_service_environment
 }

@@ -63,6 +63,7 @@ No requirements.
 | Name | Version |
 |------|---------|
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
+| <a name="provider_restapi"></a> [restapi](#provider\_restapi) | n/a |
 
 ## Modules
 
@@ -84,12 +85,14 @@ No requirements.
 | <a name="module_route_to_spoke_dns"></a> [route\_to\_spoke\_dns](#module\_route\_to\_spoke\_dns) | ../route | n/a |
 | <a name="module_route_to_spoke_jumphost"></a> [route\_to\_spoke\_jumphost](#module\_route\_to\_spoke\_jumphost) | ../route | n/a |
 | <a name="module_spoke"></a> [spoke](#module\_spoke) | ../pattern_spoke | n/a |
+| <a name="module_spoke_ai"></a> [spoke\_ai](#module\_spoke\_ai) | ../pattern_spoke_ai | n/a |
 | <a name="module_spoke_dmz"></a> [spoke\_dmz](#module\_spoke\_dmz) | ../pattern_spoke_dmz | n/a |
 | <a name="module_spoke_dns"></a> [spoke\_dns](#module\_spoke\_dns) | ../pattern_spoke_dns | n/a |
 | <a name="module_spoke_jumphost"></a> [spoke\_jumphost](#module\_spoke\_jumphost) | ../pattern_spoke_jumphost | n/a |
 | <a name="module_spokes_default_route"></a> [spokes\_default\_route](#module\_spokes\_default\_route) | ../route | n/a |
 | <a name="module_spokes_single_route_table"></a> [spokes\_single\_route\_table](#module\_spokes\_single\_route\_table) | ../route_table | n/a |
 | <a name="module_virtual_network_peerings"></a> [virtual\_network\_peerings](#module\_virtual\_network\_peerings) | ../virtual_network_peerings | n/a |
+| <a name="module_virtual_network_peerings_ai"></a> [virtual\_network\_peerings\_ai](#module\_virtual\_network\_peerings\_ai) | ../virtual_network_peerings | n/a |
 | <a name="module_virtual_network_peerings_dmz"></a> [virtual\_network\_peerings\_dmz](#module\_virtual\_network\_peerings\_dmz) | ../virtual_network_peerings | n/a |
 | <a name="module_virtual_network_peerings_dns"></a> [virtual\_network\_peerings\_dns](#module\_virtual\_network\_peerings\_dns) | ../virtual_network_peerings | n/a |
 | <a name="module_virtual_network_peerings_jumphost"></a> [virtual\_network\_peerings\_jumphost](#module\_virtual\_network\_peerings\_jumphost) | ../virtual_network_peerings | n/a |
@@ -103,6 +106,9 @@ No requirements.
 | [azurerm_network_connection_monitor.external](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_connection_monitor) | resource |
 | [azurerm_network_connection_monitor.internal](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_connection_monitor) | resource |
 | [azurerm_network_watcher_flow_log.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_watcher_flow_log) | resource |
+| [restapi_object.create_datasource](https://registry.terraform.io/providers/mastercard/restapi/latest/docs/resources/object) | resource |
+| [restapi_object.create_index](https://registry.terraform.io/providers/mastercard/restapi/latest/docs/resources/object) | resource |
+| [restapi_object.create_indexer](https://registry.terraform.io/providers/mastercard/restapi/latest/docs/resources/object) | resource |
 | [azurerm_network_watcher.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/network_watcher) | data source |
 
 ## Inputs
@@ -111,6 +117,7 @@ No requirements.
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_access_policy_object_ids"></a> [additional\_access\_policy\_object\_ids](#input\_additional\_access\_policy\_object\_ids) | (Optional) An additional Object ID to add to the Key Vault Access Policy. | `list(string)` | `[]` | no |
 | <a name="input_address_space_hub"></a> [address\_space\_hub](#input\_address\_space\_hub) | (Required) The address space that is used the Hub. | `list(string)` | n/a | yes |
+| <a name="input_address_space_spoke_ai"></a> [address\_space\_spoke\_ai](#input\_address\_space\_spoke\_ai) | (Optional) The address space that is used the Virtual Network. | `list(string)` | `null` | no |
 | <a name="input_address_space_spoke_dmz"></a> [address\_space\_spoke\_dmz](#input\_address\_space\_spoke\_dmz) | (Optional) The address space that is used the Virtual Network. | `list(string)` | `null` | no |
 | <a name="input_address_space_spoke_dns"></a> [address\_space\_spoke\_dns](#input\_address\_space\_spoke\_dns) | (Optional) The address space that is used the Virtual Network. | `list(string)` | `null` | no |
 | <a name="input_address_space_spoke_jumphost"></a> [address\_space\_spoke\_jumphost](#input\_address\_space\_spoke\_jumphost) | (Optional) The address space that is used the Virtual Network. | `list(string)` | `null` | no |
@@ -135,6 +142,7 @@ No requirements.
 | <a name="input_network_security_group"></a> [network\_security\_group](#input\_network\_security\_group) | (Optional) Include a Network Security Group with Flow Log. | `bool` | `false` | no |
 | <a name="input_p2s_vpn"></a> [p2s\_vpn](#input\_p2s\_vpn) | (Optional) Include a Point-to-Site VPN configuration. | `bool` | `false` | no |
 | <a name="input_private_monitoring"></a> [private\_monitoring](#input\_private\_monitoring) | (Optional) Include a Private Monitoring. | `bool` | `false` | no |
+| <a name="input_spoke_ai"></a> [spoke\_ai](#input\_spoke\_ai) | (Optional) Include a DMZ Spoke. | `bool` | `false` | no |
 | <a name="input_spoke_dmz"></a> [spoke\_dmz](#input\_spoke\_dmz) | (Optional) Include a DMZ Spoke. | `bool` | `false` | no |
 | <a name="input_spoke_dns"></a> [spoke\_dns](#input\_spoke\_dns) | (Optional) Include a Spoke DNS. | `bool` | `false` | no |
 | <a name="input_spoke_jumphost"></a> [spoke\_jumphost](#input\_spoke\_jumphost) | (Optional) Include a Spoke Jump Host. | `bool` | `false` | no |
