@@ -3,6 +3,9 @@ terraform {
     azurerm = {
       source = "hashicorp/azurerm"
     }
+    restapi = {
+      source = "mastercard/restapi"
+    }
   }
 }
 
@@ -252,6 +255,82 @@ module "virtual_network_peerings_dmz" {
   ]
 }
 
+module "spoke_ai" {
+  source        = "../pattern_spoke_ai"
+  count         = (var.spoke_ai && var.address_space_spoke_ai != null) ? 1 : 0
+  location      = var.location
+  address_space = var.address_space_spoke_ai
+  dns_servers   = local.vnet_dns_servers
+  firewall      = var.firewall
+  next_hop      = var.firewall ? module.hub.firewall_private_ip_address : ""
+  private_dns_zone_ids = [
+    module.spoke_dns[0].private_dns_zones["privatelink.cognitiveservices.azure.com"]["id"],
+    module.spoke_dns[0].private_dns_zones["privatelink.openai.azure.com"]["id"],
+    module.spoke_dns[0].private_dns_zones["privatelink.azurewebsites.net"]["id"],
+    module.spoke_dns[0].private_dns_zones["privatelink.blob.core.windows.net"]["id"],
+    module.spoke_dns[0].private_dns_zones["privatelink.search.windows.net"]["id"],
+  ]
+  tags = local.tags
+}
+
+module "virtual_network_peerings_ai" {
+  source                                = "../virtual_network_peerings"
+  count                                 = (var.spoke_ai && var.address_space_spoke_ai != null) ? 1 : 0
+  virtual_network_1_resource_group_name = module.hub.resource_group_name
+  virtual_network_1_id                  = module.hub.virtual_network_id
+  virtual_network_1_hub                 = var.gateway
+  virtual_network_2_resource_group_name = module.spoke_ai[0].resource_group_name
+  virtual_network_2_id                  = module.spoke_ai[0].virtual_network_id
+
+  depends_on = [
+    module.hub,
+    module.spoke_ai
+  ]
+}
+
+provider "restapi" {
+  uri                  = (var.spoke_ai && var.address_space_spoke_ai != null) ? "https://${module.spoke_ai[0].search_service_name}.search.windows.net" : "https://management.azure.com"
+  write_returns_object = true
+  debug                = false
+
+  headers = {
+    "api-key"      = (var.spoke_ai && var.address_space_spoke_ai != null) ? module.spoke_ai[0].search_service_key : "",
+    "Content-Type" = "application/json"
+  }
+
+  create_method  = "POST"
+  update_method  = "PUT"
+  destroy_method = "DELETE"
+}
+
+resource "restapi_object" "create_index" {
+  count        = (var.spoke_ai && var.address_space_spoke_ai != null) ? 1 : 0
+  path         = "/indexes"
+  query_string = "api-version=2024-05-01-preview"
+  data         = templatefile("${path.module}/../pattern_spoke_ai/config/index.json", { search_service_name = module.spoke_ai[0].search_service_name })
+  id_attribute = "name" # The ID field on the response
+}
+
+resource "restapi_object" "create_datasource" {
+  count        = (var.spoke_ai && var.address_space_spoke_ai != null) ? 1 : 0
+  path         = "/datasources"
+  query_string = "api-version=2024-05-01-preview"
+  data         = templatefile("${path.module}/../pattern_spoke_ai/config/data-source.json", { search_service_name = module.spoke_ai[0].search_service_name, storage_account_id = module.spoke_ai[0].storage_account_id, container_name = module.spoke_ai[0].container_name })
+  id_attribute = "name" # The ID field on the response
+}
+
+resource "restapi_object" "create_indexer" {
+  count        = (var.spoke_ai && var.address_space_spoke_ai != null) ? 1 : 0
+  path         = "/indexers"
+  query_string = "api-version=2024-05-01-preview"
+  data         = templatefile("${path.module}/../pattern_spoke_ai/config/indexer.json", { search_service_name = module.spoke_ai[0].search_service_name, container_name = module.spoke_ai[0].container_name })
+  id_attribute = "name" # The ID field on the response
+  depends_on = [
+    restapi_object.create_index[0],
+    restapi_object.create_datasource[0],
+  ]
+}
+
 module "route_to_spoke_dmz" {
   source                 = "../route"
   count                  = (var.gateway && var.firewall && var.spoke_dmz && var.address_space_spoke_dmz != null) ? 1 : 0
@@ -276,7 +355,7 @@ module "pattern_monitoring" {
     module.spoke_dns[0].private_dns_zones["privatelink.agentsvc.azure-automation.net"]["id"],
     module.spoke_dns[0].private_dns_zones["privatelink.ods.opinsights.azure.com"]["id"],
     module.spoke_dns[0].private_dns_zones["privatelink.oms.opinsights.azure.com"]["id"],
-    module.spoke_dns[0].private_dns_zones["privatelink.blob.core.windows.net"]["id"],
+    module.spoke_dns[0].private_dns_zones["privatelink.blob.core.windows.net"]["id"]
   ]
   tags = local.tags
 }

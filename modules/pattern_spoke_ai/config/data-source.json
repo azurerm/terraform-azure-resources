@@ -1,0 +1,19 @@
+{
+    "@odata.context": "https://${search_service_name}.search.windows.net/$metadata#datasources/$entity",
+    "@odata.etag": "\"0x8DCCB3AF2AE7861\"",
+    "name": "${container_name}",
+    "description": null,
+    "type": "azureblob",
+    "subtype": null,
+    "credentials": {
+      "connectionString": "ResourceId=${storage_account_id};"
+    },
+    "container": {
+      "name": "${container_name}",
+      "query": null
+    },
+    "dataChangeDetectionPolicy": null,
+    "dataDeletionDetectionPolicy": null,
+    "encryptionKey": null,
+    "identity": null
+  }

@@ -1,3 +1,7 @@
+variable "subscription_id" {
+  type = string
+}
+
 variable "ip_filter" {
   type    = bool
   default = false
@@ -66,6 +70,16 @@ variable "private_monitoring" {
 variable "address_space_spoke_private_monitoring" {
   type    = list(string)
   default = ["10.100.3.0/27"]
+}
+
+variable "spoke_ai" {
+  type    = bool
+  default = false
+}
+
+variable "address_space_spoke_ai" {
+  type    = list(string)
+  default = ["10.100.3.0/25"]
 }
 
 variable "connection_monitor" {

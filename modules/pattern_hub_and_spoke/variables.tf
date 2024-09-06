@@ -152,6 +152,18 @@ variable "web_application_firewall" {
   default     = false
 }
 
+variable "spoke_ai" {
+  description = "(Optional) Include a DMZ Spoke."
+  type        = bool
+  default     = false
+}
+
+variable "address_space_spoke_ai" {
+  description = "(Optional) The address space that is used the Virtual Network."
+  type        = list(string)
+  default     = null
+}
+
 variable "private_monitoring" {
   description = "(Optional) Include a Private Monitoring."
   type        = bool

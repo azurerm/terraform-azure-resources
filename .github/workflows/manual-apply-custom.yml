@@ -12,11 +12,6 @@ on:
           - 'francecentral'
           - 'eastus2'
           - 'southeastasia'
-      firewall: 
-        description: 'Include an Azure Firewall and a Private DNS Resolver'
-        required: true
-        default: true
-        type: boolean
       gateway: 
         description: 'Include a VPN Gateway'
         required: true
@@ -27,6 +22,11 @@ on:
         required: true
         default: true
         type: boolean
+      spokeAI: 
+          description: 'Include a spoke with a AI Solution'
+          required: true
+          default: false
+          type: boolean        
       privateMonitoring: 
         description: 'Include a spoke with a Private Monitoring Solution'
         required: true
@@ -88,12 +88,11 @@ jobs:
         id: apply
         env:
           TF_VAR_location: ${{ github.event.inputs.location }}
-          TF_VAR_firewall: ${{ github.event.inputs.firewall }}
           TF_VAR_gateway: ${{ github.event.inputs.gateway }}
           TF_VAR_p2s_vpn: ${{ github.event.inputs.gateway }}  
           TF_VAR_bastion: ${{ github.event.inputs.virtualMachines }}
-          TF_VAR_spoke_dns: ${{ github.event.inputs.firewall }}
           TF_VAR_spoke_dmz: ${{ github.event.inputs.spokeDMZ }}
+          TF_VAR_spoke_ai: ${{ github.event.inputs.spokeAI }}          
           TF_VAR_private_monitoring: ${{ github.event.inputs.privateMonitoring }}
           TF_VAR_connection_monitor: ${{ github.event.inputs.networkServices }}
           TF_VAR_update_management: ${{ github.event.inputs.virtualMachinesServices }}

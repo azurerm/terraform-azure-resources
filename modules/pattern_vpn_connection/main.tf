@@ -19,16 +19,6 @@ locals {
   )
 }
 
-module "locations" {
-  source   = "../locations"
-  location = var.location
-}
-
-module "naming" {
-  source = "../naming"
-  suffix = [var.workload, var.environment, var.instance]
-}
-
 data "azurerm_virtual_network_gateway" "gateway_1" {
   name                = split("/", var.gateway_1_id)[8]
   resource_group_name = split("/", var.gateway_1_id)[4]
