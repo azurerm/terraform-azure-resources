@@ -1,4 +1,4 @@
-name: Terraform Apply - Minimum
+name: Terraform Apply - AI
 on:
   workflow_dispatch:
 jobs:
