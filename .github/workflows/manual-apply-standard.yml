@@ -32,5 +32,6 @@ jobs:
         id: apply
         env:
           TF_VAR_additional_access_policy_object_ids: ${{ vars.ADDITIONAL_ACCESS_POLICY_OBJECT_IDS }}
+          TF_VAR_subscription_id: ${{ vars.ARM_SUBSCRIPTION_ID }}
         run: terraform -chdir=demo apply -auto-approve -no-color
         
