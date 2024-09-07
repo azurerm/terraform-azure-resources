@@ -31,6 +31,8 @@ jobs:
         run: terraform -chdir=demo init
 
       - name: Terraform Destroy 
-        id: apply
+        id: destroy
+        env: 
+          TF_VAR_subscription_id: ${{ vars.ARM_SUBSCRIPTION_ID }}
         run: terraform -chdir=demo destroy -auto-approve -no-color
         
