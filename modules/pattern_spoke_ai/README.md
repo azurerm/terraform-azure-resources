@@ -44,11 +44,13 @@ No requirements.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_ai_services"></a> [ai\_services](#module\_ai\_services) | ../ai_services | n/a |
+| <a name="module_ai_services_diagnostic_setting"></a> [ai\_services\_diagnostic\_setting](#module\_ai\_services\_diagnostic\_setting) | ../monitor_diagnostic_setting | n/a |
 | <a name="module_locations"></a> [locations](#module\_locations) | ../locations | n/a |
 | <a name="module_naming"></a> [naming](#module\_naming) | ../naming | n/a |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | ../resource_group | n/a |
 | <a name="module_routing-app"></a> [routing-app](#module\_routing-app) | ../pattern_routing | n/a |
 | <a name="module_routing-pe"></a> [routing-pe](#module\_routing-pe) | ../pattern_routing | n/a |
+| <a name="module_search_service_diagnostic_setting"></a> [search\_service\_diagnostic\_setting](#module\_search\_service\_diagnostic\_setting) | ../monitor_diagnostic_setting | n/a |
 | <a name="module_storage_account"></a> [storage\_account](#module\_storage\_account) | ../storage_account | n/a |
 | <a name="module_subnet-app"></a> [subnet-app](#module\_subnet-app) | ../subnet | n/a |
 | <a name="module_subnet-pe"></a> [subnet-pe](#module\_subnet-pe) | ../subnet | n/a |
@@ -71,7 +73,6 @@ No requirements.
 | [azurerm_role_assignment.search_service_contributor](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
 | [azurerm_role_assignment.storage_blob_data_contributor](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
 | [azurerm_search_service.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/search_service) | resource |
-| [azurerm_search_shared_private_link_service.search_service_ai_services_spls](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/search_shared_private_link_service) | resource |
 | [azurerm_search_shared_private_link_service.search_service_storage_spls](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/search_shared_private_link_service) | resource |
 | [azurerm_service_plan.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/service_plan) | resource |
 | [azurerm_storage_blob.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_blob) | resource |
@@ -88,10 +89,13 @@ No requirements.
 | <a name="input_environment"></a> [environment](#input\_environment) | (Optional) The environment of the Virtual Network. | `string` | `"prd"` | no |
 | <a name="input_firewall"></a> [firewall](#input\_firewall) | (Optional) Firewall in Hub?. | `bool` | `false` | no |
 | <a name="input_instance"></a> [instance](#input\_instance) | (Optional) The instance count for the Virtual Network. | `string` | `"001"` | no |
+| <a name="input_ip_filter"></a> [ip\_filter](#input\_ip\_filter) | (Optional) Include a public IP Filter. | `bool` | `true` | no |
 | <a name="input_location"></a> [location](#input\_location) | (Required) The location/region where the Virtual Network is created. Changing this forces a new resource to be created. | `string` | n/a | yes |
+| <a name="input_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#input\_log\_analytics\_workspace\_id) | (Optional) The ID of the Log Analytics Workspace to log Application Gateway. | `string` | `""` | no |
 | <a name="input_module_tags"></a> [module\_tags](#input\_module\_tags) | (Optional) Include the default tags? | `bool` | `true` | no |
 | <a name="input_next_hop"></a> [next\_hop](#input\_next\_hop) | (Optional) The default next hop of the Virtual Network. | `string` | `""` | no |
 | <a name="input_private_dns_zone_ids"></a> [private\_dns\_zone\_ids](#input\_private\_dns\_zone\_ids) | (Optional) The private DNS zone IDs of the AI Services. | `list(string)` | `[]` | no |
+| <a name="input_private_paas"></a> [private\_paas](#input\_private\_paas) | (Optional) Close any public access to the PaaS services (private connectivity is required). | `bool` | `false` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `null` | no |
 | <a name="input_workload"></a> [workload](#input\_workload) | (Optional) The usage or application of the Virtual Network. | `string` | `"ai"` | no |
 

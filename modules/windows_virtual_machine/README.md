@@ -138,6 +138,7 @@ No requirements.
 | <a name="input_source_image_reference_version"></a> [source\_image\_reference\_version](#input\_source\_image\_reference\_version) | (Optional) The version of the image which should be used for the Virtual Machine. | `string` | `"latest"` | no |
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | (Required) The ID of the Subnet which should be used with the Network Interface. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `null` | no |
+| <a name="input_vm_agent_platform_updates_enabled"></a> [vm\_agent\_platform\_updates\_enabled](#input\_vm\_agent\_platform\_updates\_enabled) | (Optional) Should the VM Agent be enabled for the Virtual Machine? | `bool` | `true` | no |
 | <a name="input_watcher_agent"></a> [watcher\_agent](#input\_watcher\_agent) | (Optional) Install the Azure Monitor Agent? | `bool` | `false` | no |
 | <a name="input_watcher_agent_auto_upgrade_minor_version"></a> [watcher\_agent\_auto\_upgrade\_minor\_version](#input\_watcher\_agent\_auto\_upgrade\_minor\_version) | (Optional) Should the extension be automatically upgraded across minor versions when Azure updates the extension? | `bool` | `true` | no |
 | <a name="input_watcher_agent_automatic_upgrade_enabled"></a> [watcher\_agent\_automatic\_upgrade\_enabled](#input\_watcher\_agent\_automatic\_upgrade\_enabled) | (Optional) Should the extension be automatically upgraded when a new version is published? | `bool` | `true` | no |
