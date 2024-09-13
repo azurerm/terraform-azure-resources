@@ -6,9 +6,6 @@ terraform {
     restapi = {
       source = "mastercard/restapi"
     }
-    azapi = {
-      source = "azure/azapi"
-    }
   }
 }
 

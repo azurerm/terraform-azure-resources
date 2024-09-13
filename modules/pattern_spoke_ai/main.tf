@@ -6,9 +6,6 @@ terraform {
     restapi = {
       source = "mastercard/restapi"
     }
-    azapi = {
-      source = "azure/azapi"
-    }
   }
 }
 
@@ -368,6 +365,7 @@ module "search_service_diagnostic_setting" {
   log_analytics_workspace_id = var.log_analytics_workspace_id
 }
 
+# azapi provider will be needed to create the search service
 # resource "azapi_resource" "search_services" {
 #   type = "Microsoft.Search/searchServices@2024-03-01-preview"
 #   name = module.naming.search_service.name
