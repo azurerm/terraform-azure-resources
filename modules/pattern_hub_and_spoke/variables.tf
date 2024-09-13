@@ -98,6 +98,12 @@ variable "ip_filter" {
   default     = true
 }
 
+variable "private_paas" {
+  description = "(Optional) Close any public access to the PaaS services (private connectivity is required)."
+  type        = bool
+  default     = false
+}
+
 variable "address_space_spokes" {
   description = "(Optional) The address space that is used the Virtual Network."
   type = list(object({

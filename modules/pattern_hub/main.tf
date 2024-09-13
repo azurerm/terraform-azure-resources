@@ -24,7 +24,7 @@ locals {
 data "azurerm_client_config" "current" {}
 
 data "http" "ipinfo" {
-  count = var.key_vault ? 1 : 0
+  count = var.ip_filter ? 1 : 0
   url   = "https://ifconfig.me"
   #data.http.ipinfo[0].response_body
 }

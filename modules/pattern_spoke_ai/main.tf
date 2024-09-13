@@ -6,6 +6,9 @@ terraform {
     restapi = {
       source = "mastercard/restapi"
     }
+    azapi = {
+      source = "azure/azapi"
+    }
   }
 }
 
@@ -25,7 +28,8 @@ locals {
 data "azurerm_client_config" "current" {}
 
 data "http" "ipinfo" {
-  url = "https://ifconfig.me"
+  count = var.ip_filter ? 1 : 0
+  url   = "https://ifconfig.me"
   #data.http.ipinfo[0].response_body
 }
 
@@ -104,39 +108,32 @@ module "routing-app" {
   tags                = local.tags
 }
 
-# resource "azurerm_ai_services" "this" {
-#   name                = "account"
-#   location            = "France Central"
-#   resource_group_name = module.resource_group.name
-#   sku_name            = "S0"
-# }
-
-# resource "azurerm_cognitive_deployment" "this" {
-#   name                 = "deployment"
-#   cognitive_account_id = azurerm_ai_services.this.id
-#   model {
-#     format  = "OpenAI"
-#     name    = "gpt-4o"
-#     version = "2024-05-13"
-#   }
-#   sku {
-#     name = "GlobalStandard"
-#   }
-# }
-
 module "ai_services" {
-  source              = "../ai_services"
-  location            = var.location
-  environment         = var.environment
-  workload            = var.workload
-  instance            = var.instance
-  resource_group_name = module.resource_group.name
+  source                = "../ai_services"
+  location              = var.location
+  environment           = var.environment
+  workload              = var.workload
+  instance              = var.instance
+  resource_group_name   = module.resource_group.name
+  public_network_access = var.private_paas ? "Disabled" : "Enabled"
   identity = [
     {
       type = "SystemAssigned"
     }
   ]
+  network_acls = [
+    {
+      default_action = var.ip_filter ? "Deny" : "Allow"
+      ip_rules       = var.ip_filter ? [data.http.ipinfo[0].response_body] : []
+    }
+  ]
   tags = local.tags
+}
+
+module "ai_services_diagnostic_setting" {
+  source                     = "../monitor_diagnostic_setting"
+  target_resource_id         = module.ai_services.id
+  log_analytics_workspace_id = var.log_analytics_workspace_id
 }
 
 resource "azurerm_private_endpoint" "ai_services" {
@@ -198,7 +195,7 @@ resource "azurerm_linux_web_app" "this" {
   resource_group_name                            = module.resource_group.name
   service_plan_id                                = azurerm_service_plan.this.id
   virtual_network_subnet_id                      = module.subnet-app.id
-  public_network_access_enabled                  = false
+  public_network_access_enabled                  = var.private_paas ? false : true
   webdeploy_publish_basic_authentication_enabled = false
   ftp_publish_basic_authentication_enabled       = false
 
@@ -211,14 +208,22 @@ resource "azurerm_linux_web_app" "this" {
     application_stack {
       python_version = "3.11"
     }
+    ip_restriction_default_action = var.ip_filter ? "Deny" : "Allow"
+    dynamic "ip_restriction" {
+      for_each = var.ip_filter ? [1] : []
+      content {
+        ip_address = "${data.http.ipinfo[0].response_body}/32"
+        action     = "Allow"
+      }
+    }
   }
+
   app_settings = {
     AUTH_ENABLED = "false"
     UI_TITLE     = "Demo AI Services"
     ##################################################################
-    AZURE_OPENAI_EMBEDDING_NAME = ""
-    AZURE_OPENAI_ENDPOINT       = "https://${module.ai_services.custom_subdomain_name}.openai.azure.com/"
-    #AZURE_OPENAI_KEY               = module.ai_services.primary_access_key
+    AZURE_OPENAI_EMBEDDING_NAME    = ""
+    AZURE_OPENAI_ENDPOINT          = "https://${module.ai_services.custom_subdomain_name}.openai.azure.com/"
     AZURE_OPENAI_MAX_TOKENS        = "2048"
     AZURE_OPENAI_MODEL             = azurerm_cognitive_deployment.this.name
     AZURE_OPENAI_MODEL_NAME        = "gpt-4o"
@@ -228,36 +233,37 @@ resource "azurerm_linux_web_app" "this" {
     AZURE_OPENAI_TEMPERATURE       = "0.7"
     AZURE_OPENAI_TOP_P             = "0.95"
     SCM_DO_BUILD_DURING_DEPLOYMENT = "true"
+    #AZURE_OPENAI_KEY              = module.ai_services.primary_access_key
     #################################################################
-    DATASOURCE_TYPE    = "AzureCognitiveSearch"
-    AZURE_SEARCH_INDEX = "azureblob-index"
-    #AZURE_SEARCH_KEY     = azurerm_search_service.this.primary_key
+    DATASOURCE_TYPE      = "AzureCognitiveSearch"
+    AZURE_SEARCH_INDEX   = "azureblob-index"
     AZURE_SEARCH_SERVICE = azurerm_search_service.this.name
-    # AZURE_SEARCH_CONTENT_COLUMNS                 = ""
-    # AZURE_SEARCH_ENABLE_IN_DOMAIN                = "false"
-    # AZURE_SEARCH_FILENAME_COLUMN                 = ""
-    # AZURE_SEARCH_PERMITTED_GROUPS_COLUMN         = ""
-    # AZURE_SEARCH_QUERY_TYPE                      = ""
-    # AZURE_SEARCH_SEMANTIC_SEARCH_CONFIG          = ""
-    # AZURE_SEARCH_STRICTNESS                      = "3"
-    # AZURE_SEARCH_TITLE_COLUMN                    = ""
-    # AZURE_SEARCH_TOP_K                           = "5"
-    # AZURE_SEARCH_URL_COLUMN                      = ""
-    # AZURE_SEARCH_USE_SEMANTIC_SEARCH             = "false"
-    # AZURE_SEARCH_VECTOR_COLUMNS                  = ""
-    # ELASTICSEARCH_CONTENT_COLUMNS                = ""
-    # ELASTICSEARCH_EMBEDDING_MODEL_ID             = ""
-    # ELASTICSEARCH_ENABLE_IN_DOMAIN               = "false"
-    # ELASTICSEARCH_ENCODED_API_KEY                = ""
-    # ELASTICSEARCH_ENDPOINT                       = ""
-    # ELASTICSEARCH_FILENAME_COLUMN                = ""
-    # ELASTICSEARCH_INDEX                          = ""
-    # ELASTICSEARCH_QUERY_TYPE                     = ""
-    # ELASTICSEARCH_STRICTNESS                     = "3"
-    # ELASTICSEARCH_TITLE_COLUMN                   = ""
-    # ELASTICSEARCH_TOP_K                          = "5"
-    # ELASTICSEARCH_URL_COLUMN                     = ""
-    # ELASTICSEARCH_VECTOR_COLUMNS                 = ""
+    #AZURE_SEARCH_KEY                      = azurerm_search_service.this.primary_key
+    # AZURE_SEARCH_CONTENT_COLUMNS         = ""
+    # AZURE_SEARCH_ENABLE_IN_DOMAIN        = "false"
+    # AZURE_SEARCH_FILENAME_COLUMN         = ""
+    # AZURE_SEARCH_PERMITTED_GROUPS_COLUMN = ""
+    # AZURE_SEARCH_QUERY_TYPE              = ""
+    # AZURE_SEARCH_SEMANTIC_SEARCH_CONFIG  = ""
+    # AZURE_SEARCH_STRICTNESS              = "3"
+    # AZURE_SEARCH_TITLE_COLUMN            = ""
+    # AZURE_SEARCH_TOP_K                   = "5"
+    # AZURE_SEARCH_URL_COLUMN              = ""
+    # AZURE_SEARCH_USE_SEMANTIC_SEARCH     = "false"
+    # AZURE_SEARCH_VECTOR_COLUMNS          = ""
+    # ELASTICSEARCH_CONTENT_COLUMNS        = ""
+    # ELASTICSEARCH_EMBEDDING_MODEL_ID     = ""
+    # ELASTICSEARCH_ENABLE_IN_DOMAIN       = "false"
+    # ELASTICSEARCH_ENCODED_API_KEY        = ""
+    # ELASTICSEARCH_ENDPOINT               = ""
+    # ELASTICSEARCH_FILENAME_COLUMN        = ""
+    # ELASTICSEARCH_INDEX                  = ""
+    # ELASTICSEARCH_QUERY_TYPE             = ""
+    # ELASTICSEARCH_STRICTNESS             = "3"
+    # ELASTICSEARCH_TITLE_COLUMN           = ""
+    # ELASTICSEARCH_TOP_K                  = "5"
+    # ELASTICSEARCH_URL_COLUMN             = ""
+    # ELASTICSEARCH_VECTOR_COLUMNS         = ""
   }
 }
 
@@ -294,15 +300,16 @@ resource "azurerm_app_service_source_control" "this" {
 }
 
 module "storage_account" {
-  source                       = "../storage_account"
-  location                     = var.location
-  environment                  = var.environment
-  workload                     = var.workload
-  resource_group_name          = module.resource_group.name
-  network_rules_default_action = "Deny"
-  network_rules_bypass         = ["AzureServices"]
-  network_rules_ip_rules       = [data.http.ipinfo.response_body]
-  tags                         = local.tags
+  source                        = "../storage_account"
+  location                      = var.location
+  environment                   = var.environment
+  workload                      = var.workload
+  resource_group_name           = module.resource_group.name
+  public_network_access_enabled = var.private_paas ? false : true
+  network_rules_default_action  = var.private_paas || var.ip_filter ? "Deny" : "Allow"
+  network_rules_bypass          = ["AzureServices"]
+  network_rules_ip_rules        = var.ip_filter ? [data.http.ipinfo[0].response_body] : []
+  tags                          = local.tags
 }
 
 resource "azurerm_storage_container" "this" {
@@ -342,21 +349,59 @@ resource "azurerm_private_endpoint" "storage_account" {
 }
 
 resource "azurerm_search_service" "this" {
-  name                = module.naming.search_service.name
-  location            = module.resource_group.location
-  resource_group_name = module.resource_group.name
-  sku                 = "basic"
-  #sku                           = "standard"
+  name                          = module.naming.search_service.name
+  location                      = module.resource_group.location
+  resource_group_name           = module.resource_group.name
+  sku                           = "basic"
   local_authentication_enabled  = true
   authentication_failure_mode   = "http401WithBearerChallenge"
-  public_network_access_enabled = true
-  allowed_ips = [
-    data.http.ipinfo.response_body
-  ]
+  public_network_access_enabled = var.private_paas ? false : true
+  allowed_ips                   = var.ip_filter ? [data.http.ipinfo[0].response_body] : []
   identity {
     type = "SystemAssigned"
   }
 }
+
+module "search_service_diagnostic_setting" {
+  source                     = "../monitor_diagnostic_setting"
+  target_resource_id         = azurerm_search_service.this.id
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+}
+
+# resource "azapi_resource" "search_services" {
+#   type = "Microsoft.Search/searchServices@2024-03-01-preview"
+#   name = module.naming.search_service.name
+#   location = module.resource_group.location
+#   parent_id = module.resource_group.id
+#   tags = local.tags
+#   identity {
+#     type = "SystemAssigned"
+#   }
+#   body = jsonencode({
+#     properties = {
+#       authOptions = {
+#         aadOrApiKey = {
+#           aadAuthFailureMode = "http401WithBearerChallenge"
+#         }
+#       }
+#       disableLocalAuth = false
+#       networkRuleSet = {
+#         bypass = "AzureServices"
+#         ipRules = var.ip_filter ? [
+#           {
+#             "value": data.http.ipinfo[0].response_body
+#           }
+#         ] : []
+#       }
+#       partitionCount = 1
+#       publicNetworkAccess = var.private_paas ? "Disabled" : "Enabled"
+#       replicaCount = 1
+#     }
+#     sku = {
+#       name = "basic"
+#     }
+#   })
+# }
 
 resource "azurerm_private_endpoint" "search_service" {
   name                          = "${azurerm_search_service.this.name}-pe"
@@ -385,61 +430,6 @@ resource "azurerm_search_shared_private_link_service" "search_service_storage_sp
   target_resource_id = module.storage_account.id
   request_message    = "Share Private Link Service created by Terraform for Storage Account."
 }
-
-resource "azurerm_search_shared_private_link_service" "search_service_ai_services_spls" {
-  name               = "${azurerm_search_service.this.name}-${module.ai_services.name}-spls"
-  search_service_id  = azurerm_search_service.this.id
-  subresource_name   = "cognitiveservices_account"
-  target_resource_id = module.ai_services.id
-  request_message    = "Share Private Link Service created by Terraform for Azure Cognitive Search."
-  //Issue on subresource_name : Terraform expects the subresource cognitiveservices_account but Azure use account
-  lifecycle {
-    ignore_changes = [
-      subresource_name
-    ]
-  }
-}
-
-# provider "restapi" {
-#   uri                  = "https://${azurerm_search_service.this.name}.search.windows.net"
-#   write_returns_object = true
-#   debug                = true
-
-#   headers = {
-#     "api-key"      = azurerm_search_service.this.primary_key,
-#     "Content-Type" = "application/json"
-#   }
-
-#   create_method  = "POST"
-#   update_method  = "PUT"
-#   destroy_method = "DELETE"
-# }
-
-# resource "restapi_object" "create_index" {
-#   path         = "/indexes"
-#   query_string = "api-version=2024-05-01-preview"
-#   data         = templatefile("${path.module}/config/index.json", { search_service_name = azurerm_search_service.this.name })
-#   id_attribute = "name" # The ID field on the response
-# }
-
-# resource "restapi_object" "create_datasource" {
-#   path         = "/datasources"
-#   query_string = "api-version=2024-05-01-preview"
-#   data         = templatefile("${path.module}/config/data-source.json", { search_service_name = azurerm_search_service.this.name, storage_account_id = module.storage_account.id, container_name = azurerm_storage_container.this.name })
-#   id_attribute = "name" # The ID field on the response
-# }
-
-# resource "restapi_object" "create_indexer" {
-#   path         = "/indexers"
-#   query_string = "api-version=2024-05-01-preview"
-#   data         = templatefile("${path.module}/config/indexer.json", { search_service_name = azurerm_search_service.this.name })
-#   id_attribute = "name" # The ID field on the response
-#   depends_on = [ 
-#     restapi_object.create_index,
-#     restapi_object.create_datasource,
-#     azurerm_role_assignment.storage_blob_data_contributor
-#    ]
-# }
 
 resource "azurerm_role_assignment" "cognitive_services_openai_contributor" {
   scope                = module.resource_group.id
@@ -470,4 +460,3 @@ resource "azurerm_role_assignment" "cognitive_services_openai_user" {
   role_definition_name = "Cognitive Services OpenAI User"
   principal_id         = azurerm_linux_web_app.this.identity[0].principal_id
 }
-

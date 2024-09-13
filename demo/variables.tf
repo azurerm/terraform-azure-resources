@@ -7,6 +7,11 @@ variable "ip_filter" {
   default = false
 }
 
+variable "private_paas" {
+  type    = bool
+  default = false
+}
+
 variable "location" {
   type    = string
   default = "northeurope"
@@ -33,6 +38,11 @@ variable "p2s_vpn" {
 }
 
 variable "bastion" {
+  type    = bool
+  default = true
+}
+
+variable "key_vault" {
   type    = bool
   default = true
 }

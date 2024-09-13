@@ -169,6 +169,12 @@ variable "license_type" {
   default     = "None"
 }
 
+variable "vm_agent_platform_updates_enabled" {
+  description = "(Optional) Should the VM Agent be enabled for the Virtual Machine?"
+  type        = bool
+  default     = true
+}
+
 variable "identity_type" {
   description = "(Optional) The type of Managed Service Identity which should be used for the Virtual Machine."
   type        = string
