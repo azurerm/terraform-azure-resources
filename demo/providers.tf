@@ -6,8 +6,9 @@ terraform {
     }
   }
   backend "azurerm" {
-    resource_group_name  = "tfstate"
-    storage_account_name = "cloud63tfstate"
+    subscription_id      = "97e606b4-56f0-40ca-bcf4-75f315e28564"
+    resource_group_name  = "rg-tf-prd-ne-001"
+    storage_account_name = "satfprdne001"
     container_name       = "tfstate"
     key                  = "azurerm-azure-resources-demo.tfstate"
   }
