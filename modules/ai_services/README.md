@@ -62,7 +62,7 @@ No requirements.
 |------|-------------|------|---------|:--------:|
 | <a name="input_custom_name"></a> [custom\_name](#input\_custom\_name) | (Optional) The name of the Virtual Network. | `string` | `""` | no |
 | <a name="input_custom_subdomain_name"></a> [custom\_subdomain\_name](#input\_custom\_subdomain\_name) | (Optional) The custom subdomain name of the AI Services. | `string` | `null` | no |
-| <a name="input_default_location"></a> [default\_location](#input\_default\_location) | (Optional) The default location of the AI Services. | `string` | `"francecentral"` | no |
+| <a name="input_default_location"></a> [default\_location](#input\_default\_location) | (Optional) The default location of the AI Services. | `string` | `"swedencentral"` | no |
 | <a name="input_deployment_availability"></a> [deployment\_availability](#input\_deployment\_availability) | (Optional) The deployment availability of the AI Services. | `list(string)` | <pre>[<br>  "australiaeast",<br>  "brazilsouth",<br>  "canadaeast",<br>  "eastus",<br>  "eastus2",<br>  "francecentral",<br>  "germanywestcentral",<br>  "japaneast",<br>  "koreacentral",<br>  "northcentralus",<br>  "norwayeast",<br>  "polandcentral",<br>  "southafricanorth",<br>  "southcentralus",<br>  "southindia",<br>  "swedencentral",<br>  "switzerlandnorth",<br>  "switzerlandwest",<br>  "uksouth",<br>  "westeurope",<br>  "westus",<br>  "westus3"<br>]</pre> | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | (Optional) The environment of the Virtual Network. | `string` | `""` | no |
 | <a name="input_fqdns"></a> [fqdns](#input\_fqdns) | (Optional) The FQDNs of the AI Services. | `list(string)` | `[]` | no |

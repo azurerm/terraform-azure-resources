@@ -50,17 +50,23 @@ variable "private_dns_zone_ids" {
   default     = []
 }
 
-# variable "web_application_firewall" {
-#   description = "(Optional) Include a WAF."
-#   type        = bool
-#   default     = false
-# }
+variable "ip_filter" {
+  description = "(Optional) Include a public IP Filter."
+  type        = bool
+  default     = true
+}
 
-# variable "log_analytics_workspace_id" {
-#   description = "(Optional) The ID of the Log Analytics Workspace to log Application Gateway."
-#   type        = string
-#   default     = ""
-# }
+variable "private_paas" {
+  description = "(Optional) Close any public access to the PaaS services (private connectivity is required)."
+  type        = bool
+  default     = false
+}
+
+variable "log_analytics_workspace_id" {
+  description = "(Optional) The ID of the Log Analytics Workspace to log Application Gateway."
+  type        = string
+  default     = ""
+}
 
 variable "module_tags" {
   description = "(Optional) Include the default tags?"

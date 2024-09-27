@@ -63,7 +63,6 @@ resource "azurerm_ai_services" "this" {
       default_action = network_acls.value.default_action
       ip_rules       = network_acls.value.ip_rules
     }
-
   }
 
   tags = local.tags

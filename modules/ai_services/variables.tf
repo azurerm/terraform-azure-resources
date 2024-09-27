@@ -53,7 +53,7 @@ variable "deployment_availability" {
 variable "default_location" {
   description = "(Optional) The default location of the AI Services."
   type        = string
-  default     = "francecentral"
+  default     = "swedencentral"
 }
 
 variable "fqdns" {

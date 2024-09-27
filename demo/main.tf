@@ -1,12 +1,14 @@
 module "hub_and_spoke" {
   source                                 = "../modules/pattern_hub_and_spoke"
   ip_filter                              = var.ip_filter
+  private_paas                           = var.private_paas
   location                               = var.location
   firewall                               = var.firewall
   firewall_sku                           = var.firewall_sku
   gateway                                = var.gateway
   p2s_vpn                                = var.p2s_vpn
   bastion                                = var.bastion
+  key_vault                              = var.key_vault
   address_space_hub                      = var.address_space_hub
   spoke_dns                              = var.spoke_dns
   address_space_spoke_dns                = var.address_space_spoke_dns

@@ -1,0 +1,9 @@
+gateway      = true
+p2s_vpn      = true
+bastion      = false
+spoke_ai     = true
+spokes_count = 0
+# ip_filter => allow public access to the ressource on specific ip addresses
+#ip_filter = true
+# private_paas => block all public access to the ressources
+#private_paas = true

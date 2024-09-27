@@ -261,6 +261,8 @@ module "spoke_ai" {
   location      = var.location
   address_space = var.address_space_spoke_ai
   dns_servers   = local.vnet_dns_servers
+  ip_filter     = var.ip_filter
+  private_paas  = var.private_paas
   firewall      = var.firewall
   next_hop      = var.firewall ? module.hub.firewall_private_ip_address : ""
   private_dns_zone_ids = [
@@ -270,7 +272,8 @@ module "spoke_ai" {
     module.spoke_dns[0].private_dns_zones["privatelink.blob.core.windows.net"]["id"],
     module.spoke_dns[0].private_dns_zones["privatelink.search.windows.net"]["id"],
   ]
-  tags = local.tags
+  log_analytics_workspace_id = module.hub.log_analytics_workspace_id
+  tags                       = local.tags
 }
 
 module "virtual_network_peerings_ai" {
@@ -309,6 +312,9 @@ resource "restapi_object" "create_index" {
   query_string = "api-version=2024-05-01-preview"
   data         = templatefile("${path.module}/../pattern_spoke_ai/config/index.json", { search_service_name = module.spoke_ai[0].search_service_name })
   id_attribute = "name" # The ID field on the response
+  depends_on = [
+    module.spoke_ai[0]
+  ]
 }
 
 resource "restapi_object" "create_datasource" {
@@ -317,6 +323,9 @@ resource "restapi_object" "create_datasource" {
   query_string = "api-version=2024-05-01-preview"
   data         = templatefile("${path.module}/../pattern_spoke_ai/config/data-source.json", { search_service_name = module.spoke_ai[0].search_service_name, storage_account_id = module.spoke_ai[0].storage_account_id, container_name = module.spoke_ai[0].container_name })
   id_attribute = "name" # The ID field on the response
+  depends_on = [
+    module.spoke_ai[0]
+  ]
 }
 
 resource "restapi_object" "create_indexer" {

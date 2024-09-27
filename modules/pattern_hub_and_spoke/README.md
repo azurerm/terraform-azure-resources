@@ -142,6 +142,7 @@ No requirements.
 | <a name="input_network_security_group"></a> [network\_security\_group](#input\_network\_security\_group) | (Optional) Include a Network Security Group with Flow Log. | `bool` | `false` | no |
 | <a name="input_p2s_vpn"></a> [p2s\_vpn](#input\_p2s\_vpn) | (Optional) Include a Point-to-Site VPN configuration. | `bool` | `false` | no |
 | <a name="input_private_monitoring"></a> [private\_monitoring](#input\_private\_monitoring) | (Optional) Include a Private Monitoring. | `bool` | `false` | no |
+| <a name="input_private_paas"></a> [private\_paas](#input\_private\_paas) | (Optional) Close any public access to the PaaS services (private connectivity is required). | `bool` | `false` | no |
 | <a name="input_spoke_ai"></a> [spoke\_ai](#input\_spoke\_ai) | (Optional) Include a DMZ Spoke. | `bool` | `false` | no |
 | <a name="input_spoke_dmz"></a> [spoke\_dmz](#input\_spoke\_dmz) | (Optional) Include a DMZ Spoke. | `bool` | `false` | no |
 | <a name="input_spoke_dns"></a> [spoke\_dns](#input\_spoke\_dns) | (Optional) Include a Spoke DNS. | `bool` | `false` | no |
