@@ -422,6 +422,7 @@ resource "azurerm_private_endpoint" "search_service" {
 }
 
 resource "azurerm_search_shared_private_link_service" "search_service_storage_spls" {
+  count              = (var.private_paas || var.ip_filter)? 1 : 0
   name               = "${azurerm_search_service.this.name}-${module.storage_account.name}-spls"
   search_service_id  = azurerm_search_service.this.id
   subresource_name   = "blob"
