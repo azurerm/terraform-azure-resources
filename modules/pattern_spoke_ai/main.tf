@@ -134,6 +134,7 @@ module "ai_services_diagnostic_setting" {
 }
 
 resource "azurerm_private_endpoint" "ai_services" {
+  count                         = var.private_paas ? 1 : 0
   name                          = "${module.ai_services.name}-pe"
   location                      = module.resource_group.location
   resource_group_name           = module.resource_group.name
@@ -265,6 +266,7 @@ resource "azurerm_linux_web_app" "this" {
 }
 
 resource "azurerm_private_endpoint" "webapp" {
+  count                         = var.private_paas ? 1 : 0
   name                          = "${azurerm_linux_web_app.this.name}-pe"
   location                      = module.resource_group.location
   resource_group_name           = module.resource_group.name
@@ -291,9 +293,9 @@ resource "azurerm_app_service_source_control" "this" {
   use_manual_integration = true
 
   // It will generate some delay between the wenapp creation and the source control configuration
-  depends_on = [
-    azurerm_private_endpoint.webapp
-  ]
+  # depends_on = [
+  #   azurerm_private_endpoint.webapp
+  # ]
 }
 
 module "storage_account" {
@@ -326,6 +328,7 @@ resource "azurerm_storage_blob" "this" {
 }
 
 resource "azurerm_private_endpoint" "storage_account" {
+  count                         = var.private_paas ? 1 : 0
   name                          = "${module.storage_account.name}-pe"
   location                      = module.resource_group.location
   resource_group_name           = module.resource_group.name
@@ -402,6 +405,7 @@ module "search_service_diagnostic_setting" {
 # }
 
 resource "azurerm_private_endpoint" "search_service" {
+  count                         = var.private_paas ? 1 : 0
   name                          = "${azurerm_search_service.this.name}-pe"
   location                      = module.resource_group.location
   resource_group_name           = module.resource_group.name
