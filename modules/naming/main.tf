@@ -207,6 +207,16 @@ locals {
       scope       = "resourceGroup"
       regex       = "^[a-zA-Z0-9][a-zA-Z0-9-_.]+[a-zA-Z0-9_]$"
     }
+    azuread_application = {
+      name        = substr(join("-", compact([local.prefix, "adapp", local.suffix])), 0, 80)
+      name_unique = substr(join("-", compact([local.prefix, "adapp", local.suffix_unique])), 0, 80)
+      dashes      = true
+      slug        = "adapp"
+      min_length  = 1
+      max_length  = 80
+      scope       = "global"
+      regex       = "^[a-zA-Z0-9][a-zA-Z0-9-_.]+[a-zA-Z0-9_]$"
+    }
     backup_policy_vm = {
       name        = substr(join("-", compact([local.prefix, "bpvm", local.suffix])), 0, 80)
       name_unique = substr(join("-", compact([local.prefix, "bpvm", local.suffix_unique])), 0, 80)
@@ -2582,6 +2592,10 @@ locals {
     availability_set = {
       valid_name        = length(regexall(local.az.availability_set.regex, local.az.availability_set.name)) > 0 && length(local.az.availability_set.name) > local.az.availability_set.min_length
       valid_name_unique = length(regexall(local.az.availability_set.regex, local.az.availability_set.name_unique)) > 0
+    }
+    azuread_application = {
+      valid_name        = length(regexall(local.az.azuread_application.regex, local.az.azuread_application.name)) > 0 && length(local.az.azuread_application.name) > local.az.azuread_application.min_length
+      valid_name_unique = length(regexall(local.az.azuread_application.regex, local.az.azuread_application.name_unique)) > 0
     }
     bastion_host = {
       valid_name        = length(regexall(local.az.bastion_host.regex, local.az.bastion_host.name)) > 0 && length(local.az.bastion_host.name) > local.az.bastion_host.min_length

@@ -98,6 +98,11 @@ output "availability_set" {
   description = "Availability Set"
 }
 
+output "azuread_application" {
+  value       = local.az.azuread_application
+  description = "Azure AD Application"
+}
+
 output "backup_policy_vm" {
   value       = local.az.backup_policy_vm
   description = "Backup Policy VM"
