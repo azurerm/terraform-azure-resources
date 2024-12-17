@@ -14,7 +14,7 @@ variable "private_paas" {
 
 variable "location" {
   type    = string
-  default = "northeurope"
+  default = "francecentral"
 }
 
 variable "firewall" {
