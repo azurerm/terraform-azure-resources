@@ -56,6 +56,12 @@ variable "firewall_sku" {
   default     = "Standard"
 }
 
+variable "firewall_palo_alto" {
+  description = "(Optional) Include a Palo Alto Firewall."
+  type        = bool
+  default     = false
+}
+
 variable "gateway" {
   description = "(Optional) Include a Gateway."
   type        = bool

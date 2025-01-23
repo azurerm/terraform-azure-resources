@@ -35,7 +35,12 @@ output "gateway_id" {
 
 output "firewall_private_ip_address" {
   description = "The private IP address of the Firewall."
-  value       = var.firewall ? module.firewall[0].private_ip_address : null
+  value       = (var.firewall || var.firewall_palo_alto) ? try(module.firewall[0].private_ip_address, cidrhost(cidrsubnet(var.address_space[0], 4, 6), 4)) : null
+}
+
+output "palo_alto_password" {
+  description = "The password of the Palo Alto Firewall."
+  value       = var.firewall_palo_alto ? module.firewall_palo_alto[0].password : null
 }
 
 output "firewall_public_ip_address" {

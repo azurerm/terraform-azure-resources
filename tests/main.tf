@@ -13,6 +13,11 @@ variable "firewall_sku" {
   default = "Standard"
 }
 
+variable "firewall_palo_alto" {
+  type    = bool
+  default = false
+}
+
 variable "gateway" {
   type    = bool
   default = false
@@ -127,6 +132,7 @@ module "hub_and_spoke" {
   location                               = var.location
   firewall                               = var.firewall
   firewall_sku                           = var.firewall_sku
+  firewall_palo_alto                     = var.firewall_palo_alto
   gateway                                = var.gateway
   bastion                                = var.bastion
   address_space_hub                      = var.address_space_hub
