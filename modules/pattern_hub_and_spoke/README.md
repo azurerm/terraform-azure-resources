@@ -74,6 +74,7 @@ No requirements.
 | <a name="module_data_collection_endpoint_association"></a> [data\_collection\_endpoint\_association](#module\_data\_collection\_endpoint\_association) | ../monitor_data_collection_rule_association | n/a |
 | <a name="module_data_collection_rule_association"></a> [data\_collection\_rule\_association](#module\_data\_collection\_rule\_association) | ../monitor_data_collection_rule_association | n/a |
 | <a name="module_hub"></a> [hub](#module\_hub) | ../pattern_hub | n/a |
+| <a name="module_key_vault_palo_alto_secret"></a> [key\_vault\_palo\_alto\_secret](#module\_key\_vault\_palo\_alto\_secret) | ../key_vault_secret | n/a |
 | <a name="module_key_vault_secret"></a> [key\_vault\_secret](#module\_key\_vault\_secret) | ../key_vault_secret | n/a |
 | <a name="module_key_vault_secret_jumphost"></a> [key\_vault\_secret\_jumphost](#module\_key\_vault\_secret\_jumphost) | ../key_vault_secret | n/a |
 | <a name="module_locations"></a> [locations](#module\_locations) | ../locations | n/a |
@@ -130,6 +131,7 @@ No requirements.
 | <a name="input_dns_servers"></a> [dns\_servers](#input\_dns\_servers) | (Optional) The DNS servers to be used with the Hub. | `list(string)` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | (Optional) The environment of the Hub. | `string` | `"prd"` | no |
 | <a name="input_firewall"></a> [firewall](#input\_firewall) | (Optional) Include a Firewall. | `bool` | `true` | no |
+| <a name="input_firewall_palo_alto"></a> [firewall\_palo\_alto](#input\_firewall\_palo\_alto) | (Optional) Include a Palo Alto Firewall. | `bool` | `false` | no |
 | <a name="input_firewall_sku"></a> [firewall\_sku](#input\_firewall\_sku) | (Optional) The SKU of the Firewall. | `string` | `"Standard"` | no |
 | <a name="input_gateway"></a> [gateway](#input\_gateway) | (Optional) Include a Gateway. | `bool` | `true` | no |
 | <a name="input_gateway_sku"></a> [gateway\_sku](#input\_gateway\_sku) | (Optional) The SKU of the Gateway. | `string` | `"VpnGw1AZ"` | no |

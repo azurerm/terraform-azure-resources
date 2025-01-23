@@ -40,6 +40,7 @@ No requirements.
 |------|---------|
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
 | <a name="provider_http"></a> [http](#provider\_http) | n/a |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
 
 ## Modules
 
@@ -49,12 +50,14 @@ No requirements.
 | <a name="module_bastion_diagnostic_setting"></a> [bastion\_diagnostic\_setting](#module\_bastion\_diagnostic\_setting) | ../monitor_diagnostic_setting | n/a |
 | <a name="module_firewall"></a> [firewall](#module\_firewall) | ../firewall | n/a |
 | <a name="module_firewall_diagnostic_setting"></a> [firewall\_diagnostic\_setting](#module\_firewall\_diagnostic\_setting) | ../monitor_diagnostic_setting | n/a |
+| <a name="module_firewall_palo_alto"></a> [firewall\_palo\_alto](#module\_firewall\_palo\_alto) | ../firewall_palo_alto | n/a |
 | <a name="module_firewall_policy"></a> [firewall\_policy](#module\_firewall\_policy) | ../firewall_policy | n/a |
 | <a name="module_firewall_workbook"></a> [firewall\_workbook](#module\_firewall\_workbook) | ../firewall_workbook | n/a |
 | <a name="module_gateway"></a> [gateway](#module\_gateway) | ../virtual_network_gateway | n/a |
 | <a name="module_gateway_diagnostic_setting"></a> [gateway\_diagnostic\_setting](#module\_gateway\_diagnostic\_setting) | ../monitor_diagnostic_setting | n/a |
 | <a name="module_key_vault"></a> [key\_vault](#module\_key\_vault) | ../key_vault | n/a |
 | <a name="module_key_vault_diagnostic_setting"></a> [key\_vault\_diagnostic\_setting](#module\_key\_vault\_diagnostic\_setting) | ../monitor_diagnostic_setting | n/a |
+| <a name="module_locations"></a> [locations](#module\_locations) | ../locations | n/a |
 | <a name="module_log_analytics_workspace"></a> [log\_analytics\_workspace](#module\_log\_analytics\_workspace) | ../log_analytics_workspace | n/a |
 | <a name="module_public_ip_bastion"></a> [public\_ip\_bastion](#module\_public\_ip\_bastion) | ../public_ip | n/a |
 | <a name="module_public_ip_firewall"></a> [public\_ip\_firewall](#module\_public\_ip\_firewall) | ../public_ip | n/a |
@@ -75,6 +78,7 @@ No requirements.
 | Name | Type |
 |------|------|
 | [azurerm_firewall_policy_rule_collection_group.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/firewall_policy_rule_collection_group) | resource |
+| [random_integer.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/integer) | resource |
 | [azurerm_client_config.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config) | data source |
 | [http_http.ipinfo](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
 
@@ -91,6 +95,7 @@ No requirements.
 | <a name="input_environment"></a> [environment](#input\_environment) | (Required) The environment of the Hub. | `string` | `"prd"` | no |
 | <a name="input_firewall"></a> [firewall](#input\_firewall) | (Optional) Include a Firewall. | `bool` | `true` | no |
 | <a name="input_firewall_default_rules"></a> [firewall\_default\_rules](#input\_firewall\_default\_rules) | (Optional) Include the default rules for the Firewall. | `bool` | `true` | no |
+| <a name="input_firewall_palo_alto"></a> [firewall\_palo\_alto](#input\_firewall\_palo\_alto) | (Optional) Include a Palo Alto Firewall. | `bool` | `false` | no |
 | <a name="input_firewall_sku"></a> [firewall\_sku](#input\_firewall\_sku) | (Optional) The SKU of the Firewall. | `string` | `"Standard"` | no |
 | <a name="input_gateway"></a> [gateway](#input\_gateway) | (Optional) Include a Gateway. | `bool` | `true` | no |
 | <a name="input_gateway_sku"></a> [gateway\_sku](#input\_gateway\_sku) | (Optional) The SKU of the Gateway. | `string` | `"VpnGw1AZ"` | no |
@@ -118,6 +123,7 @@ No requirements.
 | <a name="output_key_vault_id"></a> [key\_vault\_id](#output\_key\_vault\_id) | The ID of the Key Vault. |
 | <a name="output_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#output\_log\_analytics\_workspace\_id) | The ID of the Log Analytics Workspace. |
 | <a name="output_log_analytics_workspace_workspace_id"></a> [log\_analytics\_workspace\_workspace\_id](#output\_log\_analytics\_workspace\_workspace\_id) | The resource ID of the Log Analytics Workspace. |
+| <a name="output_palo_alto_password"></a> [palo\_alto\_password](#output\_palo\_alto\_password) | The password of the Palo Alto Firewall. |
 | <a name="output_resource_group_management_name"></a> [resource\_group\_management\_name](#output\_resource\_group\_management\_name) | The name of the management resource group. |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | The name of the resource group of the hub. |
 | <a name="output_route_table_name"></a> [route\_table\_name](#output\_route\_table\_name) | The name of the Route Table. |
