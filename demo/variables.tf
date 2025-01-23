@@ -27,6 +27,11 @@ variable "firewall_sku" {
   default = "Standard"
 }
 
+variable "firewall_palo_alto" {
+  type    = bool
+  default = false
+}
+
 variable "gateway" {
   type    = bool
   default = false
@@ -124,7 +129,7 @@ variable "spokes_virtual_machines" {
 
 variable "additional_access_policy_object_ids" {
   type    = list(string)
-  default = ["12238d65-4cc0-4114-b51e-2f39b0075dce"]
+  default = ["70d8c1d0-cad7-4526-9991-210fdeac1574"]
 }
 
 variable "standalone_site" {
