@@ -25,7 +25,7 @@ locals {
 
   #dns_servers = var.dns_servers != null ? var.dns_servers : var.spoke_dns ? [module.spoke_dns[0].inbound_endpoint_ip] : []
   vnet_dns_servers = var.dns_servers != null ? var.dns_servers : var.firewall ? [module.hub.firewall_private_ip_address] : var.spoke_dns ? [module.spoke_dns[0].inbound_endpoint_ip] : []
-  hub_dns_servers  = var.dns_servers != null ? var.dns_servers : var.spoke_dns ? [module.spoke_dns[0].inbound_endpoint_ip] : []
+  hub_dns_servers  = var.dns_servers != null ? var.dns_servers : (var.spoke_dns && !var.firewall_palo_alto) ? [module.spoke_dns[0].inbound_endpoint_ip] : []
 }
 
 module "locations" {
