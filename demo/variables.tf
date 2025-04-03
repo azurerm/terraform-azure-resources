@@ -129,7 +129,7 @@ variable "spokes_virtual_machines" {
 
 variable "additional_access_policy_object_ids" {
   type    = list(string)
-  default = ["70d8c1d0-cad7-4526-9991-210fdeac1574"]
+  default = ["2d37f6d6-8fba-4b9e-98f6-6d80a285187f"]
 }
 
 variable "standalone_site" {
