@@ -8,13 +8,11 @@ terraform {
   }
   backend "azurerm" {
     use_azuread_auth     = true
-     subscription_id      = "97e606b4-56f0-40ca-bcf4-75f315e28564"
-     subscription_id      = "76cd9994-a78e-45dd-839a-1e14f89c1d66"
-     resource_group_name  = "rg-tf-prd-ne-001"
-     storage_account_name = "satfprdne001"
-     storage_account_name = "satfprdne001armand"
-     container_name       = "tfstate"
-     key                  = "azurerm-azure-resources-demo.tfstate"
+    subscription_id      = "76cd9994-a78e-45dd-839a-1e14f89c1d66"
+    resource_group_name  = "rg-tf-prd-ne-001"
+    storage_account_name = "satfprdne001armand"
+    container_name       = "tfstate"
+    key                  = "azurerm-azure-resources-demo.tfstate"
    }
 }
 
