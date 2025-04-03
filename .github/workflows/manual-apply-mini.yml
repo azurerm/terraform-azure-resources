@@ -29,7 +29,14 @@ jobs:
       - name: Terraform Init 
         id: init
         run: terraform -chdir=demo init
-
+        
+      - name: Terraform Plan 
+        id: plan
+        env:
+          TF_VAR_additional_access_policy_object_ids: ${{ vars.ADDITIONAL_ACCESS_POLICY_OBJECT_IDS }}
+          TF_VAR_subscription_id: ${{ vars.ARM_SUBSCRIPTION_ID }}
+        run: terraform -chdir=demo plan -var-file=mini.tfvars -auto-approve -no-color
+        
       - name: Terraform Apply 
         id: apply
         env:
