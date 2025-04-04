@@ -102,7 +102,36 @@ module "hub_and_spoke" {
 
 ## Requirements
 
-No requirements.
+- **Network Watcher**: Ensure that a Network Watcher is deployed in the Azure region where the resources will be created. If a Network Watcher does not exist, you can create one manually or include it in your Terraform configuration.
+  - [Azure Network Watcher Documentation](https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview)
+
+- **Terraform State Variables**: The following variables must be set as **GitHub Variables** in your repository to configure the Terraform backend:
+  - `TFSTATE_RESOURCE_GROUP`: The name of the resource group containing the storage account for the Terraform state.
+  - `TFSTATE_STORAGE_ACCOUNT`: The name of the storage account used for storing the Terraform state.
+  - `TFSTATE_CONTAINER`: The name of the blob container where the state file is stored.
+  - `TFSTATE_KEY`: The key (name) of the state file.
+  - `ADDITIONAL_ACCESS_POLICY_OBJECT_IDS` : This variable should contain a list of Entra ID (Azure AD) object IDs that require access to the Key Vault data plane.
+
+
+  Ensure these variables are set in the **GitHub Variables** section of your repository. You can configure them by navigating to:
+  - **Settings** > **Variables and secrets** > **Actions** > **Variables**.
+
+  - [GitHub Variables Documentation](https://docs.github.com/en/actions/learn-github-actions/variables)
+
+- **Azure Credentials**: Add `AZURE_CREDENTIALS` as a **GitHub Secret** in your repository. This secret should contain the Azure service principal credentials in JSON format. You can configure it by navigating to:
+  - **Settings** > **Variables and secrets** > **Actions** > **Secrets**.
+
+  Example JSON format for `AZURE_CREDENTIALS`:
+  ```json
+  {
+    "clientId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "clientSecret": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "subscriptionId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "tenantId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+  }
+  ```
+
+  - [GitHub Secrets Documentation](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
 
 ## Providers
 
