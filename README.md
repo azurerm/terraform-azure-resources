@@ -106,6 +106,7 @@ module "hub_and_spoke" {
   - [Azure Network Watcher Documentation](https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview)
 
 - **Terraform State Variables**: The following variables must be set as **GitHub Variables** in your repository to configure the Terraform backend:
+  - `TFSTATE_SUBSCRIPTION_ID`: The subscription ID containing the storage account for the Terraform state.
   - `TFSTATE_RESOURCE_GROUP`: The name of the resource group containing the storage account for the Terraform state.
   - `TFSTATE_STORAGE_ACCOUNT`: The name of the storage account used for storing the Terraform state.
   - `TFSTATE_CONTAINER`: The name of the blob container where the state file is stored.
