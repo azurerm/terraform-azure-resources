@@ -28,13 +28,14 @@ jobs:
 
       - name: Terraform Init 
         id: init 
-        run: terraform -chdir=demo init \
-              -backend-config="subscription_id=${{ vars.TFSTATE_SUBSCRIPTION_ID }}" \
-              -backend-config="resource_group_name=${{ vars.TFSTATE_RESOURCE_GROUP }}" \
-              -backend-config="storage_account_name=${{ vars.TFSTATE_STORAGE_ACCOUNT }}" \
-              -backend-config="container_name=${{ vars.TFSTATE_CONTAINER }}" \
-              -backend-config="key=${{ vars.TFSTATE_KEY }} " \
-              -backend-config="use_azuread_auth=true"
+        run: |
+          terraform -chdir=demo init \
+            -backend-config="subscription_id=${{ vars.TFSTATE_SUBSCRIPTION_ID }}" \
+            -backend-config="resource_group_name=${{ vars.TFSTATE_RESOURCE_GROUP }}" \
+            -backend-config="storage_account_name=${{ vars.TFSTATE_STORAGE_ACCOUNT }}" \
+            -backend-config="container_name=${{ vars.TFSTATE_CONTAINER }}" \
+            -backend-config="key=${{ vars.TFSTATE_KEY }}" \
+            -backend-config="use_azuread_auth=true"
 
       - name: Terraform Apply 
         id: apply
