@@ -8,11 +8,11 @@ terraform {
   }
   backend "azurerm" {
     use_azuread_auth     = true
-    subscription_id      = var.TFSTATE_SUBSCRIPTION_ID
-    resource_group_name  = var.TFSTATE_RESOURCE_GROUP
-    storage_account_name = var.TFSTATE_STORAGE_ACCOUNT
-    container_name       = var.TFSTATE_CONTAINER
-    key                  = var.TFSTATE_KEY
+    subscription_id      = ${{var.TFSTATE_SUBSCRIPTION_ID}}
+    resource_group_name  = ${{var.TFSTATE_RESOURCE_GROUP}}
+    storage_account_name = ${{var.TFSTATE_STORAGE_ACCOUNT}}
+    container_name       = ${{var.TFSTATE_CONTAINER}}
+    key                  = ${{var.TFSTATE_KEY}}
    }
 }
 
