@@ -505,10 +505,10 @@ resource "azurerm_network_watcher_flow_log" "this" {
   resource_group_name  = data.azurerm_network_watcher.this.resource_group_name
   name                 = "vnet-flowlog-${each.key}"
 
-  target_resource_id        = each.value.virtual_network_id
-  storage_account_id        = module.hub.storage_account_id
-  enabled                   = true
-  version                   = 2
+  target_resource_id = each.value.virtual_network_id
+  storage_account_id = module.hub.storage_account_id
+  enabled            = true
+  version            = 2
 
   retention_policy {
     enabled = true
@@ -530,10 +530,10 @@ resource "azurerm_network_watcher_flow_log" "hub" {
   resource_group_name  = data.azurerm_network_watcher.this.resource_group_name
   name                 = "vnet-flowlog-${each.key}"
 
-  target_resource_id        = each.value.virtual_network_id
-  storage_account_id        = module.hub.storage_account_id
-  enabled                   = true
-  version                   = 2
+  target_resource_id = each.value.virtual_network_id
+  storage_account_id = module.hub.storage_account_id
+  enabled            = true
+  version            = 2
 
   retention_policy {
     enabled = true
