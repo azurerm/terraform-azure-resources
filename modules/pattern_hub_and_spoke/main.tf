@@ -503,9 +503,34 @@ resource "azurerm_network_watcher_flow_log" "this" {
   for_each             = var.network_security_group ? module.spoke : {}
   network_watcher_name = data.azurerm_network_watcher.this.name
   resource_group_name  = data.azurerm_network_watcher.this.resource_group_name
-  name                 = "flowlog-${each.key}"
+  name                 = "vnet-flowlog-${each.key}"
 
-  network_security_group_id = each.value.network_security_group_id
+  target_resource_id        = each.value.virtual_network_id
+  storage_account_id        = module.hub.storage_account_id
+  enabled                   = true
+  version                   = 2
+
+  retention_policy {
+    enabled = true
+    days    = 7
+  }
+
+  traffic_analytics {
+    enabled               = true
+    workspace_id          = module.hub.log_analytics_workspace_workspace_id
+    workspace_region      = var.location
+    workspace_resource_id = module.hub.log_analytics_workspace_id
+    interval_in_minutes   = 10
+  }
+}
+
+resource "azurerm_network_watcher_flow_log" "hub" {
+  for_each             = var.network_security_group ? module.hub : {}
+  network_watcher_name = data.azurerm_network_watcher.this.name
+  resource_group_name  = data.azurerm_network_watcher.this.resource_group_name
+  name                 = "vnet-flowlog-${each.key}"
+
+  target_resource_id        = each.value.virtual_network_id
   storage_account_id        = module.hub.storage_account_id
   enabled                   = true
   version                   = 2

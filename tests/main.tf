@@ -112,7 +112,7 @@ variable "address_space_spokes" {
       workload      = "app1"
       environment   = "prd"
       instance      = "001"
-      address_space = ["10.100.110.0/24"]
+      address_space = ["10.100.11.0/24"]
     }
   ]
 }
