@@ -26,7 +26,7 @@ data "azurerm_client_config" "current" {}
 
 data "http" "ipinfo" {
   count = var.ip_filter ? 1 : 0
-  url   = "https://ifconfig.me"
+  url   = "https://ifconfig.me/ip"
   #data.http.ipinfo[0].response_body
 }
 

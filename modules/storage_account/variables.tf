@@ -71,7 +71,7 @@ variable "allow_nested_items_to_be_public" {
 variable "shared_access_key_enabled" {
   description = "(Optional) Allow or disallow shared access signature (SAS) tokens to be created against the storage account."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "public_network_access_enabled" {

@@ -5,11 +5,11 @@ on:
       location: 
         description: 'Azure Region to deploy resources'
         required: true
-        default: 'northeurope'
+        default: 'francecentral'
         type: choice
         options:
-          - 'northeurope'
           - 'francecentral'
+          - 'northeurope'          
           - 'eastus2'
           - 'southeastasia'
       gateway: 

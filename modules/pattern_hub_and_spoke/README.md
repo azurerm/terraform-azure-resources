@@ -106,6 +106,7 @@ No requirements.
 | [azurerm_backup_protected_vm.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_protected_vm) | resource |
 | [azurerm_network_connection_monitor.external](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_connection_monitor) | resource |
 | [azurerm_network_connection_monitor.internal](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_connection_monitor) | resource |
+| [azurerm_network_watcher_flow_log.hub](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_watcher_flow_log) | resource |
 | [azurerm_network_watcher_flow_log.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_watcher_flow_log) | resource |
 | [restapi_object.create_datasource](https://registry.terraform.io/providers/mastercard/restapi/latest/docs/resources/object) | resource |
 | [restapi_object.create_index](https://registry.terraform.io/providers/mastercard/restapi/latest/docs/resources/object) | resource |
