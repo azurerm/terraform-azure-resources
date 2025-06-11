@@ -525,12 +525,12 @@ resource "azurerm_network_watcher_flow_log" "this" {
 }
 
 resource "azurerm_network_watcher_flow_log" "hub" {
-  for_each             = var.network_security_group ? module.hub : {}
+  count                = var.network_security_group ? 1 : 0
   network_watcher_name = data.azurerm_network_watcher.this.name
   resource_group_name  = data.azurerm_network_watcher.this.resource_group_name
-  name                 = "vnet-flowlog-${each.key}"
+  name                 = "vnet-flowlog-${module.hub.virtual_network_name}"
 
-  target_resource_id = each.value.virtual_network_id
+  target_resource_id = module.hub.virtual_network_id
   storage_account_id = module.hub.storage_account_id
   enabled            = true
   version            = 2
