@@ -136,3 +136,28 @@ variable "standalone_site" {
   type    = number
   default = 0
 }
+
+variable "tfstate_subscription_id" {
+  description = "The subscription ID for the Terraform state storage account"
+  type        = string
+}
+
+variable "tfstate_resource_group" {
+  description = "The resource group containing the Terraform state storage account"
+  type        = string
+}
+
+variable "tfstate_storage_account" {
+  description = "The name of the storage account used for Terraform state"
+  type        = string
+}
+
+variable "tfstate_container" {
+  description = "The name of the blob container for the Terraform state"
+  type        = string
+}
+
+variable "tfstate_key" {
+  description = "The key (name) of the Terraform state file"
+  type        = string
+}
