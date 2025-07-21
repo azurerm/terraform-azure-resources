@@ -33,8 +33,8 @@ jobs:
           SA_STATE: ${{ secrets.SA_STATE }}
         run: |
           sa=($(echo $SA_STATE  | tr "/" "\n"))
-          az account set --subscription "${sa[2]}"
-          az storage account update --resource-group "${sa[4]}" --name "${sa[8]}" --public-network-access Enabled
+          az account set --subscription "${sa[1]}"
+          az storage account update --resource-group "${sa[3]}" --name "${sa[7]}" --public-network-access Enabled
         shell: bash        
 
       - name: Terraform Init 
