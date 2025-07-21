@@ -29,6 +29,8 @@ jobs:
         shell: bash
 
       - name: Open Firewall of the TF State Storage Account
+        env:
+          SA_STATE: ${{ secrets.SA_STATE }}
         run: |
           sa=($(echo $SA_STATE  | tr "/" "\n"))
           az account set --subscription "$sa[2]"
