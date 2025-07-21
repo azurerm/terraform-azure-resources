@@ -28,7 +28,7 @@ jobs:
           echo "ARM_TENANT_ID=$( jq -r '.tenantId' <<< $AZURE_CREDENTIALS )" >> $GITHUB_ENV
         shell: bash
 
-      - name: Open Firewall of the TF State Storage Account
+      - name: Open firewall of the TF State Storage Account
         env:
           SA_STATE: ${{ secrets.SA_STATE }}
         run: |
@@ -46,4 +46,3 @@ jobs:
         env: 
           TF_VAR_subscription_id: ${{ vars.ARM_SUBSCRIPTION_ID }}
         run: terraform -chdir=demo destroy -auto-approve -no-color
-        
