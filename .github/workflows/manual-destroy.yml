@@ -26,7 +26,14 @@ jobs:
           echo "ARM_CLIENT_SECRET=$( jq -r '.clientSecret' <<< $AZURE_CREDENTIALS )" >> $GITHUB_ENV;
           echo "ARM_SUBSCRIPTION_ID=$( jq -r '.subscriptionId' <<< $AZURE_CREDENTIALS )" >> $GITHUB_ENV;
           echo "ARM_TENANT_ID=$( jq -r '.tenantId' <<< $AZURE_CREDENTIALS )" >> $GITHUB_ENV
-        shell: bash          
+        shell: bash
+
+      - name: Open Firewall of the TF State Storage Account
+        run: |
+          sa=($(echo $SA_STATE  | tr "/" "\n"))
+          az account set --subscription ${sa[2]}
+          az storage account update --resource-group ${sa[4]} --name ${sa[8]} --public-network-access Enabled
+        shell: bash        
 
       - name: Terraform Init 
         id: init
