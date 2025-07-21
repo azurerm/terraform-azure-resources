@@ -20,7 +20,7 @@ locals {
     var.tags
   )
 
-  admin_password = try(var.admin_password, random_password.this[0].result)
+  admin_password = coalesce(var.admin_password, try(random_password.this[0].result, ""))
 }
 
 module "locations" {
