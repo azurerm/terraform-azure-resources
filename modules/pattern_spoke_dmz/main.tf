@@ -53,7 +53,7 @@ module "subnet" {
   address_prefixes     = [var.address_space[0]]
   delegation = {
     "applicationGateway" = {
-      name    = "Microsoft.Network/applicationGateways"
+      name = "Microsoft.Network/applicationGateways"
       actions = [
         "Microsoft.Network/virtualNetworks/subnets/join/action",
       ]
