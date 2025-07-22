@@ -51,6 +51,14 @@ module "subnet" {
   resource_group_name  = module.resource_group.name
   virtual_network_name = module.virtual_network.name
   address_prefixes     = [var.address_space[0]]
+  delegation = {
+    "applicationGateway" = {
+      name    = "Microsoft.Network/applicationGateways"
+      actions = [
+        "Microsoft.Network/virtualNetworks/subnets/join/action",
+      ]
+    }
+  }
 }
 
 module "routing" {
