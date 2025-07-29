@@ -1,0 +1,125 @@
+name: Compliance & Policy Check
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  compliance-check:
+    name: Policy & Compliance Validation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+
+      - name: Install OPA (Open Policy Agent)
+        run: |
+          curl -L -o opa https://openpolicyagent.org/downloads/v0.57.0/opa_linux_amd64_static
+          chmod 755 ./opa
+          sudo mv opa /usr/local/bin
+
+      - name: Run Checkov Security Scan
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: demo/
+          soft_fail: true
+          download_external_modules: true
+          output_format: sarif
+          output_file_path: checkov-report.sarif
+
+      - name: Upload Checkov SARIF to GitHub Security
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: checkov-report.sarif
+
+      - name: Run Terrascan
+        id: terrascan
+        run: |
+          # Install Terrascan
+          curl -L -o terrascan.tar.gz https://github.com/tenable/terrascan/releases/download/v1.18.3/terrascan_1.18.3_Linux_x86_64.tar.gz
+          tar -xzf terrascan.tar.gz
+          sudo mv terrascan /usr/local/bin
+          
+          # Run scan
+          terrascan scan -i terraform -d demo/ --output json > terrascan-report.json || true
+
+      - name: Run TFSec
+        id: tfsec
+        run: |
+          # Install TFSec
+          curl -L -o tfsec https://github.com/aquasecurity/tfsec/releases/latest/download/tfsec-linux-amd64
+          chmod +x tfsec
+          sudo mv tfsec /usr/local/bin
+          
+          # Run scan
+          tfsec demo/ --format json --out tfsec-report.json || true
+
+      - name: Generate compliance report
+        run: |
+          echo "# 🛡️ Compliance & Security Report" > compliance-report.md
+          echo "" >> compliance-report.md
+          echo "## Security Scan Results" >> compliance-report.md
+          echo "" >> compliance-report.md
+          
+          # Checkov results
+          if [ -f checkov-report.sarif ]; then
+            echo "### Checkov Results" >> compliance-report.md
+            echo "\`\`\`json" >> compliance-report.md
+            jq '.runs[0].results | length' checkov-report.sarif >> compliance-report.md
+            echo "\`\`\`" >> compliance-report.md
+          fi
+          
+          # Terrascan results
+          if [ -f terrascan-report.json ]; then
+            echo "### Terrascan Results" >> compliance-report.md
+            echo "\`\`\`json" >> compliance-report.md
+            jq '.results.violations | length' terrascan-report.json >> compliance-report.md
+            echo "\`\`\`" >> compliance-report.md
+          fi
+          
+          # TFSec results
+          if [ -f tfsec-report.json ]; then
+            echo "### TFSec Results" >> compliance-report.md
+            echo "\`\`\`json" >> compliance-report.md
+            jq '.results | length' tfsec-report.json >> compliance-report.md
+            echo "\`\`\`" >> compliance-report.md
+          fi
+
+      - name: Comment PR with compliance report
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            
+            if (fs.existsSync('compliance-report.md')) {
+              const report = fs.readFileSync('compliance-report.md', 'utf8');
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: report
+              });
+            }
+
+      - name: Upload compliance artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: compliance-reports
+          path: |
+            checkov-report.sarif
+            terrascan-report.json
+            tfsec-report.json
+            compliance-report.md

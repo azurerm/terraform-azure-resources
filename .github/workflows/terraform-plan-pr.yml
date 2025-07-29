@@ -1,0 +1,95 @@
+name: Terraform Plan on PR
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'demo/**'
+      - 'modules/**'
+
+jobs:
+  terraform-plan:
+    name: Terraform Plan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+
+      - uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Prepare environment variables
+        env:
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+        run: | 
+          echo "ARM_CLIENT_ID=$( jq -r '.clientId' <<< $AZURE_CREDENTIALS )" >> $GITHUB_ENV;
+          echo "ARM_CLIENT_SECRET=$( jq -r '.clientSecret' <<< $AZURE_CREDENTIALS )" >> $GITHUB_ENV;
+          echo "ARM_SUBSCRIPTION_ID=$( jq -r '.subscriptionId' <<< $AZURE_CREDENTIALS )" >> $GITHUB_ENV;
+          echo "ARM_TENANT_ID=$( jq -r '.tenantId' <<< $AZURE_CREDENTIALS )" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Open firewall of the TF State Storage Account
+        env:
+          SA_STATE: ${{ secrets.SA_STATE }}
+        run: |
+          sa=($(echo $SA_STATE  | tr "/" "\n"))
+          az account set --subscription "${sa[1]}"
+          az storage account update --resource-group "${sa[3]}" --name "${sa[7]}" --public-network-access Enabled
+        shell: bash
+
+      - name: Terraform Init
+        id: init
+        run: terraform -chdir=demo init
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform -chdir=demo validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        env:
+          TF_VAR_additional_access_policy_object_ids: ${{ vars.ADDITIONAL_ACCESS_POLICY_OBJECT_IDS }}
+          TF_VAR_subscription_id: ${{ vars.ARM_SUBSCRIPTION_ID }}
+        run: |
+          terraform -chdir=demo plan -no-color -out=tfplan
+          terraform -chdir=demo show -no-color tfplan > plan_output.txt
+        continue-on-error: true
+
+      - name: Comment PR with Plan
+        uses: actions/github-script@v7
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const plan = fs.readFileSync('demo/plan_output.txt', 'utf8');
+            const output = `#### Terraform Plan 📖
+            \`\`\`terraform
+            ${plan}
+            \`\`\`
+            
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+
+      - name: Close firewall of the TF State Storage Account
+        if: always()
+        env:
+          SA_STATE: ${{ secrets.SA_STATE }}
+        run: |
+          sa=($(echo $SA_STATE  | tr "/" "\n"))
+          az storage account update --resource-group "${sa[3]}" --name "${sa[7]}" --public-network-access Disabled
+        shell: bash
