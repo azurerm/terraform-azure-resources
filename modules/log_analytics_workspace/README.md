@@ -73,7 +73,7 @@ No requirements.
 | <a name="input_instance"></a> [instance](#input\_instance) | (Optional) The instance count for the Log Analytics Workspace. | `string` | `""` | no |
 | <a name="input_internet_ingestion_enabled"></a> [internet\_ingestion\_enabled](#input\_internet\_ingestion\_enabled) | (Optional) Specifies whether or not ingestion from the Internet is enabled. | `bool` | `true` | no |
 | <a name="input_internet_query_enabled"></a> [internet\_query\_enabled](#input\_internet\_query\_enabled) | (Optional) Specifies whether or not Internet access is enabled for the workspace. | `bool` | `true` | no |
-| <a name="input_local_authentication_disabled"></a> [local\_authentication\_disabled](#input\_local\_authentication\_disabled) | (Optional) Specifies whether local authentication should be disabled for the workspace. | `bool` | `false` | no |
+| <a name="input_local_authentication_enabled"></a> [local\_authentication\_enabled](#input\_local\_authentication\_enabled) | (Optional) Specifies whether local authentication should be disabled for the workspace. | `bool` | `true` | no |
 | <a name="input_location"></a> [location](#input\_location) | (Required) The location/region where the Resource Group is created. Changing this forces a new resource to be created. | `string` | n/a | yes |
 | <a name="input_module_tags"></a> [module\_tags](#input\_module\_tags) | (Optional) Include the default tags? | `bool` | `true` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | (Required) The name of the resource group in which to create the Log Analytics Workspace. | `string` | n/a | yes |

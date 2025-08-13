@@ -44,14 +44,14 @@
     },
     {
       "name": "southeastasia",
-      "displayName": "Southeast Asia",    
+      "displayName": "Southeast Asia",
       "shortName": "sea",
       "regionalDisplayName": "(Asia Pacific) Southeast Asia",
       "pairedRegionName": "eastasia"
     },
     {
       "name": "northeurope",
-      "displayName": "North Europe",  
+      "displayName": "North Europe",
       "shortName": "ne",
       "regionalDisplayName": "(Europe) North Europe",
       "pairedRegionName": "westeurope"
@@ -61,28 +61,28 @@
       "displayName": "Sweden Central",
       "shortName": "sdc",
       "regionalDisplayName": "(Europe) Sweden Central",
-      "pairedRegionName": "swedensouth"    
+      "pairedRegionName": "swedensouth"
     },
     {
       "name": "uksouth",
       "displayName": "UK South",
       "shortName": "uks",
       "regionalDisplayName": "(Europe) UK South",
-      "pairedRegionName": "ukwest"    
+      "pairedRegionName": "ukwest"
     },
     {
       "name": "westeurope",
       "displayName": "West Europe",
       "shortName": "we",
       "regionalDisplayName": "(Europe) West Europe",
-      "pairedRegionName": "northeurope"    
+      "pairedRegionName": "northeurope"
     },
     {
       "name": "centralus",
       "displayName": "Central US",
-      "shortName": "cus", 
+      "shortName": "cus",
       "regionalDisplayName": "(US) Central US",
-      "pairedRegionName": "eastus2"    
+      "pairedRegionName": "eastus2"
     },
     {
       "name": "southafricanorth",
@@ -103,7 +103,7 @@
       "displayName": "East Asia",
       "shortName": "ea",
       "regionalDisplayName": "(Asia Pacific) East Asia",
-    "pairedRegionName": "southeastasia"
+      "pairedRegionName": "southeastasia"
     },
     {
       "name": "japaneast",
@@ -150,7 +150,7 @@
     {
       "name": "polandcentral",
       "displayName": "Poland Central",
-      "shortName": null,
+      "shortName": "plc",
       "regionalDisplayName": "(Europe) Poland Central",
       "pairedRegionName": null
     },
@@ -176,6 +176,13 @@
       "pairedRegionName": "southcentralus"
     },
     {
+      "name": "chilecentral",
+      "displayName": "Chile Central",
+      "shortName": "clc",
+      "regionalDisplayName": "(South America) Chile Central",
+      "pairedRegionName": null
+    },
+    {
       "name": "centraluseuap",
       "displayName": "Central US EUAP",
       "shortName": "ccy",
@@ -185,7 +192,7 @@
     {
       "name": "qatarcentral",
       "displayName": "Qatar Central",
-      "shortName": null,
+      "shortName": "qac",
       "regionalDisplayName": "(Middle East) Qatar Central",
       "pairedRegionName": null
     },
@@ -566,6 +573,62 @@
       "shortName": "bse",
       "regionalDisplayName": "(South America) Brazil Southeast",
       "pairedRegionName": "brazilsouth"
+    },
+    {
+      "name": "indonesiacentral",
+      "displayName": "Indonesia Central",
+      "shortName": "idc",
+      "pairedRegionName": null,
+      "regionalDisplayName": "(Asia Pacific) Indonesia Central"
+    },
+    {
+      "name": "malaysiawest",
+      "displayName": "Malaysia West",
+      "shortName": "mys",
+      "pairedRegionName": null,
+      "regionalDisplayName": "(Asia Pacific) Malaysia West"
+    },
+    {
+      "name": "newzealandnorth",
+      "displayName": "New Zealand North",
+      "shortName": "nzn",
+      "pairedRegionName": null,
+      "regionalDisplayName": "(Asia Pacific) New Zealand North"
+    },
+    {
+      "name": "austriaeast",
+      "displayName": "Austria East",
+      "shortName": "ae",
+      "pairedRegionName": null,
+      "regionalDisplayName": "(Europe) Austria East"
+    },
+    {
+      "name": "italynorth",
+      "displayName": "Italy North",
+      "shortName": "itn",
+      "pairedRegionName": null,
+      "regionalDisplayName": "(Europe) Italy North"
+    },
+    {
+      "name": "spaincentral",
+      "displayName": "Spain Central",
+      "shortName": "spc",
+      "pairedRegionName": null,
+      "regionalDisplayName": "(Europe) Spain Central"
+    },
+    {
+      "name": "mexicocentral",
+      "displayName": "Mexico Central",
+      "shortName": "mxc",
+      "pairedRegionName": null,
+      "regionalDisplayName": "(Mexico) Mexico Central"
+    },
+    {
+      "name": "israelcentral",
+      "displayName": "Israel Central",
+      "shortName": "ilc",
+      "pairedRegionName": null,
+      "regionalDisplayName": "(Middle East) Israel Central"
     }
   ]
-  }
+}

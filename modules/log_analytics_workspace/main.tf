@@ -38,7 +38,7 @@ resource "azurerm_log_analytics_workspace" "this" {
   sku                             = var.sku
   retention_in_days               = var.retention_in_days
   allow_resource_only_permissions = var.allow_resource_only_permissions
-  local_authentication_disabled   = var.local_authentication_disabled
+  local_authentication_enabled    = var.local_authentication_enabled
   daily_quota_gb                  = var.daily_quota_gb
   internet_ingestion_enabled      = var.internet_ingestion_enabled
   internet_query_enabled          = var.internet_query_enabled

@@ -50,10 +50,10 @@ variable "allow_resource_only_permissions" {
   default     = false
 }
 
-variable "local_authentication_disabled" {
+variable "local_authentication_enabled" {
   description = "(Optional) Specifies whether local authentication should be disabled for the workspace."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "daily_quota_gb" {
