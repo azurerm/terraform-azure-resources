@@ -36,13 +36,25 @@ jobs:
         shell: bash
 
       - name: Terraform Init 
-        id: init
-        run: terraform -chdir=demo init
+        id: init 
+        run: |
+          terraform -chdir=demo init \
+            -backend-config="subscription_id=${{ vars.TFSTATE_SUBSCRIPTION_ID }}" \
+            -backend-config="resource_group_name=${{ vars.TFSTATE_RESOURCE_GROUP }}" \
+            -backend-config="storage_account_name=${{ vars.TFSTATE_STORAGE_ACCOUNT }}" \
+            -backend-config="container_name=${{ vars.TFSTATE_CONTAINER }}" \
+            -backend-config="key=${{ vars.TFSTATE_KEY }}" \
+            -backend-config="use_azuread_auth=true"
 
       - name: Terraform Apply 
         id: apply
         env:
           TF_VAR_additional_access_policy_object_ids: ${{ vars.ADDITIONAL_ACCESS_POLICY_OBJECT_IDS }}
-          TF_VAR_subscription_id: ${{ vars.ARM_SUBSCRIPTION_ID }}
+          TF_VAR_subscription_id: ${{ env.ARM_SUBSCRIPTION_ID }}
+          TF_VAR_tfstate_subscription_id: ${{ vars.TFSTATE_SUBSCRIPTION_ID }}
+          TF_VAR_tfstate_resource_group: ${{ vars.TFSTATE_RESOURCE_GROUP }}
+          TF_VAR_tfstate_storage_account: ${{ vars.TFSTATE_STORAGE_ACCOUNT }}
+          TF_VAR_tfstate_container: ${{ vars.TFSTATE_CONTAINER }}
+          TF_VAR_tfstate_key: ${{ vars.TFSTATE_KEY }}
         run: terraform -chdir=demo apply -var-file=onprem.tfvars -auto-approve -no-color
         

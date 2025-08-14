@@ -6,14 +6,7 @@ terraform {
       version = "~> 4.0"
     }
   }
-  backend "azurerm" {
-    use_azuread_auth     = true
-    subscription_id      = "97e606b4-56f0-40ca-bcf4-75f315e28564"
-    resource_group_name  = "rg-tf-prd-ne-001"
-    storage_account_name = "satfprdne001"
-    container_name       = "tfstate"
-    key                  = "azurerm-azure-resources-demo.tfstate"
-  }
+  backend "azurerm" {}
 }
 
 provider "azurerm" {
