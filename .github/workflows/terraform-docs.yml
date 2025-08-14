@@ -1,0 +1,55 @@
+name: Generate Terraform Documentation
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'modules/**'
+  workflow_dispatch:
+
+jobs:
+  terraform-docs:
+    name: Generate Terraform Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate docs for modules
+        uses: terraform-docs/gh-actions@main
+        with:
+          working-dir: modules
+          output-file: README.md
+          output-method: inject
+          git-push: "true"
+          recursive: "true"
+          recursive-path: modules
+
+      - name: Generate main documentation
+        run: |
+          # Install terraform-docs
+          curl -sSLo ./terraform-docs.tar.gz https://terraform-docs.io/dl/v0.16.0/terraform-docs-v0.16.0-$(uname)-amd64.tar.gz
+          tar -xzf terraform-docs.tar.gz
+          chmod +x terraform-docs
+          sudo mv terraform-docs /usr/local/bin/
+
+          # Generate docs for demo
+          terraform-docs markdown table --output-file README.md --output-mode inject demo/
+
+      - name: Check for changes
+        id: verify-changed-files
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        if: steps.verify-changed-files.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "docs: Auto-update Terraform documentation" || exit 0
+          git push
