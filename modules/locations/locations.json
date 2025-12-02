@@ -629,6 +629,13 @@
       "shortName": "ilc",
       "pairedRegionName": null,
       "regionalDisplayName": "(Middle East) Israel Central"
+    },
+    {
+      "displayName": "Belgium Central",
+      "name": "belgiumcentral",
+      "shortName": "bec",
+      "pairedRegionName": null,
+      "regionalDisplayName": "(Europe) Belgium Central"
     }
   ]
 }
