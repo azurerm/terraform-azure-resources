@@ -178,7 +178,7 @@ variable "priority" {
 variable "eviction_policy" {
   description = "(Optional) The eviction policy of the Virtual Machine."
   type        = string
-  default     = ""
+  default     = "Deallocate"
 }
 
 variable "max_bid_price" {
