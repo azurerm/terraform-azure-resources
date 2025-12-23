@@ -109,7 +109,7 @@ No requirements.
 | <a name="input_enable_accelerated_networking"></a> [enable\_accelerated\_networking](#input\_enable\_accelerated\_networking) | (Optional) Should Accelerated Networking be enabled on the Network Interface? | `bool` | `false` | no |
 | <a name="input_enable_ip_forwarding"></a> [enable\_ip\_forwarding](#input\_enable\_ip\_forwarding) | (Optional) Should IP Forwarding be enabled on the Network Interface? | `bool` | `false` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | (Optional) The environment of the Virtual Network. | `string` | `""` | no |
-| <a name="input_eviction_policy"></a> [eviction\_policy](#input\_eviction\_policy) | (Optional) The eviction policy of the Virtual Machine. | `string` | `""` | no |
+| <a name="input_eviction_policy"></a> [eviction\_policy](#input\_eviction\_policy) | (Optional) The eviction policy of the Virtual Machine. | `string` | `"Deallocate"` | no |
 | <a name="input_identity_ids"></a> [identity\_ids](#input\_identity\_ids) | (Optional) A list of Managed Service Identity IDs which should be assigned to the Virtual Machine. | `list(string)` | `[]` | no |
 | <a name="input_identity_type"></a> [identity\_type](#input\_identity\_type) | (Optional) The type of Managed Service Identity which should be used for the Virtual Machine. | `string` | `"None"` | no |
 | <a name="input_instance"></a> [instance](#input\_instance) | (Optional) The instance count for the Virtual Network. | `string` | `""` | no |
