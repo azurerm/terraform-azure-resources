@@ -109,12 +109,14 @@ No requirements.
 | <a name="input_enable_accelerated_networking"></a> [enable\_accelerated\_networking](#input\_enable\_accelerated\_networking) | (Optional) Should Accelerated Networking be enabled on the Network Interface? | `bool` | `false` | no |
 | <a name="input_enable_ip_forwarding"></a> [enable\_ip\_forwarding](#input\_enable\_ip\_forwarding) | (Optional) Should IP Forwarding be enabled on the Network Interface? | `bool` | `false` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | (Optional) The environment of the Virtual Network. | `string` | `""` | no |
+| <a name="input_eviction_policy"></a> [eviction\_policy](#input\_eviction\_policy) | (Optional) The eviction policy of the Virtual Machine. | `string` | `"Deallocate"` | no |
 | <a name="input_identity_ids"></a> [identity\_ids](#input\_identity\_ids) | (Optional) A list of Managed Service Identity IDs which should be assigned to the Virtual Machine. | `list(string)` | `[]` | no |
 | <a name="input_identity_type"></a> [identity\_type](#input\_identity\_type) | (Optional) The type of Managed Service Identity which should be used for the Virtual Machine. | `string` | `"None"` | no |
 | <a name="input_instance"></a> [instance](#input\_instance) | (Optional) The instance count for the Virtual Network. | `string` | `""` | no |
 | <a name="input_ip_configuration_name"></a> [ip\_configuration\_name](#input\_ip\_configuration\_name) | (Optional) The name of the IP Configuration. | `string` | `"ipconfig"` | no |
 | <a name="input_license_type"></a> [license\_type](#input\_license\_type) | (Optional) The license type which should be used for the Virtual Machine. | `string` | `"None"` | no |
 | <a name="input_location"></a> [location](#input\_location) | (Required) The location/region where the Virtual Network is created. Changing this forces a new resource to be created. | `string` | n/a | yes |
+| <a name="input_max_bid_price"></a> [max\_bid\_price](#input\_max\_bid\_price) | (Optional) The maximum bid price for the Virtual Machine. | `number` | `-1` | no |
 | <a name="input_module_tags"></a> [module\_tags](#input\_module\_tags) | (Optional) Include the default tags? | `bool` | `true` | no |
 | <a name="input_monitor_agent"></a> [monitor\_agent](#input\_monitor\_agent) | (Optional) Install the Azure Monitor Agent? | `bool` | `false` | no |
 | <a name="input_monitor_agent_auto_upgrade_minor_version"></a> [monitor\_agent\_auto\_upgrade\_minor\_version](#input\_monitor\_agent\_auto\_upgrade\_minor\_version) | (Optional) Should the extension be automatically upgraded across minor versions when Azure updates the extension? | `bool` | `true` | no |
@@ -127,6 +129,7 @@ No requirements.
 | <a name="input_os_disk_type"></a> [os\_disk\_type](#input\_os\_disk\_type) | (Optional) The type of OS Disk which should be attached to the Virtual Machine. | `string` | `"Standard_LRS"` | no |
 | <a name="input_patch_assessment_mode"></a> [patch\_assessment\_mode](#input\_patch\_assessment\_mode) | (Optional) The patching configuration of the Virtual Machine. | `string` | `"ImageDefault"` | no |
 | <a name="input_patch_mode"></a> [patch\_mode](#input\_patch\_mode) | (Optional) The patching configuration of the Virtual Machine. | `string` | `"AutomaticByPlatform"` | no |
+| <a name="input_priority"></a> [priority](#input\_priority) | (Optional) The priority of the Virtual Machine. | `string` | `"Regular"` | no |
 | <a name="input_private_ip_address"></a> [private\_ip\_address](#input\_private\_ip\_address) | (Optional) The Private IP Address which should be used for this Virtual Machine. | `string` | `null` | no |
 | <a name="input_private_ip_address_allocation"></a> [private\_ip\_address\_allocation](#input\_private\_ip\_address\_allocation) | (Optional) The allocation method of the Private IP Address. | `string` | `"Dynamic"` | no |
 | <a name="input_random_password_length"></a> [random\_password\_length](#input\_random\_password\_length) | (Optional) The length of the auto-generated password. | `number` | `16` | no |
