@@ -71,6 +71,9 @@ resource "azurerm_linux_virtual_machine" "this" {
   patch_mode                                             = var.patch_mode
   patch_assessment_mode                                  = var.patch_assessment_mode
   bypass_platform_safety_checks_on_user_schedule_enabled = var.patch_mode == "AutomaticByPlatform" ? true : false
+  priority                                               = var.priority
+  eviction_policy                                        = var.eviction_policy
+  max_bid_price                                          = var.max_bid_price
   boot_diagnostics {}
   os_disk {
     name                 = coalesce(var.custom_os_disk_name, "${module.naming.linux_virtual_machine.name}-dsk")

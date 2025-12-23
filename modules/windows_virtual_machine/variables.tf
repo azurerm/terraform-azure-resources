@@ -187,6 +187,24 @@ variable "identity_ids" {
   default     = []
 }
 
+variable "priority" {
+  description = "(Optional) The priority of the Virtual Machine."
+  type        = string
+  default     = "Regular"
+}
+
+variable "eviction_policy" {
+  description = "(Optional) The eviction policy of the Virtual Machine."
+  type        = string
+  default     = ""
+}
+
+variable "max_bid_price" {
+  description = "(Optional) The maximum bid price for the Virtual Machine."
+  type        = number
+  default     = -1
+}
+
 variable "monitor_agent" {
   description = "(Optional) Install the Azure Monitor Agent?"
   type        = bool

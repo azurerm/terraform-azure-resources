@@ -73,6 +73,9 @@ resource "azurerm_windows_virtual_machine" "this" {
   bypass_platform_safety_checks_on_user_schedule_enabled = var.patch_mode == "AutomaticByPlatform" ? true : false
   license_type                                           = var.license_type
   vm_agent_platform_updates_enabled                      = var.vm_agent_platform_updates_enabled
+  priority                                               = var.priority
+  eviction_policy                                        = var.eviction_policy
+  max_bid_price                                          = var.max_bid_price
   boot_diagnostics {}
   os_disk {
     name                 = coalesce(var.custom_os_disk_name, "${module.naming.windows_virtual_machine.name}-dsk")
