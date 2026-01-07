@@ -72,9 +72,8 @@ resource "azurerm_windows_virtual_machine" "this" {
   patch_assessment_mode                                  = var.patch_assessment_mode
   bypass_platform_safety_checks_on_user_schedule_enabled = var.patch_mode == "AutomaticByPlatform" ? true : false
   license_type                                           = var.license_type
-  vm_agent_platform_updates_enabled                      = var.vm_agent_platform_updates_enabled
   priority                                               = var.priority
-  eviction_policy                                        = var.eviction_policy
+  eviction_policy                                        = var.priority == "Spot" ? var.eviction_policy : null
   max_bid_price                                          = var.max_bid_price
   boot_diagnostics {}
   os_disk {
