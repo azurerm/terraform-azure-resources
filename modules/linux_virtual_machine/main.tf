@@ -72,7 +72,7 @@ resource "azurerm_linux_virtual_machine" "this" {
   patch_assessment_mode                                  = var.patch_assessment_mode
   bypass_platform_safety_checks_on_user_schedule_enabled = var.patch_mode == "AutomaticByPlatform" ? true : false
   priority                                               = var.priority
-  eviction_policy                                        = var.eviction_policy
+  eviction_policy                                        = var.priority == "Spot" ? var.eviction_policy : null
   max_bid_price                                          = var.max_bid_price
   boot_diagnostics {}
   os_disk {

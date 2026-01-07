@@ -35,6 +35,10 @@ jobs:
           az storage account update --resource-group "${sa[3]}" --name "${sa[7]}" --public-network-access Enabled
         shell: bash   
 
+      - name: Wait for firewall rules to propagate
+        run: sleep 30
+        shell: bash
+
       - name: Terraform Init 
         id: init
         run: terraform -chdir=demo init
