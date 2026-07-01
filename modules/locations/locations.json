@@ -467,14 +467,14 @@
       "displayName": "Australia Central",
       "shortName": "acl",
       "regionalDisplayName": "(Asia Pacific) Australia Central",
-      "pairedRegionName": "australiacentral"
+      "pairedRegionName": "australiacentral2"
     },
     {
       "name": "australiacentral2",
       "displayName": "Australia Central 2",
       "shortName": "acl2",
       "regionalDisplayName": "(Asia Pacific) Australia Central 2",
-      "pairedRegionName": "australiacentral2"
+      "pairedRegionName": "australiacentral"
     },
     {
       "name": "australiasoutheast",
@@ -636,6 +636,20 @@
       "shortName": "bec",
       "pairedRegionName": null,
       "regionalDisplayName": "(Europe) Belgium Central"
+    },
+    {
+      "name": "denmarkeast",
+      "displayName": "Denmark East",
+      "shortName": "dke",
+      "pairedRegionName": null,
+      "regionalDisplayName": "(Europe) Denmark East"
+    },
+    {
+      "name": "indiasouthcentral",
+      "displayName": "India South Central",
+      "shortName": "insc",
+      "pairedRegionName": "centralindia",
+      "regionalDisplayName": "(Asia Pacific) India South Central"
     }
   ]
 }
