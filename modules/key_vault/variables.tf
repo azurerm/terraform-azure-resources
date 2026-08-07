@@ -79,6 +79,12 @@ variable "public_network_access_enabled" {
   default     = true
 }
 
+variable "rbac_authorization_enabled" {
+  description = "(Optional) Whether Azure Key Vault uses Role Based Access Control (RBAC) for authorization of data actions. Required as of azurerm 5.0."
+  type        = bool
+  default     = false
+}
+
 variable "access_policy" {
   description = "(Optional) A list of Access Policies which should be set on the Key Vault."
   type = list(object({

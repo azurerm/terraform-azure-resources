@@ -42,6 +42,6 @@ resource "azurerm_virtual_network_gateway_connection" "this" {
   connection_mode            = var.connection_mode
   routing_weight             = var.routing_weight
   connection_protocol        = var.connection_protocol
-  enable_bgp                 = var.enable_bgp
+  bgp_enabled                = var.enable_bgp
   tags                       = local.tags
 }

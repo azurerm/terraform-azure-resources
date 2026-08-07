@@ -40,8 +40,8 @@ resource "azurerm_log_analytics_workspace" "this" {
   allow_resource_only_permissions = var.allow_resource_only_permissions
   local_authentication_enabled    = var.local_authentication_enabled
   daily_quota_gb                  = var.daily_quota_gb
-  internet_ingestion_enabled      = var.internet_ingestion_enabled
-  internet_query_enabled          = var.internet_query_enabled
+  internet_ingestion_access_type  = var.internet_ingestion_enabled ? "Enabled" : "Disabled"
+  internet_query_access_type      = var.internet_query_enabled ? "Enabled" : "Disabled"
   #reservation_capacity_in_gb_per_day = var.reservation_capacity_in_gb_per_day
   tags = local.tags
 }

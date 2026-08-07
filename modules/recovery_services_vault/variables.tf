@@ -56,12 +56,6 @@ variable "cross_region_restore_enabled" {
   default     = false
 }
 
-variable "soft_delete_enabled" {
-  description = "(Optional) Is soft delete enabled for the Recovery Services Vault."
-  type        = bool
-  default     = true
-}
-
 variable "module_tags" {
   description = "(Optional) Include the default tags?"
   type        = bool

@@ -38,16 +38,17 @@ resource "random_integer" "this" {
   max = 9999
 }
 
-resource "azurerm_ai_services" "this" {
+resource "azurerm_cognitive_account" "this" {
   name                               = coalesce(var.custom_name, module.naming.ai_services.name)
+  kind                               = "AIServices"
   location                           = contains(var.deployment_availability, var.location) ? var.location : var.default_location
   resource_group_name                = var.resource_group_name
   sku_name                           = var.sku_name
   custom_subdomain_name              = "azure-ai-services-${random_integer.this.result}"
   fqdns                              = var.fqdns
-  local_authentication_enabled       = var.local_authentication_enabled
+  local_auth_enabled                 = var.local_authentication_enabled
   outbound_network_access_restricted = var.outbound_network_access_restricted
-  public_network_access              = var.public_network_access
+  public_network_access_enabled      = var.public_network_access == "Enabled"
 
   dynamic "identity" {
     for_each = var.identity

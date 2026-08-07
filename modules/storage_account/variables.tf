@@ -57,7 +57,7 @@ variable "cross_tenant_replication_enabled" {
 }
 
 variable "min_tls_version" {
-  description = "(Optional) The minimum supported TLS version for the storage account. Valid values are TLS1_0, TLS1_1, and TLS1_2."
+  description = "(Optional) The minimum supported TLS version for the storage account. As of azurerm 5.0 only TLS1_2 is supported."
   type        = string
   default     = "TLS1_2"
 }

@@ -27,11 +27,6 @@ variable "firewall_sku" {
   default = "Standard"
 }
 
-variable "firewall_palo_alto" {
-  type    = bool
-  default = false
-}
-
 variable "gateway" {
   type    = bool
   default = false

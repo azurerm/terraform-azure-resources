@@ -4,7 +4,8 @@ terraform {
       source = "hashicorp/azurerm"
     }
     restapi = {
-      source = "mastercard/restapi"
+      source  = "mastercard/restapi"
+      version = "~> 2.0"
     }
   }
 }
@@ -25,7 +26,7 @@ locals {
 
   #dns_servers = var.dns_servers != null ? var.dns_servers : var.spoke_dns ? [module.spoke_dns[0].inbound_endpoint_ip] : []
   vnet_dns_servers = var.dns_servers != null ? var.dns_servers : var.firewall ? [module.hub.firewall_private_ip_address] : var.spoke_dns ? [module.spoke_dns[0].inbound_endpoint_ip] : []
-  hub_dns_servers  = var.dns_servers != null ? var.dns_servers : (var.spoke_dns && !var.firewall_palo_alto) ? [module.spoke_dns[0].inbound_endpoint_ip] : []
+  hub_dns_servers  = var.dns_servers != null ? var.dns_servers : var.spoke_dns ? [module.spoke_dns[0].inbound_endpoint_ip] : []
 }
 
 module "locations" {
@@ -47,7 +48,6 @@ module "hub" {
   dns_servers                         = local.hub_dns_servers
   firewall                            = var.firewall
   firewall_sku                        = var.firewall_sku
-  firewall_palo_alto                  = var.firewall_palo_alto
   gateway                             = var.gateway
   gateway_type                        = var.gateway_type
   gateway_sku                         = var.gateway_sku
@@ -59,18 +59,6 @@ module "hub" {
   ip_filter                           = var.ip_filter
   additional_access_policy_object_ids = var.additional_access_policy_object_ids
   tags                                = local.tags
-}
-
-module "key_vault_palo_alto_secret" {
-  source = "../key_vault_secret"
-  count  = var.firewall_palo_alto ? 1 : 0
-  name   = "fw-hub-prd-${module.locations.short_name}"
-  value  = module.hub.palo_alto_password
-  tags = {
-    username = "panadmin"
-    image    = "PAN-OS"
-  }
-  key_vault_id = module.hub.key_vault_id
 }
 
 module "spoke" {
@@ -87,8 +75,8 @@ module "spoke" {
   watcher_agent           = var.connection_monitor
   update_management       = var.update_management
   network_security_group  = var.network_security_group
-  firewall                = (var.firewall || var.firewall_palo_alto)
-  next_hop                = (var.firewall || var.firewall_palo_alto) ? module.hub.firewall_private_ip_address : ""
+  firewall                = var.firewall
+  next_hop                = var.firewall ? module.hub.firewall_private_ip_address : ""
   single_route_table      = var.spokes_single_route_table
   route_table_id          = var.spokes_single_route_table ? module.spokes_single_route_table[0].id : ""
   tags                    = local.tags
@@ -133,7 +121,7 @@ module "spokes_default_route" {
 
 module "route_to_spoke" {
   source                 = "../route"
-  for_each               = (var.gateway && (var.firewall || var.firewall_palo_alto)) ? module.spoke : {}
+  for_each               = (var.gateway && var.firewall) ? module.spoke : {}
   resource_group_name    = module.hub.resource_group_name
   route_table_name       = module.hub.route_table_name
   address_prefix         = each.value.address_space[0]
@@ -159,8 +147,8 @@ module "spoke_dns" {
   count            = (var.spoke_dns && var.address_space_spoke_dns != null) ? 1 : 0
   location         = var.location
   address_space    = var.address_space_spoke_dns
-  firewall         = (var.firewall || var.firewall_palo_alto)
-  default_next_hop = (var.firewall || var.firewall_palo_alto) ? module.hub.firewall_private_ip_address : null
+  firewall         = var.firewall
+  default_next_hop = var.firewall ? module.hub.firewall_private_ip_address : null
   tags             = local.tags
 }
 
@@ -181,7 +169,7 @@ module "virtual_network_peerings_dns" {
 
 module "route_to_spoke_dns" {
   source                 = "../route"
-  count                  = (var.gateway && (var.firewall || var.firewall_palo_alto) && var.spoke_dns && var.address_space_spoke_dns != null) ? 1 : 0
+  count                  = (var.gateway && var.firewall && var.spoke_dns && var.address_space_spoke_dns != null) ? 1 : 0
   resource_group_name    = module.hub.resource_group_name
   route_table_name       = module.hub.route_table_name
   address_prefix         = module.spoke_dns[0].address_space[0]
@@ -195,8 +183,8 @@ module "spoke_jumphost" {
   location           = var.location
   address_space      = var.address_space_spoke_jumphost
   dns_servers        = local.vnet_dns_servers
-  default_next_hop   = (var.firewall || var.firewall_palo_alto) ? module.hub.firewall_private_ip_address : null
-  firewall           = (var.firewall || var.firewall_palo_alto)
+  default_next_hop   = var.firewall ? module.hub.firewall_private_ip_address : null
+  firewall           = var.firewall
   firewall_policy_id = module.hub.firewall_policy_id
   firewall_public_ip = module.hub.firewall_public_ip_address
   tags               = local.tags
@@ -219,7 +207,7 @@ module "virtual_network_peerings_jumphost" {
 
 module "route_to_spoke_jumphost" {
   source                 = "../route"
-  count                  = (var.gateway && (var.firewall || var.firewall_palo_alto) && var.spoke_jumphost && var.address_space_spoke_jumphost != null) ? 1 : 0
+  count                  = (var.gateway && var.firewall && var.spoke_jumphost && var.address_space_spoke_jumphost != null) ? 1 : 0
   resource_group_name    = module.hub.resource_group_name
   route_table_name       = module.hub.route_table_name
   address_prefix         = module.spoke_jumphost[0].address_space[0]
@@ -247,8 +235,8 @@ module "spoke_dmz" {
   address_space              = var.address_space_spoke_dmz
   dns_servers                = local.vnet_dns_servers
   web_application_firewall   = var.web_application_firewall
-  firewall                   = (var.firewall || var.firewall_palo_alto)
-  next_hop                   = (var.firewall || var.firewall_palo_alto) ? module.hub.firewall_private_ip_address : ""
+  firewall                   = var.firewall
+  next_hop                   = var.firewall ? module.hub.firewall_private_ip_address : ""
   log_analytics_workspace_id = module.hub.log_analytics_workspace_id
   tags                       = local.tags
 }

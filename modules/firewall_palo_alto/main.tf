@@ -1,3 +1,18 @@
+###############################################################################
+# azurerm 5.x compatibility note
+#
+# This module consumes the upstream PaloAltoNetworks/swfw-modules/azurerm
+# modules (see the `module "vnet"`, `module "vmseries"`, `module "appgw"`, ...
+# blocks below). Their latest release (3.5.1) and `main` branch still constrain
+# the azurerm provider to `~> 4.62` (i.e. < 5.0). As a result this module - and
+# any configuration that references it (pattern_hub, pattern_hub_and_spoke, the
+# demo/ and tests/ suites) - cannot be used with azurerm 5.x until Palo Alto
+# publishes a 5.x-compatible release.
+#
+# All standalone leaf modules in this repository have been migrated to azurerm
+# 5.x; this module intentionally stays on azurerm 4.x for the reason above.
+###############################################################################
+
 # Generate a random password
 
 # https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password

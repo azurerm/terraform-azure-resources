@@ -74,7 +74,6 @@ No requirements.
 | <a name="input_module_tags"></a> [module\_tags](#input\_module\_tags) | (Optional) Include the default tags? | `bool` | `true` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | (Required) The name of the resource group in which to create the Recovery Services Vault. | `string` | n/a | yes |
 | <a name="input_sku"></a> [sku](#input\_sku) | (Optional) The SKU of the Recovery Services Vault. | `string` | `"Standard"` | no |
-| <a name="input_soft_delete_enabled"></a> [soft\_delete\_enabled](#input\_soft\_delete\_enabled) | (Optional) Is soft delete enabled for the Recovery Services Vault. | `bool` | `true` | no |
 | <a name="input_storage_mode_type"></a> [storage\_mode\_type](#input\_storage\_mode\_type) | (Optional) The storage mode of the Recovery Services Vault. | `string` | `"LocallyRedundant"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `null` | no |
 | <a name="input_workload"></a> [workload](#input\_workload) | (Optional) The usage or application of the Recovery Services Vault. | `string` | `""` | no |
