@@ -45,7 +45,7 @@ resource "azurerm_virtual_network_gateway" "this" {
   type                = var.type
   vpn_type            = var.vpn_type
   active_active       = var.active_active
-  enable_bgp          = var.enable_bgp
+  bgp_enabled         = var.enable_bgp
   sku                 = var.sku
 
   dynamic "bgp_settings" {

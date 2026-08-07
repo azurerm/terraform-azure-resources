@@ -24,8 +24,13 @@ resource "azurerm_subnet" "this" {
   #private_endpoint_network_policies_enabled     = var.private_endpoint_network_policies_enabled
   private_endpoint_network_policies             = var.private_endpoint_network_policies
   private_link_service_network_policies_enabled = var.private_link_service_network_policies_enabled
-  service_endpoints                             = var.service_endpoints
-  service_endpoint_policy_ids                   = var.service_endpoint_policy_ids
+  dynamic "service_endpoint" {
+    for_each = var.service_endpoints
+    content {
+      service = service_endpoint.value
+    }
+  }
+  service_endpoint_policy_ids = var.service_endpoint_policy_ids
   dynamic "delegation" {
     for_each = var.delegation
     content {

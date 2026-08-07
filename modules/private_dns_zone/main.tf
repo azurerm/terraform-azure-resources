@@ -28,9 +28,8 @@ resource "azurerm_private_dns_zone" "this" {
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "this" {
-  count                 = var.virtual_network_link ? 1 : 0
-  name                  = split("/", var.virtual_network_id)[8]
-  resource_group_name   = var.resource_group_name
-  private_dns_zone_name = azurerm_private_dns_zone.this.name
-  virtual_network_id    = var.virtual_network_id
+  count               = var.virtual_network_link ? 1 : 0
+  name                = split("/", var.virtual_network_id)[8]
+  private_dns_zone_id = azurerm_private_dns_zone.this.id
+  virtual_network_id  = var.virtual_network_id
 }

@@ -47,6 +47,7 @@ resource "azurerm_key_vault" "this" {
   enabled_for_template_deployment = var.enabled_for_template_deployment
   soft_delete_retention_days      = var.soft_delete_retention_days
   purge_protection_enabled        = var.purge_protection_enabled
+  rbac_authorization_enabled      = var.rbac_authorization_enabled
   public_network_access_enabled   = var.public_network_access_enabled
   dynamic "access_policy" {
     for_each = var.access_policy
