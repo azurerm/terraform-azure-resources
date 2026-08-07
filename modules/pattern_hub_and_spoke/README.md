@@ -56,14 +56,16 @@ module "hub_and_spoke" {
 
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | ~> 2.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
-| <a name="provider_restapi"></a> [restapi](#provider\_restapi) | n/a |
+| <a name="provider_restapi"></a> [restapi](#provider\_restapi) | ~> 2.0 |
 
 ## Modules
 
