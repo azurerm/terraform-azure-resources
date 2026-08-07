@@ -142,7 +142,7 @@ module "subnet_route_table_association_gateway" {
 
 module "subnet_firewall" {
   source               = "../subnet"
-  count                = (var.firewall && !var.firewall_palo_alto) ? 1 : 0
+  count                = var.firewall ? 1 : 0
   location             = var.location
   custom_name          = "AzureFirewallSubnet"
   resource_group_name  = module.resource_group.name
@@ -150,6 +150,7 @@ module "subnet_firewall" {
   address_prefixes     = [cidrsubnet(var.address_space[0], 2, 1)]
 }
 
+/* Palo Alto support is disabled until the upstream module supports azurerm 5.x.
 module "locations" {
   source   = "../locations"
   count    = var.firewall_palo_alto ? 1 : 0
@@ -416,10 +417,11 @@ module "firewall_palo_alto" {
   }
   depends_on = [module.virtual_network]
 }
+*/
 
 module "public_ip_firewall" {
   source              = "../public_ip"
-  count               = (var.firewall && !var.firewall_palo_alto) ? 1 : 0
+  count               = var.firewall ? 1 : 0
   location            = var.location
   environment         = var.environment
   workload            = "fw"
@@ -430,7 +432,7 @@ module "public_ip_firewall" {
 
 module "firewall_policy" {
   source              = "../firewall_policy"
-  count               = (var.firewall && !var.firewall_palo_alto) ? 1 : 0
+  count               = var.firewall ? 1 : 0
   location            = var.location
   environment         = var.environment
   workload            = var.workload
@@ -444,7 +446,7 @@ module "firewall_policy" {
 
 module "firewall" {
   source                     = "../firewall"
-  count                      = (var.firewall && !var.firewall_palo_alto) ? 1 : 0
+  count                      = var.firewall ? 1 : 0
   location                   = var.location
   environment                = var.environment
   workload                   = var.workload
@@ -460,21 +462,21 @@ module "firewall" {
 
 module "firewall_diagnostic_setting" {
   source                     = "../monitor_diagnostic_setting"
-  count                      = (var.firewall && !var.firewall_palo_alto) ? 1 : 0
+  count                      = var.firewall ? 1 : 0
   target_resource_id         = module.firewall[0].id
   log_analytics_workspace_id = module.log_analytics_workspace.id
 }
 
 module "firewall_workbook" {
   source              = "../firewall_workbook"
-  count               = (var.firewall && !var.firewall_palo_alto) ? 1 : 0
+  count               = var.firewall ? 1 : 0
   location            = var.location
   resource_group_name = module.resource_group.name
   tags                = local.tags
 }
 
 resource "azurerm_firewall_policy_rule_collection_group" "this" {
-  count              = (var.firewall && !var.firewall_palo_alto && var.firewall_default_rules) ? 1 : 0
+  count              = (var.firewall && var.firewall_default_rules) ? 1 : 0
   name               = "default-rules"
   firewall_policy_id = module.firewall_policy[0].id
   priority           = 100

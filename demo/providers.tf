@@ -1,9 +1,3 @@
-# NOTE (azurerm 5.x): this demo builds on pattern_hub_and_spoke -> pattern_hub ->
-# firewall_palo_alto, which depends on PaloAltoNetworks/swfw-modules (azurerm
-# ~> 4.62, i.e. < 5.0). While that module is referenced, `terraform init` cannot
-# resolve an azurerm 5.x provider for this configuration. The standalone leaf
-# modules are azurerm 5.x-ready; the Palo Alto path is blocked upstream until PAN
-# ships 5.x support.
 terraform {
   required_version = ">= 1.0"
   required_providers {
