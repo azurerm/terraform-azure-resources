@@ -313,18 +313,17 @@ module "storage_account" {
 
 resource "azurerm_storage_container" "this" {
   name                  = "internal-data"
-  storage_account_name  = module.storage_account.name
+  storage_account_id    = module.storage_account.id
   container_access_type = "private"
 }
 
 resource "azurerm_storage_blob" "this" {
   for_each = fileset(path.module, "file_uploads/*")
 
-  name                   = trimprefix(each.key, "file_uploads/")
-  storage_account_name   = module.storage_account.name
-  storage_container_name = azurerm_storage_container.this.name
-  type                   = "Block"
-  source                 = "${path.module}/${each.key}"
+  name                 = trimprefix(each.key, "file_uploads/")
+  storage_container_id = azurerm_storage_container.this.id
+  type                 = "Block"
+  source               = "${path.module}/${each.key}"
 }
 
 resource "azurerm_private_endpoint" "storage_account" {
